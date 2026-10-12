@@ -90,9 +90,21 @@ test.describe("indexing without a configured domain", () => {
       await expect(
         page.locator('a[href="mailto:tanksuddaglobal@gmail.com"]').first(),
       ).toBeVisible();
-      // WhatsApp is not confirmed yet, so no WhatsApp links may appear.
-      await expect(page.locator('a[href^="https://wa.me/"]')).toHaveCount(0);
+      const whatsappLinks = await page
+        .locator('a[href^="https://wa.me/"]')
+        .evaluateAll((links) => links.map((link) => link.getAttribute("href") ?? ""));
+      expect(whatsappLinks.length).toBeGreaterThan(0);
+      for (const href of whatsappLinks) {
+        expect(new URL(href).pathname).toBe("/94741004296");
+        expect(new URL(href).searchParams.get("text")).toMatch(/^Hello Tank Sudda/);
+      }
     }
+  });
+
+  test("service pages pre-fill a WhatsApp message about that service", async ({ page }) => {
+    await page.goto("/services/sump-cleaning");
+    const href = await page.getByRole("link", { name: /Ask on WhatsApp/ }).getAttribute("href");
+    expect(new URL(href!).searchParams.get("text")).toContain("Sump Cleaning");
   });
 });
 

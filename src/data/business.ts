@@ -53,8 +53,8 @@ export const business: Business = {
   countryName: "Sri Lanka",
   // Confirmed by the owner on 2026-10-12.
   phone: { display: "+94 74 100 4296", e164: "+94741004296" },
-  // WhatsApp not yet confirmed for this number; leave null until it is.
-  whatsapp: null,
+  // Confirmed by the owner on 2026-10-12 (same number as phone).
+  whatsapp: { display: "+94 74 100 4296", e164: "+94741004296" },
   email: "tanksuddaglobal@gmail.com",
   address: null,
   openingHours: [],

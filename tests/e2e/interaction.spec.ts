@@ -92,6 +92,15 @@ test.describe("booking wizard", () => {
     await expect(page.getByText("Test Residencies")).toBeVisible();
     await expect(page.getByText("Sending this form does not confirm an appointment")).toBeVisible();
 
+    // Without online delivery, the request can be handed over on WhatsApp with its details.
+    const whatsappHref = await page
+      .getByRole("link", { name: /Send on WhatsApp instead/ })
+      .getAttribute("href");
+    const message = new URL(whatsappHref!).searchParams.get("text") ?? "";
+    expect(message).toContain("Service: Sump Cleaning");
+    expect(message).toContain("Town / area: Kandy");
+    expect(message).toContain("Number of tanks: 3");
+
     // Edit returns to the step with values preserved
     await page.getByRole("button", { name: "Edit Tanks" }).click();
     await expect(page.getByLabel("Number of tanks and sumps")).toHaveValue("3");
