@@ -6,6 +6,11 @@ and sump cleaning business in Sri Lanka.
 Built with Next.js 16 (App Router), React 19, TypeScript (strict), Tailwind CSS 4, MDX, React Hook
 Form and Zod. Package manager: **Bun**.
 
+## Prerequisites
+
+- Node.js 20.9 or later (22 LTS recommended)
+- [Bun](https://bun.sh) 1.3 or later
+
 ## Quick start
 
 ```bash
@@ -36,7 +41,7 @@ production (a dashed "Owner to confirm" marker appears in development only). See
 ## Documentation
 
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — structure, routes, data flow, adding languages
-- [docs/CONTENT.md](docs/CONTENT.md) — writing and publishing blog articles; editing site data and photos
-- [docs/CONFIGURATION.md](docs/CONFIGURATION.md) — environment variables, form delivery, Search Console
+- [docs/CONTENT.md](docs/CONTENT.md) — publishing articles, editing site data and photos, SEO and content checklist
+- [docs/CONFIGURATION.md](docs/CONFIGURATION.md) — environment variables, form delivery, hosting, post-deployment checks, Search Console
 - [docs/BACKEND.md](docs/BACKEND.md) — planned database, admin and reporting
 - [docs/OWNER-CHECKLIST.md](docs/OWNER-CHECKLIST.md) — information needed before launch

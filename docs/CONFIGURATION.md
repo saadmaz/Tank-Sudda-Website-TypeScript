@@ -41,6 +41,27 @@ Turnstile if abuse appears.
 Any Node.js host that runs `next start` (Node ≥ 20.9), or a platform with native Next.js support.
 Server Actions require a server runtime — a purely static export is not sufficient.
 
+## Post-deployment checklist
+
+Run after the first production deploy and after any change to environment variables (which
+requires a rebuild). Replace `<domain>` with the production domain.
+
+- [ ] `https://<domain>/robots.txt` allows crawling and lists `https://<domain>/sitemap.xml`.
+- [ ] The sitemap lists only real pages on the production domain (no localhost or staging URLs).
+- [ ] View the source of the homepage and a service page: `<link rel="canonical">` points at the
+      production domain and `<meta name="robots">` reads `index, follow`.
+- [ ] `https://<domain>/social-card.png` loads; paste a page URL into a social share preview tool.
+- [ ] Send a **real booking request** and a **contact message**; confirm each arrives by email
+      and/or webhook with the reference shown on screen. Reply to one to check Reply-To.
+- [ ] `/book` and `/contact` do **not** show "temporarily unavailable".
+- [ ] Call and WhatsApp buttons appear only if numbers are set in `src/data/business.ts`, and they
+      open the correct number.
+- [ ] A nonsense URL (e.g. `/does-not-exist`) returns the 404 page.
+- [ ] `/knowledge` redirects to `/guides`.
+- [ ] Staging/preview deployments have `SITE_NOINDEX=1` (their `robots.txt` reads `Disallow: /`).
+- [ ] Test the [Rich Results Test](https://search.google.com/test/rich-results) on an article and a
+      service page.
+
 ## Google Search Console
 
 1. Set `NEXT_PUBLIC_SITE_URL` to the final domain and deploy.

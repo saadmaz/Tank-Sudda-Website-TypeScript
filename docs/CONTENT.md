@@ -44,6 +44,41 @@ Content rules: write accurately and conservatively. Do not invent statistics, re
 expert endorsements or health claims. MDX can run code, so only trusted people should edit
 articles.
 
+### Pre-publish checklist
+
+- [ ] **Accuracy:** no fabricated reviews, results, statistics or regulations; no health or
+      safety claims you cannot support; no prices, coverage or response times beyond what is
+      confirmed in `src/data`. If unsure, leave it out.
+- [ ] **Title** is specific and reads naturally; if it is long, add a `seoTitle` (≤ 70 characters).
+- [ ] **Description** (50–220 characters) summarises the article; add `seoDescription`
+      (≤ 170 characters) if the description is too long for search results.
+- [ ] **One topic per article** — check that an existing article doesn't already cover it; update
+      that one instead (and set `updatedAt`).
+- [ ] **Headings** start at `##` and describe their section.
+- [ ] **Internal links:** at least one link to a relevant service page and, where useful, to
+      related articles. Set `relatedServices` and `relatedArticles` in the front matter.
+- [ ] **Images** are real photos with descriptive alt text (describe what is shown, not "image of").
+- [ ] **Category** fits; **tags** are reused from existing articles where possible.
+- [ ] `bun run test` passes; preview in `bun run dev` on a phone-width window.
+
+### What the site handles automatically
+
+Per-page titles and descriptions, canonical URLs, Open Graph/Twitter metadata, breadcrumbs,
+`BlogPosting` structured data, table of contents, reading time, related articles, sitemap
+entries and `noindex` for drafts, tag archives, search results and empty gallery/testimonial
+pages. Structured data never includes ratings or unverified business details.
+
+### Service-area pages
+
+Only publish an area (`status: "confirmed"` in `src/data/areas.ts`) when Tank Sudda really serves
+it. Each area needs genuinely local notes — never copy one area's text to another with the name
+swapped. Do not add response times, same-day or emergency promises unless confirmed.
+
+### Removing or renaming pages
+
+If a published URL changes, add a permanent redirect in `next.config.ts` (`redirects()`) from the
+old path to the new one, then rebuild.
+
 **Moving to a CMS later:** `src/lib/content/articles.ts` is storage-agnostic. A CMS adapter only
 needs to return `{ id, raw }` sources (or already-parsed front matter) in place of
 `blog.server.ts`'s filesystem reader.
