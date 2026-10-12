@@ -6,7 +6,10 @@ import type { NavLink } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 
 export function isActivePath(pathname: string, href: string): boolean {
-  return pathname === href || pathname.startsWith(`${href}/`);
+  if (pathname === href) return true;
+  // A home page ("/", "/si", "/ta") is only active on itself.
+  const isHome = href === "/" || /^\/[a-z]{2}$/.test(href);
+  return !isHome && pathname.startsWith(`${href}/`);
 }
 
 export function NavLinks({

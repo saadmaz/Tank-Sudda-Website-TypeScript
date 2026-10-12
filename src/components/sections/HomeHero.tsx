@@ -1,27 +1,13 @@
 import { ArrowRight, Building2, ClipboardCheck, Phone, Waves } from "lucide-react";
 import { WhatsAppButton } from "@/components/contact/ContactActions";
-import { TankCrossSection } from "@/components/illustrations/TechnicalIllustrations";
+import { Illustration } from "@/components/illustrations/Illustration";
 import { SlotImage } from "@/components/media/SlotImage";
 import { ButtonLink } from "@/components/ui/Button";
 import { business } from "@/data/business";
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
-const assurances = [
-  {
-    icon: ClipboardCheck,
-    title: "Quotation first",
-    text: "You know the cost before any work starts.",
-  },
-  {
-    icon: Waves,
-    title: "Sediment removed",
-    text: "Lifted out of the tank, never flushed into your pipes.",
-  },
-  {
-    icon: Building2,
-    title: "Homes to large sites",
-    text: "Houses, apartment buildings and organisations.",
-  },
-];
+const assuranceIcons = [ClipboardCheck, Waves, Building2];
 
 /** Concentric ripple rings drawn behind the hero illustration. */
 function Ripples() {
@@ -48,10 +34,12 @@ function Ripples() {
   );
 }
 
-export function HomeHero() {
+export function HomeHero({ locale = "en" }: { locale?: Locale }) {
+  const { hero, common, whatsapp } = getDictionary(locale);
   return (
     <section
       aria-labelledby="hero-heading"
+      data-analytics-placement="hero"
       className="on-dark relative overflow-hidden surface-navy"
     >
       <div className="relative container-site grid items-center gap-12 pt-14 pb-14 lg:min-h-[38rem] lg:grid-cols-[1.1fr_1fr] lg:gap-8 lg:pt-24 lg:pb-20">
@@ -61,25 +49,22 @@ export function HomeHero() {
             className="font-display text-[clamp(2.5rem,1.6rem+3.6vw,4.5rem)] leading-[1.02] font-bold tracking-[-0.035em] text-white"
           >
             <span className="mb-5 block font-sans text-xs leading-normal font-semibold tracking-[0.14em] text-water-300 uppercase">
-              Water tank &amp; sump cleaning in Sri Lanka
+              {hero.kicker}
             </span>
-            Clean tanks.
+            {hero.line1}
             <br />
             <span className="bg-gradient-to-r from-water-200 to-water-400 bg-clip-text text-transparent">
-              Done properly.
+              {hero.line2}
             </span>
           </h1>
-          <p className="mt-7 max-w-lg text-lead text-grey-200">
-            Professional water tank and sump cleaning for homes, apartment buildings and
-            organisations in Sri Lanka. We remove the sediment and build-up you can’t see.
-          </p>
+          <p className="mt-7 max-w-lg text-lead text-grey-200">{hero.intro}</p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
             <ButtonLink href="/book" variant="onDark" size="lg" className="sm:min-w-52">
-              Request a booking
+              {common.requestBooking}
               <ArrowRight aria-hidden="true" />
             </ButtonLink>
-            <WhatsAppButton />
+            <WhatsAppButton locale={locale} message={whatsapp.general} />
           </div>
           {business.phone ? (
             <a
@@ -90,7 +75,7 @@ export function HomeHero() {
                 <Phone aria-hidden="true" className="size-4 text-water-300" />
               </span>
               <span className="text-sm">
-                Or call{" "}
+                {common.orCall}{" "}
                 <span className="font-semibold tracking-wide text-white">
                   {business.phone.display}
                 </span>
@@ -109,22 +94,25 @@ export function HomeHero() {
             slot="homeHero"
             priority
             className="relative"
-            fallback={<TankCrossSection tone="dark" />}
+            fallback={<Illustration kind="tank" tone="dark" priority />}
           />
         </div>
       </div>
 
       <div className="relative border-t border-white/10 bg-navy-950/40 backdrop-blur-sm">
         <ul className="container-site grid divide-y divide-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          {assurances.map(({ icon: Icon, title, text }) => (
-            <li key={title} className="flex gap-4 py-5 sm:px-6 sm:py-6 sm:first:pl-0 lg:py-8">
-              <Icon aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-water-300" />
-              <div>
-                <p className="font-semibold text-white">{title}</p>
-                <p className="mt-1 text-sm leading-relaxed text-grey-300">{text}</p>
-              </div>
-            </li>
-          ))}
+          {hero.assurances.map(({ title, description }, index) => {
+            const Icon = assuranceIcons[index % assuranceIcons.length]!;
+            return (
+              <li key={title} className="flex gap-4 py-5 sm:px-6 sm:py-6 sm:first:pl-0 lg:py-8">
+                <Icon aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-water-300" />
+                <div>
+                  <p className="font-semibold text-white">{title}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-grey-300">{description}</p>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

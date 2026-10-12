@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Clock } from "lucide-react";
-import { ServiceIllustrationView } from "@/components/illustrations/TechnicalIllustrations";
+import { Illustration } from "@/components/illustrations/Illustration";
 import type { BlogCategoryKey } from "@/data/blog";
 import type { ServiceIllustration } from "@/data/services";
 import type { Article } from "@/lib/content/articles";
@@ -36,7 +36,7 @@ export function ArticleCard({
           />
         ) : (
           <div className="flex h-full items-center justify-center p-4">
-            <ServiceIllustrationView
+            <Illustration
               kind={categoryIllustration[article.category]}
               annotated={false}
               className="h-full w-auto opacity-80"

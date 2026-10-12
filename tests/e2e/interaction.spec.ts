@@ -52,6 +52,31 @@ test.describe("navigation", () => {
   });
 });
 
+test.describe("analytics", () => {
+  test("WhatsApp clicks are reported with their placement", async ({ page, isMobile }) => {
+    test.skip(isMobile, "uses the desktop hero layout");
+    // Stand-in provider; also stop the click from opening WhatsApp.
+    await page.addInitScript(() => {
+      const events: unknown[] = [];
+      Object.assign(window, {
+        __events: events,
+        plausible: (name: string, options: unknown) => events.push({ name, options }),
+      });
+      document.addEventListener("click", (event) => event.preventDefault());
+    });
+    await page.goto("/");
+    await page
+      .locator("[data-analytics-placement='hero']")
+      .getByRole("link", { name: /WhatsApp/ })
+      .click();
+    const events: unknown = await page.evaluate(() => Reflect.get(window, "__events"));
+    expect(events).toContainEqual({
+      name: "contact_click",
+      options: { props: { channel: "whatsapp", page: "/", placement: "hero" } },
+    });
+  });
+});
+
 test.describe("booking wizard", () => {
   test("validates each step and reaches the review", async ({ page }) => {
     await page.goto("/book?service=sump-cleaning");
@@ -150,6 +175,8 @@ test.describe("contact page", () => {
 });
 
 test.describe("layout", () => {
+  // Each test loads every route below (English, Sinhala and Tamil) at one width.
+  test.describe.configure({ timeout: 90_000 });
   for (const width of [360, 390, 768, 1024, 1440]) {
     test(`no horizontal scrolling at ${width}px`, async ({ page, isMobile }) => {
       test.skip(isMobile, "viewport set explicitly");
@@ -162,6 +189,10 @@ test.describe("layout", () => {
         "/blog/understanding-sediment-in-water-tanks",
         "/pricing",
         "/faq",
+        "/si",
+        "/ta",
+        "/ta/services/commercial-tank-cleaning",
+        "/si/pricing",
       ]) {
         await page.goto(route);
         const overflow = await page.evaluate(
@@ -190,6 +221,10 @@ test.describe("accessibility (axe, WCAG 2.2 AA rules)", () => {
     "/areas",
     "/privacy",
     "/this-page-does-not-exist",
+    "/si",
+    "/ta/services/sump-cleaning",
+    "/si/contact",
+    "/ta/faq",
   ]) {
     test(`${route} has no detectable violations`, async ({ page }) => {
       await page.goto(route);

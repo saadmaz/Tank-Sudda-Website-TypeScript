@@ -3,7 +3,9 @@
 The website itself is in good shape. What is missing is mostly real-world information and setup
 that only the owner can provide, and that is what will decide whether it brings in customers.
 
-Written 12 October 2026. Tick items off as they are done.
+Written 12 October 2026. Tick items off as they are done. Ready-to-use texts for WhatsApp,
+reviews, Google Business Profile, directories, the company profile and social media are in
+[`docs/marketing/`](marketing/README.md).
 
 ## 1. Before launch (must do)
 
@@ -57,7 +59,8 @@ shows **map results first**.
 - [ ] Review request sent after every job
 - [ ] Service areas confirmed
 - [ ] Search Console connected, sitemap submitted
-- [ ] Sinhala and Tamil versions
+- [ ] Sinhala and Tamil versions (built; waiting for a native-speaker review before Google can
+      index them, see `docs/OWNER-CHECKLIST.md`)
 - [ ] Directory listings with consistent details
 - [ ] Monthly article schedule started
 
@@ -151,7 +154,8 @@ Roughly in order of impact:
 
 1. Switch on booking emails as soon as a Resend key exists, and optionally log every booking to a
    Google Sheet.
-2. Sinhala and Tamil versions of the site.
+2. ~~Sinhala and Tamil versions of the site.~~ Done: `/si` and `/ta` versions of the main pages.
+   Publish them after a native-speaker review.
 3. Service area pages as towns are confirmed.
 4. A real gallery with before/after comparisons once photos arrive.
 5. Analytics with booking and WhatsApp click tracking.

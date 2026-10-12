@@ -17,8 +17,14 @@ export const primaryNav: NavLink[] = [
   { href: "/contact", label: "Contact" },
 ];
 
-export const footerNav: { title: string; links: NavLink[] }[] = [
+export const footerNav: {
+  /** Key for the translated group title. */
+  key: "services" | "learn" | "company";
+  title: string;
+  links: NavLink[];
+}[] = [
   {
+    key: "services",
     title: "Services",
     links: [
       { href: "/services/water-tank-deep-cleaning", label: "Deep cleaning" },
@@ -28,6 +34,7 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
     ],
   },
   {
+    key: "learn",
     title: "Learn",
     links: [
       { href: "/guides", label: "Guides" },
@@ -37,6 +44,7 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
     ],
   },
   {
+    key: "company",
     title: "Company",
     links: [
       { href: "/about", label: "About" },

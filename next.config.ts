@@ -15,11 +15,25 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   // Pin the workspace root (a lockfile exists in a parent directory).
   turbopack: { root: process.cwd() },
+  experimental: {
+    // English and Sinhala/Tamil pages use separate root layouts (so <html lang>
+    // is right), so unmatched URLs need app/global-not-found.tsx.
+    globalNotFound: true,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      {
+        // Generated illustrations change rarely; let browsers reuse them for a week.
+        source: "/illustrations/:file*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" },
+        ],
+      },
+    ];
   },
   async redirects() {
     return [

@@ -107,9 +107,14 @@ export function breadcrumbSchema(
   };
 }
 
-export function serviceSchema(service: Service, origin: URL | null = siteUrl): JsonLdObject {
+export function serviceSchema(
+  service: Service,
+  origin: URL | null = siteUrl,
+  /** Path of the page describing the service (differs for Sinhala and Tamil). */
+  path = `/services/${service.slug}`,
+): JsonLdObject {
   const price = getPriceEntry(service.slug);
-  const url = absoluteUrl(`/services/${service.slug}`, origin);
+  const url = absoluteUrl(path, origin);
   const schema: JsonLdObject = {
     "@context": CONTEXT,
     "@type": "Service",

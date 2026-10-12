@@ -14,6 +14,7 @@ import {
   type ContactData,
   type ContactInput,
 } from "@/lib/validation/contact";
+import { track } from "@/lib/analytics";
 import { submitContact } from "@/server/actions/contact";
 import { CheckboxField, HoneypotField, SelectField, TextAreaField, TextField } from "./fields";
 
@@ -52,6 +53,7 @@ export function ContactForm({ available }: { available: boolean }) {
         startedAt,
       });
       if (result.ok) {
+        track("contact_form_sent", { topic: data.topic });
         setReference(result.reference);
         reset();
         requestAnimationFrame(() => successRef.current?.focus());

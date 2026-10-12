@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { ArrowRight, ClipboardCheck, Clock, Eye, MapPin, Waves } from "lucide-react";
-import { SumpDiagram } from "@/components/illustrations/TechnicalIllustrations";
+import { Illustration } from "@/components/illustrations/Illustration";
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/primitives";
 import { getPublishedAreas } from "@/data/areas";
-import { business } from "@/data/business";
-import { pricingFactors } from "@/data/pricing";
-import { commitments } from "@/data/site-content";
+import { localeHref, type Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import { isContentPreview } from "@/lib/site";
 
 const commitmentIcons = [ClipboardCheck, Waves, Clock, Eye];
@@ -14,11 +13,14 @@ const commitmentIcons = [ClipboardCheck, Waves, Clock, Eye];
 export function CommitmentsSection({
   headingId = "commitments-heading",
   showAboutLink = true,
+  locale = "en",
 }: {
   headingId?: string;
   /** Hidden on the About page itself. */
   showAboutLink?: boolean;
+  locale?: Locale;
 }) {
+  const t = getDictionary(locale);
   return (
     <section aria-labelledby={headingId} className="bg-mist">
       <div className="container-site section-y">
@@ -26,18 +28,22 @@ export function CommitmentsSection({
           <div className="lg:sticky lg:top-36 lg:self-start">
             <SectionHeading
               id={headingId}
-              eyebrow={`Why ${business.name}`}
-              title="How we work"
-              intro="Straightforward commitments that apply to every job, from a single home tank to a whole building."
+              eyebrow={t.commitments.eyebrow}
+              title={t.commitments.title}
+              intro={t.commitments.intro}
             />
             {showAboutLink ? (
-              <ButtonLink href="/about" variant="secondary" className="mt-8 w-full sm:w-auto">
-                About us
+              <ButtonLink
+                href={localeHref(locale, "/about")}
+                variant="secondary"
+                className="mt-8 w-full sm:w-auto"
+              >
+                {t.commitments.aboutUs}
               </ButtonLink>
             ) : null}
           </div>
           <ul className="grid gap-5 sm:grid-cols-2">
-            {commitments.map((item, index) => {
+            {t.content.commitments.map((item, index) => {
               const Icon = commitmentIcons[index % commitmentIcons.length]!;
               return (
                 <li
@@ -59,23 +65,9 @@ export function CommitmentsSection({
   );
 }
 
-const sedimentPoints = [
-  {
-    title: "It builds up gradually",
-    body: "Fine particles carried in by the supply settle on the tank floor every time it refills.",
-  },
-  {
-    title: "It can be stirred up",
-    body: "Incoming water can disturb the layer, which is one reason for cloudy water or grit at the tap.",
-  },
-  {
-    title: "It hides the tank floor",
-    body: "A thick layer makes cracks, damage and other problems harder to spot.",
-  },
-];
-
 /** Dark editorial band explaining why tank cleaning matters. */
-export function WhyItMattersSection() {
+export function WhyItMattersSection({ locale = "en" }: { locale?: Locale }) {
+  const { why } = getDictionary(locale);
   return (
     <section
       aria-labelledby="why-heading"
@@ -83,26 +75,23 @@ export function WhyItMattersSection() {
     >
       <div className="relative container-site grid items-center gap-12 section-y lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <div className="order-2 rounded-xl border border-white/10 bg-navy-900/60 p-4 lg:order-1">
-          <SumpDiagram tone="dark" />
+          <Illustration kind="sump" tone="dark" />
         </div>
         <div className="order-1 lg:order-2">
-          <p className="eyebrow text-water-300">Why it matters</p>
+          <p className="eyebrow text-water-300">{why.eyebrow}</p>
           <h2 id="why-heading" className="mt-3 text-h1 text-white">
-            What collects in your tank doesn’t stay there
+            {why.title}
           </h2>
-          <p className="mt-5 text-lead text-grey-200">
-            Most homes and buildings store water in a sump and an overhead tank. Both are out of
-            sight, so sediment and build-up can go unnoticed for years.
-          </p>
+          <p className="mt-5 text-lead text-grey-200">{why.intro}</p>
           <ul className="mt-8 space-y-5">
-            {sedimentPoints.map((point, index) => (
+            {why.points.map((point, index) => (
               <li key={point.title} className="flex gap-4">
                 <span className="font-display text-sm font-bold text-water-300 tabular-nums">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <div>
                   <h3 className="font-sans text-base font-semibold text-white">{point.title}</h3>
-                  <p className="mt-1 leading-relaxed text-grey-300">{point.body}</p>
+                  <p className="mt-1 leading-relaxed text-grey-300">{point.description}</p>
                 </div>
               </li>
             ))}
@@ -111,7 +100,7 @@ export function WhyItMattersSection() {
             href="/blog/understanding-sediment-in-water-tanks"
             className="mt-6 inline-flex min-h-11 items-center gap-1.5 font-semibold text-water-200 underline-offset-4 hover:text-white hover:underline"
           >
-            Read: understanding sediment in water tanks
+            {why.readMore}
             <ArrowRight aria-hidden="true" className="size-4" />
           </Link>
         </div>
@@ -120,7 +109,8 @@ export function WhyItMattersSection() {
   );
 }
 
-export function AreasTeaser() {
+export function AreasTeaser({ locale = "en" }: { locale?: Locale }) {
+  const { areas: text } = getDictionary(locale);
   const areas = getPublishedAreas(isContentPreview);
   return (
     <section aria-labelledby="areas-heading" className="container-site section-y">
@@ -128,13 +118,9 @@ export function AreasTeaser() {
         <div>
           <SectionHeading
             id="areas-heading"
-            eyebrow="Service areas"
-            title="Where we work"
-            intro={
-              areas.length > 0
-                ? "We currently serve the areas below. If your location isn't listed, ask us and we will tell you honestly whether we can help."
-                : "We work in Sri Lanka. Include your town and address when you request a booking and we will confirm whether we can serve your location before arranging anything."
-            }
+            eyebrow={text.eyebrow}
+            title={text.title}
+            intro={areas.length > 0 ? text.introWithAreas : text.introNoAreas}
           />
         </div>
         <div>
@@ -157,7 +143,7 @@ export function AreasTeaser() {
             href="/areas"
             className="mt-4 inline-flex min-h-11 items-center gap-1 font-semibold text-water-700 underline-offset-4 hover:underline"
           >
-            About our service coverage
+            {text.coverageLink}
             <ArrowRight aria-hidden="true" className="size-4" />
           </Link>
         </div>
@@ -166,30 +152,31 @@ export function AreasTeaser() {
   );
 }
 
-export function PricingTeaser() {
+export function PricingTeaser({ locale = "en" }: { locale?: Locale }) {
+  const t = getDictionary(locale);
   return (
     <section aria-labelledby="pricing-heading" className="border-y border-line bg-white">
       <div className="container-site grid gap-10 section-y lg:grid-cols-[1fr_1.4fr]">
         <div>
           <SectionHeading
             id="pricing-heading"
-            eyebrow="Pricing"
-            title="A clear quotation before any work starts"
-            intro="Every tank is different, so we quote based on your tank rather than a one-size price. You will know the cost before you agree to anything."
+            eyebrow={t.pricingTeaser.eyebrow}
+            title={t.pricingTeaser.title}
+            intro={t.pricingTeaser.intro}
           />
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <ButtonLink href="/book">Request a quotation</ButtonLink>
-            <ButtonLink href="/pricing" variant="secondary">
-              How pricing works
+            <ButtonLink href="/book">{t.common.requestQuotation}</ButtonLink>
+            <ButtonLink href={localeHref(locale, "/pricing")} variant="secondary">
+              {t.common.howPricingWorks}
             </ButtonLink>
           </div>
         </div>
         <div>
           <h3 className="font-sans text-sm font-semibold tracking-[0.12em] text-muted uppercase">
-            What affects the price
+            {t.pricingTeaser.factorsHeading}
           </h3>
           <dl className="mt-4 grid gap-x-8 gap-y-5 sm:grid-cols-2">
-            {pricingFactors.map((factor) => (
+            {t.content.pricingFactors.map((factor) => (
               <div key={factor.title} className="border-t border-line pt-4">
                 <dt className="font-semibold text-navy-950">{factor.title}</dt>
                 <dd className="mt-1 text-[0.9375rem] leading-relaxed text-muted">

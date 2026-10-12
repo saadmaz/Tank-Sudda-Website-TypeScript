@@ -99,6 +99,28 @@ needs to return `{ id, raw }` sources (or already-parsed front matter) in place 
 | Homepage process and commitments copy            | `src/data/site-content.ts`                           |
 | Navigation                                       | `src/data/navigation.ts`                             |
 | Logo                                             | `src/components/layout/Logo.tsx`, `src/app/icon.svg` |
+| Sinhala and Tamil text                           | `src/data/i18n/si.ts`, `src/data/i18n/ta.ts`         |
+
+### Sinhala and Tamil text
+
+The main pages also exist in Sinhala (`/si`) and Tamil (`/ta`). Their text lives in
+`src/data/i18n/si.ts` and `ta.ts`, keyed like the English data (services by slug, FAQs by id).
+
+- **When you change English text** in `services.ts`, `faqs.ts`, `site-content.ts` or
+  `pricing.ts`, change the Sinhala and Tamil text to match. When you add a service or FAQ, add
+  its translations too; `bun run test` fails if one is missing.
+- **Before publishing a language**, have a native speaker read every page, then set
+  `translationsReviewed.si` / `.ta` to `true` in `src/lib/i18n/config.ts`. Until then the pages
+  work but are hidden from search engines and show a review note.
+- Keep "Tank Sudda", phone numbers, email and URLs exactly as they are in English.
+- Articles are English only. Sinhala and Tamil pages link to them with an "(in English)" note.
+
+### Illustrations
+
+The technical drawings (tank, sump, building) are SVG components in
+`src/components/illustrations/TechnicalIllustrations.tsx`. Pages show pre-rendered copies from
+`public/illustrations/`, which keeps pages light. After editing a drawing, run
+`bun run illustrations` to regenerate the files; a unit test fails if they are out of date.
 
 ### Photos
 

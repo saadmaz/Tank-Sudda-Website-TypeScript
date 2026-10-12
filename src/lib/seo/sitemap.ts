@@ -3,6 +3,7 @@ import type { ServiceArea } from "@/data/areas";
 import { ARTICLES_PER_PAGE, blogCategoryKeys } from "@/data/blog";
 import type { Service } from "@/data/services";
 import type { Article } from "@/lib/content/articles";
+import { localeHref, TRANSLATED_STATIC_PATHS, type PrefixedLocale } from "@/lib/i18n/config";
 import { absoluteUrl } from "@/lib/site";
 
 export interface SitemapInput {
@@ -15,6 +16,8 @@ export interface SitemapInput {
   areas: ServiceArea[];
   hasGallery: boolean;
   hasTestimonials: boolean;
+  /** Sinhala/Tamil versions to list. Only languages whose translations have been reviewed. */
+  translatedLocales?: readonly PrefixedLocale[];
 }
 
 /** Static, indexable routes. Utility pages (search, thank-you) are excluded. */
@@ -48,6 +51,13 @@ export function buildSitemapEntries(input: SitemapInput): MetadataRoute.Sitemap 
   if (input.hasTestimonials) paths.push({ path: "/testimonials" });
 
   for (const service of input.services) paths.push({ path: `/services/${service.slug}` });
+
+  for (const locale of input.translatedLocales ?? []) {
+    for (const path of TRANSLATED_STATIC_PATHS) paths.push({ path: localeHref(locale, path) });
+    for (const service of input.services) {
+      paths.push({ path: localeHref(locale, `/services/${service.slug}`) });
+    }
+  }
   for (const area of input.areas) paths.push({ path: `/areas/${area.slug}` });
 
   const indexableArticles = input.articles.filter(

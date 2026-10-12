@@ -2,16 +2,21 @@ import { ExternalLink, Star } from "lucide-react";
 import { BrandIcon, GoogleColorIcon } from "@/components/icons/BrandIcons";
 import { MissingInfo } from "@/components/ui/MissingInfo";
 import { business, getSocialProfiles } from "@/data/business";
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import { cn } from "@/lib/utils";
 
 /** Round icon links to Tank Sudda's official social profiles. */
 export function SocialLinks({
   tone = "light",
   className,
+  locale = "en",
 }: {
   tone?: "light" | "dark";
   className?: string;
+  locale?: Locale;
 }) {
+  const { common } = getDictionary(locale);
   const profiles = getSocialProfiles();
   if (profiles.length === 0) return <MissingInfo what="social media links" />;
   const dark = tone === "dark";
@@ -26,7 +31,7 @@ export function SocialLinks({
               href={profile.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${business.name} on ${profile.label} (opens in a new tab)`}
+              aria-label={`${common.socialProfile(profile.label)}${common.opensNewTab}`}
               title={profile.label}
               className={cn(
                 "grid size-11 place-items-center rounded-full transition-colors",
@@ -48,7 +53,14 @@ export function SocialLinks({
  * Links to Tank Sudda's Google reviews. Reviews are read on Google itself;
  * nothing is copied or summarised here, so no rating is ever shown on the site.
  */
-export function GoogleReviewsPanel({ tone = "light" }: { tone?: "light" | "dark" }) {
+export function GoogleReviewsPanel({
+  tone = "light",
+  locale = "en",
+}: {
+  tone?: "light" | "dark";
+  locale?: Locale;
+}) {
+  const { proof } = getDictionary(locale);
   const { profileUrl, reviewUrl } = business.google;
   if (!profileUrl && !reviewUrl) return <MissingInfo what="Google Business Profile links" />;
   const dark = tone === "dark";
@@ -69,10 +81,10 @@ export function GoogleReviewsPanel({ tone = "light" }: { tone?: "light" | "dark"
           <p
             className={cn("font-display text-lg font-bold", dark ? "text-white" : "text-navy-950")}
           >
-            Reviews on Google
+            {proof.googleTitle}
           </p>
           <p className={cn("mt-1 max-w-md leading-relaxed", dark ? "text-grey-300" : "text-muted")}>
-            Read what customers say about {business.name} on Google, or share your own experience.
+            {proof.googleBody}
           </p>
         </div>
       </div>
@@ -89,9 +101,9 @@ export function GoogleReviewsPanel({ tone = "light" }: { tone?: "light" | "dark"
                 : "text-navy-950 ring-1 ring-grey-300 hover:ring-navy-950",
             )}
           >
-            Read our reviews
+            {proof.readReviews}
             <ExternalLink aria-hidden="true" className="size-4" />
-            <span className="sr-only"> (opens Google in a new tab)</span>
+            <span className="sr-only">{proof.opensGoogle}</span>
           </a>
         ) : null}
         {reviewUrl ? (
@@ -102,8 +114,8 @@ export function GoogleReviewsPanel({ tone = "light" }: { tone?: "light" | "dark"
             className={cn(button, "bg-water-600 text-white hover:bg-water-700")}
           >
             <Star aria-hidden="true" className="size-4" />
-            Leave a review
-            <span className="sr-only"> (opens Google in a new tab)</span>
+            {proof.leaveReview}
+            <span className="sr-only">{proof.opensGoogle}</span>
           </a>
         ) : null}
       </div>

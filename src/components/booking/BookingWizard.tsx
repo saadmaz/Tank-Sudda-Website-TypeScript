@@ -35,6 +35,7 @@ import {
   type BookingInput,
   type BookingStep,
 } from "@/lib/validation/booking";
+import { track } from "@/lib/analytics";
 import { bookingEnquiryMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import { cn, formatDate } from "@/lib/utils";
 import { submitBooking } from "@/server/actions/booking";
@@ -141,6 +142,8 @@ export function BookingWizard({
       setStepErrorCount((count) => count + 1);
       return;
     }
+    if (stepIndex === 0) track("booking_started", { service: values.service ?? "not-set" });
+    track("booking_step", { step: steps[stepIndex + 1]?.id ?? "review" });
     goTo(stepIndex + 1);
   };
 
@@ -157,6 +160,7 @@ export function BookingWizard({
         startedAt,
       });
       if (result.ok) {
+        track("booking_sent", { service: data.service, property: data.propertyType });
         router.push(`/book/thank-you?ref=${encodeURIComponent(result.reference)}`);
         return;
       }
@@ -527,6 +531,9 @@ export function BookingWizard({
                   target="_blank"
                   rel="noopener noreferrer"
                   className={buttonClasses("whatsapp", "lg", "w-full sm:w-auto")}
+                  onClick={() =>
+                    track("booking_whatsapp_handoff", { service: values.service ?? "not-set" })
+                  }
                 >
                   <WhatsAppIcon className="text-current" />
                   Send request on WhatsApp

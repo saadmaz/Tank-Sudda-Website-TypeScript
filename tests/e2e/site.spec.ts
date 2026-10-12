@@ -36,6 +36,7 @@ test.describe("routing", () => {
   });
 
   test("page titles are unique", async ({ page }) => {
+    test.setTimeout(120_000);
     const titles = new Map<string, string>();
     for (const route of PUBLIC_ROUTES) {
       await page.goto(route);
@@ -144,5 +145,55 @@ test.describe("blog", () => {
     await expect(page).toHaveURL(/\/blog\/search\?q=sump/);
     await expect(page.getByRole("status")).toContainText(/article/);
     await expect(page.getByRole("heading", { level: 2 }).first()).toBeVisible();
+  });
+});
+
+test.describe("Sinhala and Tamil pages", () => {
+  test("declare their language and say the translation is under review", async ({ page }) => {
+    await page.goto("/si");
+    await expect(page.locator("html")).toHaveAttribute("lang", "si-LK");
+    await expect(page.getByText(/සමාලෝචනය වෙමින් පවතී/)).toBeVisible();
+    await page.goto("/ta/faq");
+    await expect(page.locator("html")).toHaveAttribute("lang", "ta-LK");
+    await page.goto("/");
+    await expect(page.locator("html")).toHaveAttribute("lang", "en-LK");
+  });
+
+  test("the language switcher keeps you on the same page", async ({ page }) => {
+    await page.goto("/services/sump-cleaning");
+    const footer = page.getByRole("contentinfo");
+    await footer.getByRole("link", { name: "தமிழ்" }).click();
+    await expect(page).toHaveURL(/\/ta\/services\/sump-cleaning$/);
+    await expect(page.locator("html")).toHaveAttribute("lang", "ta-LK");
+    await page.getByRole("contentinfo").getByRole("link", { name: "English" }).click();
+    await expect(page).toHaveURL(/\/services\/sump-cleaning$/);
+    await expect(page.locator("html")).toHaveAttribute("lang", "en-LK");
+  });
+
+  test("internal links stay in the same language where a translation exists", async ({ page }) => {
+    await page.goto("/si/services");
+    const hrefs = await page
+      .getByRole("main")
+      .locator("a[href^='/services']")
+      .evaluateAll((anchors) => anchors.map((a) => a.getAttribute("href")));
+    expect(hrefs).toEqual([]);
+    // Booking stays on the English form.
+    await expect(page.getByRole("main").locator("a[href='/book']").first()).toBeVisible();
+  });
+
+  test("WhatsApp messages are written in the page language", async ({ page }) => {
+    await page.goto("/si/contact");
+    const href = await page
+      .getByRole("main")
+      .locator("a[href^='https://wa.me/']")
+      .first()
+      .getAttribute("href");
+    const message = new URL(href ?? "").searchParams.get("text");
+    expect(message).toContain("ආයුබෝවන් Tank Sudda");
+  });
+
+  test("are kept out of the sitemap until reviewed", async ({ request }) => {
+    const sitemap = await (await request.get("/sitemap.xml")).text();
+    expect(sitemap).not.toMatch(/\/(si|ta)(\/|<)/);
   });
 });

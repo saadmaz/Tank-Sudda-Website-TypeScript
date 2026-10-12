@@ -5,6 +5,7 @@ import { services } from "@/data/services";
 import { getPublishableTestimonials } from "@/data/testimonials";
 import { filterPublished } from "@/lib/content/articles";
 import { loadAllArticles } from "@/lib/content/blog.server";
+import { prefixedLocales, translationsReviewed } from "@/lib/i18n/config";
 import { buildSitemapEntries } from "@/lib/seo/sitemap";
 import { isIndexingEnabled, siteUrl } from "@/lib/site";
 
@@ -18,5 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     areas: getPublishedAreas(),
     hasGallery: gallery.length > 0,
     hasTestimonials: getPublishableTestimonials().length > 0,
+    // Unreviewed translations stay out of search until a native speaker checks them.
+    translatedLocales: prefixedLocales.filter((locale) => translationsReviewed[locale]),
   });
 }

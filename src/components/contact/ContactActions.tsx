@@ -4,8 +4,10 @@ import { WhatsAppIcon } from "@/components/icons/BrandIcons";
 import { business } from "@/data/business";
 import { ButtonAnchor, type ButtonSize, type ButtonVariant } from "@/components/ui/Button";
 import { MissingInfo } from "@/components/ui/MissingInfo";
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import { cn } from "@/lib/utils";
-import { buildWhatsAppUrl, serviceEnquiryMessage } from "@/lib/whatsapp";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 /**
  * WhatsApp call to action with a context-aware opening message. Renders
@@ -14,25 +16,29 @@ import { buildWhatsAppUrl, serviceEnquiryMessage } from "@/lib/whatsapp";
 export function WhatsAppButton({
   message,
   serviceName,
-  label = "Chat on WhatsApp",
+  label,
   variant = "whatsapp",
   size = "lg",
   className,
+  locale = "en",
 }: {
   message?: string;
   serviceName?: string;
   label?: string;
+  locale?: Locale;
   variant?: ButtonVariant;
   size?: ButtonSize;
   className?: string;
 }) {
-  const href = buildWhatsAppUrl(business.whatsapp, message ?? serviceEnquiryMessage(serviceName));
+  const t = getDictionary(locale);
+  const defaultMessage = serviceName ? t.whatsapp.service(serviceName) : t.whatsapp.general;
+  const href = buildWhatsAppUrl(business.whatsapp, message ?? defaultMessage);
   if (!href) return <MissingInfo what="WhatsApp number" />;
   return (
     <ButtonAnchor href={href} external variant={variant} size={size} className={className}>
       <WhatsAppIcon className="text-current" />
-      {label}
-      <span className="sr-only"> (opens WhatsApp)</span>
+      {label ?? t.common.chatOnWhatsApp}
+      <span className="sr-only">{t.common.opensWhatsApp}</span>
     </ButtonAnchor>
   );
 }
@@ -41,7 +47,9 @@ export function PhoneButton({
   variant = "secondary",
   size = "lg",
   className,
+  locale = "en",
 }: {
+  locale?: Locale;
   variant?: ButtonVariant;
   size?: ButtonSize;
   className?: string;
@@ -55,7 +63,7 @@ export function PhoneButton({
       className={className}
     >
       <Phone aria-hidden="true" />
-      Call {business.phone.display}
+      {getDictionary(locale).common.callNumber(business.phone.display)}
     </ButtonAnchor>
   );
 }
@@ -71,14 +79,18 @@ export interface ContactMethod {
 }
 
 /** Verified direct contact methods, in display order. Empty when none are verified. */
-export function getContactMethods(whatsappMessage = serviceEnquiryMessage()): ContactMethod[] {
-  const whatsappUrl = buildWhatsAppUrl(business.whatsapp, whatsappMessage);
+export function getContactMethods(
+  locale: Locale = "en",
+  whatsappMessage?: string,
+): ContactMethod[] {
+  const t = getDictionary(locale);
+  const whatsappUrl = buildWhatsAppUrl(business.whatsapp, whatsappMessage ?? t.whatsapp.general);
   const items: ContactMethod[] = [];
   if (business.phone) {
     items.push({
       icon: Phone,
       brandColored: false,
-      label: "Phone",
+      label: t.common.phone,
       value: business.phone.display,
       href: `tel:${business.phone.e164}`,
       external: false,
@@ -88,7 +100,7 @@ export function getContactMethods(whatsappMessage = serviceEnquiryMessage()): Co
     items.push({
       icon: WhatsAppIcon,
       brandColored: true,
-      label: "WhatsApp",
+      label: t.common.whatsapp,
       value: business.whatsapp.display,
       href: whatsappUrl,
       external: true,
@@ -98,7 +110,7 @@ export function getContactMethods(whatsappMessage = serviceEnquiryMessage()): Co
     items.push({
       icon: Mail,
       brandColored: false,
-      label: "Email",
+      label: t.common.email,
       value: business.email,
       href: `mailto:${business.email}`,
       external: false,
@@ -108,8 +120,14 @@ export function getContactMethods(whatsappMessage = serviceEnquiryMessage()): Co
 }
 
 /** List of verified direct contact methods. */
-export function ContactMethodList({ tone = "light" }: { tone?: "light" | "dark" }) {
-  const items = getContactMethods();
+export function ContactMethodList({
+  tone = "light",
+  locale = "en",
+}: {
+  tone?: "light" | "dark";
+  locale?: Locale;
+}) {
+  const items = getContactMethods(locale);
   if (items.length === 0) {
     return <MissingInfo what="phone, WhatsApp and email" />;
   }

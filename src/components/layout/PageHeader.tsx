@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import type { Locale } from "@/lib/i18n/config";
 import type { BreadcrumbItem } from "@/lib/seo/schema";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +13,7 @@ export function PageHeader({
   actions,
   aside,
   tone = "navy",
+  locale = "en",
 }: {
   title: ReactNode;
   intro?: ReactNode;
@@ -20,6 +22,7 @@ export function PageHeader({
   actions?: ReactNode;
   aside?: ReactNode;
   tone?: "mist" | "navy";
+  locale?: Locale;
 }) {
   const navy = tone === "navy";
   return (
@@ -36,7 +39,12 @@ export function PageHeader({
         )}
       >
         <div>
-          <Breadcrumbs items={breadcrumbs} tone={navy ? "dark" : "light"} className="mb-8" />
+          <Breadcrumbs
+            items={breadcrumbs}
+            tone={navy ? "dark" : "light"}
+            className="mb-8"
+            locale={locale}
+          />
           {eyebrow ? (
             <p className={cn("mb-3 eyebrow", navy && "text-water-300")}>{eyebrow}</p>
           ) : null}

@@ -1,3 +1,16 @@
+/** Sinhala and Tamil versions of the main pages. */
+export const TRANSLATED_ROUTES = ["si", "ta"].flatMap((lang) => [
+  `/${lang}`,
+  `/${lang}/services`,
+  `/${lang}/services/water-tank-deep-cleaning`,
+  `/${lang}/services/sump-cleaning`,
+  `/${lang}/services/commercial-tank-cleaning`,
+  `/${lang}/pricing`,
+  `/${lang}/about`,
+  `/${lang}/contact`,
+  `/${lang}/faq`,
+]);
+
 /** Public routes expected to render (HTTP 200) in a default production build. */
 export const PUBLIC_ROUTES = [
   "/",
@@ -23,7 +36,8 @@ export const PUBLIC_ROUTES = [
   "/blog/tag/sediment",
   "/blog/search?q=sediment",
   "/guides",
-] as const;
+  ...TRANSLATED_ROUTES,
+];
 
 /** Routes that must return HTTP 404. */
 export const MISSING_ROUTES = [
@@ -36,4 +50,9 @@ export const MISSING_ROUTES = [
   "/blog/page/2",
   // Unverified draft service area: never published.
   "/areas/colombo",
+  // Only listed languages exist, and only for the translated pages.
+  "/fr",
+  "/si/book",
+  "/ta/blog",
+  "/si/services/window-cleaning",
 ] as const;

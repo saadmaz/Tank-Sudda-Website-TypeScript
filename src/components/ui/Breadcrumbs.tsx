@@ -3,6 +3,8 @@ import type { Route } from "next";
 import { ChevronRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema, type BreadcrumbItem } from "@/lib/seo/schema";
+import { localeHref, type Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import { cn } from "@/lib/utils";
 
 /** Visible breadcrumb trail plus BreadcrumbList structured data. Home is implied. */
@@ -10,16 +12,19 @@ export function Breadcrumbs({
   items,
   tone = "light",
   className,
+  locale = "en",
 }: {
   items: BreadcrumbItem[];
   tone?: "light" | "dark";
   className?: string;
+  locale?: Locale;
 }) {
-  const trail: BreadcrumbItem[] = [{ name: "Home", path: "/" }, ...items];
+  const { common } = getDictionary(locale);
+  const trail: BreadcrumbItem[] = [{ name: common.home, path: localeHref(locale, "/") }, ...items];
   const dark = tone === "dark";
   return (
     <>
-      <nav aria-label="Breadcrumb" className={cn("text-sm", className)}>
+      <nav aria-label={common.breadcrumb} className={cn("text-sm", className)}>
         <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
           {trail.map((item, index) => {
             const isLast = index === trail.length - 1;

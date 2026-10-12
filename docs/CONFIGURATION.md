@@ -36,6 +36,31 @@ expiry, and a per-IP limit of 5 submissions per 10 minutes. The rate limiter is 
 serverless/multi-instance hosting use a shared store (e.g. Upstash Redis) or add Cloudflare
 Turnstile if abuse appears.
 
+## Analytics
+
+The site has no analytics until you switch it on, so nothing is tracked and no cookies are set.
+Events are already wired in and are sent to whichever provider is loaded:
+
+| Event                      | When                                                                    |
+| -------------------------- | ----------------------------------------------------------------------- |
+| `contact_click`            | Any phone, WhatsApp or email link (with `channel`, `page`, `placement`) |
+| `booking_started`          | First step of the booking form completed                                |
+| `booking_step`             | Each later step reached (`step`)                                        |
+| `booking_sent`             | Booking request delivered                                               |
+| `booking_whatsapp_handoff` | "Send request on WhatsApp" clicked                                      |
+| `contact_form_sent`        | Contact message delivered                                               |
+
+**Plausible (recommended, cookieless):** create a site at plausible.io, set
+`NEXT_PUBLIC_PLAUSIBLE_DOMAIN=tanksudda.com` and redeploy. Add the event names above as goals in
+Plausible to see them in reports.
+
+**Vercel Web Analytics or Google Analytics 4:** add their script as their docs describe. Events
+are forwarded automatically (`window.va` / `window.gtag`). Google Analytics sets cookies and needs
+a consent banner first.
+
+Whichever you choose, update the Cookie Information page (`src/app/cookies/page.tsx`) and the
+Privacy Policy to describe it before going live.
+
 ## Hosting
 
 Any Node.js host that runs `next start` (Node ≥ 20.9), or a platform with native Next.js support.

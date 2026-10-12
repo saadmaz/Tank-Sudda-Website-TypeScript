@@ -27,6 +27,9 @@ were placeholders, so none of it was carried over.
 - [ ] Have the **Privacy Policy, Terms and Cookie pages** reviewed (ideally by a lawyer), including
       the legal entity name (`legalName`).
 - [ ] Review the **five starter articles** in `src/content/blog/`.
+- [ ] Have a **native Sinhala speaker and a native Tamil speaker** check the `/si` and `/ta` pages
+      (text in `src/data/i18n/si.ts` and `ta.ts`), then set `translationsReviewed` to `true` for
+      that language in `src/lib/i18n/config.ts`. Until then those pages are hidden from Google.
 
 ## Recommended
 

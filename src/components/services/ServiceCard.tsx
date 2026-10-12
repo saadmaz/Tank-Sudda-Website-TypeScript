@@ -1,18 +1,21 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { ServiceIllustrationView } from "@/components/illustrations/TechnicalIllustrations";
-import { describePrice, getPriceEntry } from "@/data/pricing";
+import { Illustration } from "@/components/illustrations/Illustration";
 import type { Service } from "@/data/services";
+import { localeHref, type Locale } from "@/lib/i18n/config";
+import { describeServicePrice, getDictionary } from "@/lib/i18n/dictionary";
 
 /** Wide feature card: illustration panel beside the service summary. */
 export function ServiceCard({
   service,
   index,
   headingLevel = 3,
+  locale = "en",
 }: {
   service: Service;
   index?: number;
   headingLevel?: 2 | 3;
+  locale?: Locale;
 }) {
   const Heading = `h${headingLevel}` as const;
   return (
@@ -23,7 +26,7 @@ export function ServiceCard({
             {String(index + 1).padStart(2, "0")}
           </span>
         ) : null}
-        <ServiceIllustrationView
+        <Illustration
           kind={service.illustration}
           annotated={false}
           className="max-h-28 transition-transform duration-300 group-hover:scale-[1.03] sm:max-h-40"
@@ -32,7 +35,7 @@ export function ServiceCard({
       <div className="flex flex-col p-6 lg:p-7">
         <Heading className="text-h3">
           <Link
-            href={`/services/${service.slug}`}
+            href={localeHref(locale, `/services/${service.slug}`)}
             className="group-hover:text-water-700 after:absolute after:inset-0 after:content-['']"
           >
             {service.name}
@@ -48,9 +51,9 @@ export function ServiceCard({
           ))}
         </ul>
         <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-line pt-5 text-sm">
-          <span className="text-muted">{describePrice(getPriceEntry(service.slug))}</span>
+          <span className="text-muted">{describeServicePrice(locale, service.slug)}</span>
           <span className="inline-flex items-center gap-1.5 font-semibold whitespace-nowrap text-water-700">
-            View service
+            {getDictionary(locale).serviceCard.viewService}
             <ArrowRight
               aria-hidden="true"
               className="size-4 transition-transform group-hover:translate-x-1"
@@ -66,10 +69,12 @@ export function ServiceGrid({
   services,
   headingLevel,
   numbered = false,
+  locale = "en",
 }: {
   services: Service[];
   headingLevel?: 2 | 3;
   numbered?: boolean;
+  locale?: Locale;
 }) {
   return (
     <ul className="grid gap-6 lg:grid-cols-3">
@@ -79,6 +84,7 @@ export function ServiceGrid({
             service={service}
             headingLevel={headingLevel}
             index={numbered ? index : undefined}
+            locale={locale}
           />
         </li>
       ))}
