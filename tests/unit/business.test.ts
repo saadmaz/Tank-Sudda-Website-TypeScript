@@ -150,6 +150,8 @@ describe("social and Google profiles", () => {
       instagram: /(^|\.)instagram\.com$/,
       tiktok: /(^|\.)tiktok\.com$/,
       youtube: /(^|\.)youtube\.com$/,
+      x: /^(www\.)?(x|twitter)\.com$/,
+      threads: /(^|\.)threads\.(net|com)$/,
       linkedin: /(^|\.)linkedin\.com$/,
     };
     for (const [platform, url] of Object.entries(business.social)) {

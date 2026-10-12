@@ -11,6 +11,8 @@ export const brandColors: Record<BrandName, string> = {
   youtube: brandPaths.youtube.hex,
   whatsapp: brandPaths.whatsapp.hex,
   google: brandPaths.google.hex,
+  x: brandPaths.x.hex,
+  threads: brandPaths.threads.hex,
   linkedin: "#0A66C2",
 };
 

@@ -29,7 +29,8 @@ export interface OpeningHours {
   closes: string; // "17:00"
 }
 
-export type SocialPlatform = "facebook" | "instagram" | "tiktok" | "youtube" | "linkedin";
+export type SocialPlatform =
+  "facebook" | "instagram" | "tiktok" | "youtube" | "x" | "threads" | "linkedin";
 
 /** Display order for social icons. */
 export const socialPlatforms: { id: SocialPlatform; label: string }[] = [
@@ -37,6 +38,8 @@ export const socialPlatforms: { id: SocialPlatform; label: string }[] = [
   { id: "instagram", label: "Instagram" },
   { id: "tiktok", label: "TikTok" },
   { id: "youtube", label: "YouTube" },
+  { id: "x", label: "X" },
+  { id: "threads", label: "Threads" },
   { id: "linkedin", label: "LinkedIn" },
 ];
 
@@ -77,8 +80,15 @@ export const business: Business = {
   email: "tanksuddaglobal@gmail.com",
   address: null,
   openingHours: [],
-  // Add each official profile URL once confirmed, e.g. facebook: "https://www.facebook.com/…".
-  social: {},
+  // Official profiles confirmed by the owner on 2026-10-12. Add LinkedIn here once it exists.
+  social: {
+    facebook: "https://www.facebook.com/TankSuddaa",
+    instagram: "https://www.instagram.com/tanksudda",
+    tiktok: "https://www.tiktok.com/@tanksudda",
+    youtube: "https://www.youtube.com/@TankSudda",
+    x: "https://x.com/TankSudda",
+    threads: "https://www.threads.net/@tanksudda",
+  },
   google: { profileUrl: null, reviewUrl: null },
   foundingYear: null,
 };
