@@ -8,7 +8,7 @@ import { NavLinks } from "./NavLinks";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white">
+    <header className="border-b border-line bg-white">
       <div className="container-site flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
         <Logo />
         <nav aria-label="Main" className="hidden lg:block">

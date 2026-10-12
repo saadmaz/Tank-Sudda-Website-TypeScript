@@ -34,8 +34,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to main content
         </a>
-        <TopBar />
-        <SiteHeader />
+        {/* Contact bar (desktop) and menu bar stay pinned to the top together. */}
+        <div className="sticky top-0 z-40">
+          <TopBar />
+          <SiteHeader />
+        </div>
         <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
           {children}
         </main>

@@ -23,7 +23,7 @@ export function CommitmentsSection({
     <section aria-labelledby={headingId} className="bg-mist">
       <div className="container-site section-y">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
-          <div className="lg:sticky lg:top-28 lg:self-start">
+          <div className="lg:sticky lg:top-36 lg:self-start">
             <SectionHeading
               id={headingId}
               eyebrow={`Why ${business.name}`}

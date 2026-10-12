@@ -156,7 +156,7 @@ export default async function ArticlePage({ params }: PageProps<"/blog/[slug]">)
             </div>
           </div>
 
-          <aside aria-label="Article tools" className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <aside aria-label="Article tools" className="space-y-6 lg:sticky lg:top-36 lg:self-start">
             <div className="hidden lg:block">
               <TableOfContents headings={article.headings} />
             </div>

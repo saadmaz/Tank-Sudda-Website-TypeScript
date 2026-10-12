@@ -136,7 +136,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           ) : null}
         </div>
 
-        <aside aria-label="Service summary" className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+        <aside aria-label="Service summary" className="space-y-6 lg:sticky lg:top-36 lg:self-start">
           <Panel>
             <h2 className="font-sans text-sm font-semibold tracking-[0.12em] text-muted uppercase">
               Price

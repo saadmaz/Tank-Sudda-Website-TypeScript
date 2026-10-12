@@ -29,6 +29,18 @@ test.describe("navigation", () => {
     ).toHaveAttribute("aria-current", "page");
   });
 
+  test("contact bar and menu stay pinned to the top while scrolling", async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, "the contact bar is desktop only");
+    await page.goto("/services/sump-cleaning");
+    await page.evaluate(() => window.scrollTo(0, 2000));
+    const bar = page.getByRole("complementary", { name: "Contact details" });
+    await expect.poll(async () => (await bar.boundingBox())?.y).toBe(0);
+    await expect(page.getByRole("navigation", { name: "Main" })).toBeInViewport();
+  });
+
   test("skip link moves focus to the main content", async ({ page, isMobile }) => {
     test.skip(isMobile, "keyboard test");
     await page.goto("/");

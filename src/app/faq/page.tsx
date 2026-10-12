@@ -24,7 +24,7 @@ export default function FaqPage() {
         intro="Can’t find what you need? Call, WhatsApp or email us and we will get back to you."
       />
       <div className="container-site grid gap-12 section-y lg:grid-cols-[14rem_1fr]">
-        <nav aria-label="FAQ topics" className="lg:sticky lg:top-24 lg:self-start">
+        <nav aria-label="FAQ topics" className="lg:sticky lg:top-36 lg:self-start">
           <ul className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
             {categories.map((category) => (
               <li key={category}>

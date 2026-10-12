@@ -39,7 +39,7 @@ export default function BookPage() {
         </div>
         <aside
           aria-label="About your request"
-          className="space-y-6 lg:sticky lg:top-24 lg:self-start"
+          className="space-y-6 lg:sticky lg:top-36 lg:self-start"
         >
           <SlotImage
             slot="bookingAside"
