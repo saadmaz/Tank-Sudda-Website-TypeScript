@@ -214,7 +214,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </section>
       ) : null}
 
-      <CtaBand title={`Book ${service.shortName.toLowerCase()}`} serviceName={service.name} />
+      <CtaBand title={`Book ${service.shortName.toLowerCase()}`} />
       <JsonLd data={serviceSchema(service)} />
     </>
   );
