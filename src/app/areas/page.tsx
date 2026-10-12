@@ -24,7 +24,11 @@ export default function AreasPage() {
         eyebrow="Coverage"
         title="Where we work"
         intro={`${business.name} provides tank and sump cleaning in ${business.countryName}. We only list areas we can reliably serve, and we confirm coverage for every request before arranging a visit.`}
-        actions={<ButtonLink href="/book">Check availability for your location</ButtonLink>}
+        actions={
+          <ButtonLink href="/book" variant="onDark" size="lg">
+            Check availability for your location
+          </ButtonLink>
+        }
       />
 
       <section aria-labelledby="areas-list-heading" className="container-site section-y">

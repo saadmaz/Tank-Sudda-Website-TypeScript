@@ -45,7 +45,11 @@ export default async function AreaPage({ params }: PageProps<"/areas/[slug]">) {
         eyebrow={`${area.district} District · ${area.province} Province`}
         title={`Water tank and sump cleaning in ${area.name}`}
         intro={area.intro}
-        actions={<ButtonLink href="/book">Request a booking in {area.name}</ButtonLink>}
+        actions={
+          <ButtonLink href="/book" variant="onDark" size="lg">
+            Request a booking in {area.name}
+          </ButtonLink>
+        }
       />
 
       {area.status !== "confirmed" ? (

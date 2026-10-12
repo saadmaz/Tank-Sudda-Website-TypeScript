@@ -57,16 +57,18 @@ export function PhoneButton({
   );
 }
 
-/** List of verified direct contact methods. Empty when none are verified. */
-export function ContactMethodList({ tone = "light" }: { tone?: "light" | "dark" }) {
-  const whatsappUrl = buildWhatsAppUrl(business.whatsapp, serviceEnquiryMessage());
-  const items: {
-    icon: LucideIcon;
-    label: string;
-    value: string;
-    href: string;
-    external: boolean;
-  }[] = [];
+export interface ContactMethod {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  href: string;
+  external: boolean;
+}
+
+/** Verified direct contact methods, in display order. Empty when none are verified. */
+export function getContactMethods(whatsappMessage = serviceEnquiryMessage()): ContactMethod[] {
+  const whatsappUrl = buildWhatsAppUrl(business.whatsapp, whatsappMessage);
+  const items: ContactMethod[] = [];
   if (business.phone) {
     items.push({
       icon: Phone,
@@ -94,7 +96,12 @@ export function ContactMethodList({ tone = "light" }: { tone?: "light" | "dark" 
       external: false,
     });
   }
+  return items;
+}
 
+/** List of verified direct contact methods. */
+export function ContactMethodList({ tone = "light" }: { tone?: "light" | "dark" }) {
+  const items = getContactMethods();
   if (items.length === 0) {
     return <MissingInfo what="phone, WhatsApp and email" />;
   }

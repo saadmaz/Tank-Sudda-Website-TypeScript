@@ -23,7 +23,7 @@ export function ArticleCard({
 }) {
   const Heading = `h${headingLevel}` as const;
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-line bg-white shadow-card transition-colors hover:border-water-300">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white shadow-card transition-[border-color,box-shadow] duration-200 hover:border-water-300 hover:shadow-raised">
       <div className="aspect-[16/9] overflow-hidden border-b border-line bg-mist">
         {article.cover ? (
           <Image

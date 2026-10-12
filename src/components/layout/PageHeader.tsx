@@ -11,7 +11,7 @@ export function PageHeader({
   eyebrow,
   actions,
   aside,
-  tone = "mist",
+  tone = "navy",
 }: {
   title: ReactNode;
   intro?: ReactNode;
@@ -26,12 +26,12 @@ export function PageHeader({
     <section
       className={cn(
         "border-b",
-        navy ? "on-dark border-navy-800 bg-navy-950 text-grey-200" : "border-line bg-mist",
+        navy ? "on-dark border-navy-800 surface-navy text-grey-200" : "border-line bg-mist",
       )}
     >
       <div
         className={cn(
-          "container-site grid gap-10 py-10 lg:py-16",
+          "container-site grid gap-10 pt-10 pb-12 lg:pt-14 lg:pb-20",
           aside && "lg:grid-cols-[1.2fr_1fr] lg:items-center",
         )}
       >
@@ -42,7 +42,12 @@ export function PageHeader({
           ) : null}
           <h1 className={cn("max-w-3xl text-h1", navy && "text-white")}>{title}</h1>
           {intro ? (
-            <div className={cn("mt-5 max-w-2xl text-lead", navy ? "text-grey-200" : "text-muted")}>
+            <div
+              className={cn(
+                "mt-5 max-w-2xl text-lead",
+                navy ? "text-grey-200 [&_a]:text-water-200 [&_a:hover]:text-white" : "text-muted",
+              )}
+            >
               {intro}
             </div>
           ) : null}

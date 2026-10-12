@@ -92,9 +92,9 @@ test.describe("booking wizard", () => {
     await expect(page.getByText("Test Residencies")).toBeVisible();
     await expect(page.getByText("Sending this form does not confirm an appointment")).toBeVisible();
 
-    // Without online delivery, the request can be handed over on WhatsApp with its details.
+    // Without online delivery, the request is handed over on WhatsApp with its details.
     const whatsappHref = await page
-      .getByRole("link", { name: /Send on WhatsApp instead/ })
+      .getByRole("link", { name: /Send request on WhatsApp/ })
       .getAttribute("href");
     const message = new URL(whatsappHref!).searchParams.get("text") ?? "";
     expect(message).toContain("Service: Sump Cleaning");
@@ -105,14 +105,27 @@ test.describe("booking wizard", () => {
     await page.getByRole("button", { name: "Edit Tanks" }).click();
     await expect(page.getByLabel("Number of tanks and sumps")).toHaveValue("3");
 
-    // No delivery channel is configured in this build, so sending is disabled honestly.
-    await expect(page.getByText("Online requests are temporarily unavailable")).toBeVisible();
+    // No delivery channel is configured in this build, so requests go via WhatsApp.
+    await expect(page.getByText("Your request is sent to us on WhatsApp")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Send booking request" })).toHaveCount(0);
   });
 });
 
-test.describe("contact form", () => {
-  test("shows accessible inline errors", async ({ page }) => {
+test.describe("contact page", () => {
+  test("leads with direct contact options", async ({ page }) => {
     await page.goto("/contact");
+    await expect(page.locator('main a[href="tel:+94741004296"]')).toBeVisible();
+    await expect(page.locator('main a[href^="https://wa.me/94741004296"]').first()).toBeVisible();
+    await expect(page.locator('main a[href="mailto:tanksuddaglobal@gmail.com"]')).toBeVisible();
+  });
+
+  test("form shows accessible inline errors when delivery is configured", async ({ page }) => {
+    await page.goto("/contact");
+    // Without a delivery channel the form is replaced by a booking prompt.
+    if ((await page.getByRole("textbox", { name: "Message" }).count()) === 0) {
+      await expect(page.getByRole("link", { name: "Request a booking" }).first()).toBeVisible();
+      return;
+    }
     await page.getByLabel("Your name").fill("A");
     await page.getByRole("textbox", { name: "Message" }).fill("short");
     await page.getByRole("textbox", { name: "Message" }).blur();

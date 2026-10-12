@@ -7,7 +7,7 @@ import { NavLinks } from "./NavLinks";
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
-      <div className="container-site flex h-16 items-center justify-between gap-6">
+      <div className="container-site flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
         <Logo />
         <nav aria-label="Main" className="hidden lg:block">
           <NavLinks
@@ -17,7 +17,7 @@ export function SiteHeader() {
           />
         </nav>
         <div className="flex items-center gap-2">
-          <ButtonLink href="/book" size="sm" className="hidden min-h-10 sm:inline-flex">
+          <ButtonLink href="/book" size="sm" className="hidden min-h-11 px-5 sm:inline-flex">
             Book a cleaning
           </ButtonLink>
           <MobileNav links={primaryNav} />

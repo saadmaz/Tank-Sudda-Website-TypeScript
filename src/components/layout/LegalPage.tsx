@@ -18,6 +18,7 @@ export function LegalPage({
   return (
     <>
       <PageHeader
+        tone="mist"
         breadcrumbs={[{ name: title, path }]}
         title={title}
         intro={

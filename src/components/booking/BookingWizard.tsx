@@ -183,6 +183,9 @@ export function BookingWizard({
     }),
   );
 
+  // Without online delivery, the completed request is handed over on WhatsApp.
+  const viaWhatsApp = deliveryMode === "unavailable" && whatsappUrl !== null;
+
   const err = (name: BookingField) => errors[name]?.message;
 
   // Re-validate a field on change while it shows an error, so the message clears
@@ -197,11 +200,13 @@ export function BookingWizard({
 
   return (
     <div>
-      {deliveryMode === "unavailable" ? (
+      {viaWhatsApp ? (
+        <Notice className="mb-8" title="Your request is sent to us on WhatsApp">
+          Fill in the steps below. At the end, WhatsApp opens with your details ready to send.
+        </Notice>
+      ) : deliveryMode === "unavailable" ? (
         <Notice tone="warning" className="mb-8" title="Online requests are temporarily unavailable">
-          {whatsappUrl
-            ? "You can still send your request on WhatsApp using the button at the end of the form."
-            : "Please call or email us instead, using the contact details on this page."}
+          Please call or email us instead, using the contact details on this page.
         </Notice>
       ) : null}
       {deliveryMode === "development" ? (
@@ -517,27 +522,42 @@ export function BookingWizard({
           )}
           {isReview ? (
             <div className="flex flex-wrap items-center gap-3">
-              {whatsappUrl && (deliveryMode === "unavailable" || serverError) ? (
+              {viaWhatsApp ? (
                 <a
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={buttonClasses("whatsapp", "md")}
+                  className={buttonClasses("whatsapp", "lg")}
                 >
                   <MessageCircle aria-hidden="true" />
-                  Send on WhatsApp instead
+                  Send request on WhatsApp
                   <span className="sr-only"> (opens WhatsApp)</span>
                 </a>
-              ) : null}
-              <Button
-                type="submit"
-                size="lg"
-                disabled={isPending || deliveryMode === "unavailable"}
-                aria-disabled={isPending}
-              >
-                {isPending ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
-                {isPending ? "Sending…" : "Send booking request"}
-              </Button>
+              ) : (
+                <>
+                  {whatsappUrl && serverError ? (
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={buttonClasses("whatsapp", "md")}
+                    >
+                      <MessageCircle aria-hidden="true" />
+                      Send on WhatsApp instead
+                      <span className="sr-only"> (opens WhatsApp)</span>
+                    </a>
+                  ) : null}
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={isPending || deliveryMode === "unavailable"}
+                    aria-disabled={isPending}
+                  >
+                    {isPending ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
+                    {isPending ? "Sending…" : "Send booking request"}
+                  </Button>
+                </>
+              )}
             </div>
           ) : (
             <Button onClick={next} size="lg">

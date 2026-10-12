@@ -27,8 +27,12 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="Cleaning services for tanks and sumps"
         intro="Four services covering domestic tanks, underground sumps and larger buildings. Not sure which you need? Describe your tank when you book and we will recommend the right option."
-        actions={<ButtonLink href="/book">Request a booking</ButtonLink>}
-        aside={<SlotImage slot="servicesOverview" fallback={<CommercialDiagram />} />}
+        actions={
+          <ButtonLink href="/book" variant="onDark" size="lg">
+            Request a booking
+          </ButtonLink>
+        }
+        aside={<SlotImage slot="servicesOverview" fallback={<CommercialDiagram tone="dark" />} />}
       />
 
       <section aria-labelledby="all-services" className="container-site section-y">

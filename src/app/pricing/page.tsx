@@ -25,7 +25,11 @@ export default function PricingPage() {
         eyebrow="Pricing"
         title="Clear quotations, agreed before work begins"
         intro="Tanks vary widely in size, access and condition, so we price each job on what it actually involves. You receive a quotation before anything is booked, and nothing is charged that you have not agreed."
-        actions={<ButtonLink href="/book">Request a quotation</ButtonLink>}
+        actions={
+          <ButtonLink href="/book" variant="onDark" size="lg">
+            Request a quotation
+          </ButtonLink>
+        }
       />
 
       <section aria-labelledby="prices-heading" className="container-site section-y">

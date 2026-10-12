@@ -1,58 +1,104 @@
 import Link from "next/link";
-import { ContactMethodList, WhatsAppButton } from "@/components/contact/ContactActions";
+import { ArrowUpRight } from "lucide-react";
+import { getContactMethods } from "@/components/contact/ContactActions";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { business, hasDirectContact } from "@/data/business";
+import { business } from "@/data/business";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { isLeadDeliveryConfigured } from "@/server/notifications/channels";
 
 export const metadata = buildMetadata({
   title: "Contact Tank Sudda",
   description:
-    "Contact Tank Sudda about water tank and sump cleaning in Sri Lanka. Send a message or request a booking online.",
+    "Contact Tank Sudda about water tank and sump cleaning in Sri Lanka. Call, WhatsApp or email us, or request a booking online.",
   path: "/contact",
 });
 
 export default function ContactPage() {
-  const available = isLeadDeliveryConfigured() || process.env.NODE_ENV === "development";
+  const formAvailable = isLeadDeliveryConfigured() || process.env.NODE_ENV === "development";
+  const methods = getContactMethods();
   return (
     <>
       <PageHeader
         breadcrumbs={[{ name: "Contact", path: "/contact" }]}
         eyebrow="Contact"
-        title="Get in touch"
+        title="Talk to Tank Sudda"
         intro={
           <>
-            Have a question about tank or sump cleaning? Send us a message. If you already know what
-            you need, the{" "}
-            <Link href="/book" className="text-water-700 underline underline-offset-4">
+            Questions about tank or sump cleaning? Call, WhatsApp or email us. If you already know
+            what you need, the{" "}
+            <Link href="/book" className="underline underline-offset-4">
               booking form
             </Link>{" "}
             is the quickest way to request a cleaning.
           </>
         }
       />
-      <div className="container-site grid gap-12 section-y lg:grid-cols-[1.4fr_1fr] lg:gap-16">
-        <section aria-labelledby="form-heading">
-          <h2 id="form-heading" className="text-h2">
-            Send a message
+
+      {methods.length > 0 ? (
+        <section aria-labelledby="direct-heading" className="container-site pt-12 lg:pt-16">
+          <h2 id="direct-heading" className="sr-only">
+            Contact details
           </h2>
-          <div className="mt-8">
-            <ContactForm available={available} />
-          </div>
+          <ul className="grid gap-4 md:grid-cols-3">
+            {methods.map(({ icon: Icon, label, value, href, external }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="group flex h-full flex-col rounded-xl border border-line bg-white p-6 shadow-card transition-[border-color,box-shadow] hover:border-water-300 hover:shadow-raised"
+                >
+                  <span className="flex items-center justify-between">
+                    <span className="grid size-12 place-items-center rounded-lg bg-water-50 text-water-700 ring-1 ring-water-100">
+                      <Icon aria-hidden="true" className="size-5" />
+                    </span>
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="size-5 text-grey-400 transition-colors group-hover:text-water-600"
+                    />
+                  </span>
+                  <span className="mt-6 text-sm font-medium text-muted">{label}</span>
+                  <span className="mt-1 font-display text-xl font-bold break-all text-navy-950 group-hover:text-water-700">
+                    {value}
+                  </span>
+                  {external ? <span className="sr-only"> (opens in a new tab)</span> : null}
+                </a>
+              </li>
+            ))}
+          </ul>
         </section>
-        <aside aria-label="Other ways to reach us" className="space-y-6">
-          {hasDirectContact() ? (
-            <div className="rounded-lg border border-line p-6">
-              <h2 className="text-h3">Contact details</h2>
-              <div className="mt-4">
-                <ContactMethodList />
-              </div>
+      ) : null}
+
+      <div className="container-site grid gap-12 section-y lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+        {formAvailable ? (
+          <section aria-labelledby="form-heading">
+            <h2 id="form-heading" className="text-h2">
+              Send a message
+            </h2>
+            <div className="mt-8">
+              <ContactForm available={formAvailable} />
             </div>
-          ) : null}
-          <WhatsAppButton label="Message us on WhatsApp" className="w-full" />
+          </section>
+        ) : (
+          <section aria-labelledby="book-heading">
+            <h2 id="book-heading" className="text-h2">
+              Need a cleaning?
+            </h2>
+            <p className="mt-4 max-w-xl text-lead text-muted">
+              Tell us about your property and tanks in a few short steps. We will contact you to
+              confirm the details, the quotation and a date.
+            </p>
+            <Link
+              href="/book"
+              className="mt-8 inline-flex min-h-12 items-center rounded-md bg-water-600 px-6 font-semibold text-white hover:bg-water-700"
+            >
+              Request a booking
+            </Link>
+          </section>
+        )}
+        <aside aria-label="About your enquiry" className="space-y-6">
           {business.openingHours.length > 0 ? (
-            <div className="rounded-lg border border-line p-6">
+            <div className="rounded-xl border border-line p-6">
               <h2 className="text-h3">Opening hours</h2>
               <ul className="mt-3 space-y-1 text-[0.9375rem]">
                 {business.openingHours.map((hours) => (
@@ -63,10 +109,11 @@ export default function ContactPage() {
               </ul>
             </div>
           ) : null}
-          <div className="rounded-lg border border-line bg-mist p-6 text-[0.9375rem] leading-relaxed">
-            <h2 className="text-h3">How we use your message</h2>
+          <div className="rounded-xl border border-line bg-mist p-6 text-[0.9375rem] leading-relaxed">
+            <h2 className="text-h3">How we use your details</h2>
             <p className="mt-2 text-muted">
-              We use your details only to reply to your message. Read our{" "}
+              We use your details only to reply to you and arrange any cleaning you request. Read
+              our{" "}
               <Link href="/privacy" className="text-water-700 underline underline-offset-4">
                 privacy policy
               </Link>{" "}

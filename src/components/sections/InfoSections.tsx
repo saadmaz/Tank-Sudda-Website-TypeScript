@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, ClipboardCheck, Clock, Eye, MapPin, Waves } from "lucide-react";
+import { SumpDiagram } from "@/components/illustrations/TechnicalIllustrations";
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/primitives";
 import { getPublishedAreas } from "@/data/areas";
@@ -8,27 +9,103 @@ import { pricingFactors } from "@/data/pricing";
 import { commitments } from "@/data/site-content";
 import { isContentPreview } from "@/lib/site";
 
+const commitmentIcons = [ClipboardCheck, Waves, Clock, Eye];
+
 export function CommitmentsSection({ headingId = "commitments-heading" }: { headingId?: string }) {
   return (
     <section aria-labelledby={headingId} className="bg-mist">
       <div className="container-site section-y">
-        <SectionHeading
-          id={headingId}
-          eyebrow={`Why ${business.name}`}
-          title="How we work"
-          intro="Straightforward commitments that apply to every job, large or small."
-        />
-        <ul className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
-          {commitments.map((item, index) => (
-            <li key={item.title} className="bg-white p-6 lg:p-8">
-              <span className="font-display text-sm font-semibold text-water-600 tabular-nums">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-2 text-h3">{item.title}</h3>
-              <p className="mt-2 leading-relaxed text-muted">{item.description}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <SectionHeading
+              id={headingId}
+              eyebrow={`Why ${business.name}`}
+              title="How we work"
+              intro="Straightforward commitments that apply to every job, from a single home tank to a whole building."
+            />
+            <ButtonLink href="/about" variant="secondary" className="mt-8">
+              About us
+            </ButtonLink>
+          </div>
+          <ul className="grid gap-5 sm:grid-cols-2">
+            {commitments.map((item, index) => {
+              const Icon = commitmentIcons[index % commitmentIcons.length]!;
+              return (
+                <li
+                  key={item.title}
+                  className="rounded-xl border border-line bg-white p-6 shadow-card lg:p-7"
+                >
+                  <span className="grid size-11 place-items-center rounded-lg bg-water-50 text-water-700 ring-1 ring-water-100">
+                    <Icon aria-hidden="true" className="size-5" />
+                  </span>
+                  <h3 className="mt-5 text-h3">{item.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{item.description}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const sedimentPoints = [
+  {
+    title: "It builds up gradually",
+    body: "Fine particles carried in by the supply settle on the tank floor every time it refills.",
+  },
+  {
+    title: "It can be stirred up",
+    body: "Incoming water can disturb the layer, which is one reason for cloudy water or grit at the tap.",
+  },
+  {
+    title: "It hides the tank floor",
+    body: "A thick layer makes cracks, damage and other problems harder to spot.",
+  },
+];
+
+/** Dark editorial band explaining why tank cleaning matters. */
+export function WhyItMattersSection() {
+  return (
+    <section
+      aria-labelledby="why-heading"
+      className="on-dark relative overflow-hidden surface-navy"
+    >
+      <div className="relative container-site grid items-center gap-12 section-y lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+        <div className="order-2 rounded-xl border border-white/10 bg-navy-900/60 p-4 lg:order-1">
+          <SumpDiagram tone="dark" />
+        </div>
+        <div className="order-1 lg:order-2">
+          <p className="eyebrow text-water-300">Why it matters</p>
+          <h2 id="why-heading" className="mt-3 text-h1 text-white">
+            What collects in your tank doesn’t stay there
+          </h2>
+          <p className="mt-5 text-lead text-grey-200">
+            Most homes and buildings store water in a sump and an overhead tank. Both are out of
+            sight, so sediment and build-up can go unnoticed for years.
+          </p>
+          <ul className="mt-8 space-y-5">
+            {sedimentPoints.map((point, index) => (
+              <li key={point.title} className="flex gap-4">
+                <span className="font-display text-sm font-bold text-water-300 tabular-nums">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-sans text-base font-semibold text-white">{point.title}</h3>
+                  <p className="mt-1 leading-relaxed text-grey-300">{point.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <Link
+            href="/blog/understanding-sediment-in-water-tanks"
+            className="mt-8 inline-flex items-center gap-1.5 font-semibold text-water-200 underline-offset-4 hover:text-white hover:underline"
+          >
+            Read: understanding sediment in water tanks
+            <ArrowRight aria-hidden="true" className="size-4" />
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -40,7 +40,7 @@ export function BlogSearchForm({
       </div>
       <button
         type="submit"
-        className="min-h-11 rounded-md bg-navy-950 px-4 text-sm font-semibold text-white hover:bg-navy-800"
+        className="min-h-11 rounded-md bg-water-600 px-4 text-sm font-semibold text-white hover:bg-water-700"
       >
         Search
       </button>
