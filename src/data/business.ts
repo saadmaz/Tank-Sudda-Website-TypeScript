@@ -80,7 +80,7 @@ export const business: Business = {
   email: "tanksuddaglobal@gmail.com",
   address: null,
   openingHours: [],
-  // Official profiles confirmed by the owner on 2026-10-12. Add LinkedIn here once it exists.
+  // Official profiles confirmed by the owner on 2026-10-12.
   social: {
     facebook: "https://www.facebook.com/TankSuddaa",
     instagram: "https://www.instagram.com/tanksudda",
@@ -88,6 +88,7 @@ export const business: Business = {
     youtube: "https://www.youtube.com/@TankSudda",
     x: "https://x.com/TankSudda",
     threads: "https://www.threads.net/@tanksudda",
+    linkedin: "https://www.linkedin.com/company/tanksudda",
   },
   google: { profileUrl: null, reviewUrl: null },
   foundingYear: null,

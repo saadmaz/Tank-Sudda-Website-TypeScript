@@ -13,8 +13,8 @@ were placeholders, so none of it was carried over.
 - [x] **Phone number**: +94 74 100 4296 (added 2026-10-12)
 - [x] **WhatsApp**: +94 74 100 4296 (added 2026-10-12)
 - [x] **Email address**: tanksuddaglobal@gmail.com (added 2026-10-12)
-- [x] **Social media**: Facebook, Instagram, TikTok, YouTube, X and Threads (added 2026-10-12).
-      Add a LinkedIn page to `social` in `src/data/business.ts` if one is created.
+- [x] **Social media**: Facebook, Instagram, TikTok, YouTube, X, Threads and LinkedIn (added
+      2026-10-12).
 - [ ] **Google Business Profile** → `google.profileUrl` (Maps/profile link) and `google.reviewUrl`
       (the "Ask for reviews" link) in `src/data/business.ts`. Enables the Google reviews panels on
       the homepage, contact and testimonials pages.
