@@ -29,6 +29,24 @@ export interface OpeningHours {
   closes: string; // "17:00"
 }
 
+export type SocialPlatform = "facebook" | "instagram" | "tiktok" | "youtube" | "linkedin";
+
+/** Display order for social icons. */
+export const socialPlatforms: { id: SocialPlatform; label: string }[] = [
+  { id: "facebook", label: "Facebook" },
+  { id: "instagram", label: "Instagram" },
+  { id: "tiktok", label: "TikTok" },
+  { id: "youtube", label: "YouTube" },
+  { id: "linkedin", label: "LinkedIn" },
+];
+
+export interface GoogleBusinessProfile {
+  /** Public Google Maps / Business Profile URL, where people read reviews. */
+  profileUrl: string | null;
+  /** "Ask for reviews" link from Google Business Profile (opens the review form). */
+  reviewUrl: string | null;
+}
+
 export interface Business {
   name: string;
   legalName: string | null;
@@ -40,8 +58,9 @@ export interface Business {
   email: string | null;
   address: PostalAddress | null;
   openingHours: OpeningHours[];
-  /** Public profile URLs (Facebook, Instagram, Google Business Profile, …). */
-  sameAs: string[];
+  /** Official social profile URLs. Leave a platform out until the URL is confirmed. */
+  social: Partial<Record<SocialPlatform, string>>;
+  google: GoogleBusinessProfile;
   foundingYear: number | null;
 }
 
@@ -58,10 +77,29 @@ export const business: Business = {
   email: "tanksuddaglobal@gmail.com",
   address: null,
   openingHours: [],
-  sameAs: [],
+  // Add each official profile URL once confirmed, e.g. facebook: "https://www.facebook.com/…".
+  social: {},
+  google: { profileUrl: null, reviewUrl: null },
   foundingYear: null,
 };
 
 export function hasDirectContact(b: Business = business): boolean {
   return Boolean(b.phone || b.whatsapp || b.email);
+}
+
+/** Configured social profiles, in display order. */
+export function getSocialProfiles(
+  b: Business = business,
+): { id: SocialPlatform; label: string; url: string }[] {
+  return socialPlatforms.flatMap(({ id, label }) => {
+    const url = b.social[id];
+    return url ? [{ id, label, url }] : [];
+  });
+}
+
+/** Official profile URLs for structured data (schema.org sameAs). */
+export function getProfileUrls(b: Business = business): string[] {
+  const urls = getSocialProfiles(b).map((profile) => profile.url);
+  if (b.google.profileUrl) urls.push(b.google.profileUrl);
+  return urls;
 }

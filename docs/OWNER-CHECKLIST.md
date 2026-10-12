@@ -13,6 +13,11 @@ were placeholders, so none of it was carried over.
 - [x] **Phone number**: +94 74 100 4296 (added 2026-10-12)
 - [x] **WhatsApp**: +94 74 100 4296 (added 2026-10-12)
 - [x] **Email address**: tanksuddaglobal@gmail.com (added 2026-10-12)
+- [ ] **Social media links** → `social` in `src/data/business.ts` (Facebook, Instagram, TikTok,
+      YouTube, LinkedIn). Icons appear in the top bar, footer and contact page once a URL is set.
+- [ ] **Google Business Profile** → `google.profileUrl` (Maps/profile link) and `google.reviewUrl`
+      (the "Ask for reviews" link) in `src/data/business.ts`. Enables the Google reviews panels on
+      the homepage, contact and testimonials pages.
 - [ ] **Service coverage** → mark areas `confirmed` in `src/data/areas.ts`, add towns to
       `placesCovered`, or add new areas. Draft entries exist for Colombo and Gampaha.
 - [ ] Review **service descriptions and process steps** (`src/data/services.ts`) — confirm they
@@ -31,5 +36,4 @@ were placeholders, so none of it was carried over.
 - [ ] **Prices** that can be published (`verified: true`)
 - [ ] Business **address** and **opening hours** (enables LocalBusiness structured data)
 - [ ] **Testimonials** with customer consent and source
-- [ ] Social profiles / Google Business Profile URLs → `sameAs`
 - [ ] Founding year, registration details, insurance or certifications — only if verifiable

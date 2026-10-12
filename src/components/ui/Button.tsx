@@ -16,7 +16,8 @@ const variants: Record<ButtonVariant, string> = {
   ghost: "text-water-700 hover:bg-water-50 hover:text-navy-950",
   onDark: "bg-white text-navy-950 hover:bg-water-50",
   onDarkOutline: "border border-white/35 text-white hover:border-white hover:bg-white/10",
-  whatsapp: "bg-whatsapp-700 text-white hover:bg-whatsapp-800",
+  // Official WhatsApp green; dark text keeps WCAG AA contrast (white on #25D366 fails).
+  whatsapp: "bg-whatsapp text-navy-950 hover:bg-whatsapp-hover",
 };
 
 const sizes: Record<ButtonSize, string> = {

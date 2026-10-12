@@ -5,7 +5,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Quote } from "lucide-react";
+import { GoogleReviewsPanel } from "@/components/contact/SocialLinks";
 import { SectionHeading } from "@/components/ui/primitives";
+import { business } from "@/data/business";
 import { beforeAfterPairs, gallery, type GalleryItem } from "@/data/gallery";
 import { getPublishableTestimonials, type Testimonial } from "@/data/testimonials";
 import { formatDate } from "@/lib/utils";
@@ -138,7 +140,8 @@ export function TestimonialList({ items }: { items: Testimonial[] }) {
 
 export function HomeTestimonialsSection() {
   const items = getPublishableTestimonials().slice(0, 3);
-  if (items.length === 0) return null;
+  const hasGoogle = Boolean(business.google.profileUrl || business.google.reviewUrl);
+  if (items.length === 0 && !hasGoogle) return null;
   return (
     <section aria-labelledby="testimonials-heading" className="container-site section-y">
       <SectionHeading
@@ -146,15 +149,24 @@ export function HomeTestimonialsSection() {
         eyebrow="Customer feedback"
         title="What customers say"
       />
-      <div className="mt-10">
-        <TestimonialList items={items} />
-      </div>
-      <Link
-        href="/testimonials"
-        className="mt-8 inline-flex font-semibold text-water-700 underline-offset-4 hover:underline"
-      >
-        Read more feedback
-      </Link>
+      {items.length > 0 ? (
+        <>
+          <div className="mt-10">
+            <TestimonialList items={items} />
+          </div>
+          <Link
+            href="/testimonials"
+            className="mt-8 inline-flex font-semibold text-water-700 underline-offset-4 hover:underline"
+          >
+            Read more feedback
+          </Link>
+        </>
+      ) : null}
+      {hasGoogle ? (
+        <div className="mt-10">
+          <GoogleReviewsPanel />
+        </div>
+      ) : null}
     </section>
   );
 }

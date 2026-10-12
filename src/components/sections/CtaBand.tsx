@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { getContactMethods } from "@/components/contact/ContactActions";
 import { WaterLines } from "@/components/illustrations/TechnicalIllustrations";
 import { ButtonLink } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 import { serviceEnquiryMessage } from "@/lib/whatsapp";
 
 /** Closing call to action: booking on the left, direct contact on the right. */
@@ -43,15 +44,22 @@ export function CtaBand({
               Talk to us directly
             </p>
             <ul className="space-y-2">
-              {contacts.map(({ icon: Icon, label, value, href, external }) => (
+              {contacts.map(({ icon: Icon, brandColored, label, value, href, external }) => (
                 <li key={label}>
                   <a
                     href={href}
                     {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="group flex items-center gap-4 rounded-lg bg-navy-950/60 p-4 ring-1 ring-white/10 transition-colors hover:bg-navy-900"
                   >
-                    <span className="grid size-11 shrink-0 place-items-center rounded-full bg-water-600/20 text-water-300 ring-1 ring-water-400/30">
-                      <Icon aria-hidden="true" className="size-5" />
+                    <span
+                      className={cn(
+                        "grid size-11 shrink-0 place-items-center rounded-full ring-1",
+                        brandColored
+                          ? "bg-whatsapp/15 ring-whatsapp/40"
+                          : "bg-water-600/20 text-water-300 ring-water-400/30",
+                      )}
+                    >
+                      <Icon className="size-5" />
                     </span>
                     <span className="min-w-0">
                       <span className="block text-sm text-grey-300">{label}</span>

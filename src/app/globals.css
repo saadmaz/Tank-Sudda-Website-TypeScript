@@ -42,8 +42,8 @@
   --color-warning-700: #7a4f00;
   --color-danger-50: #fdeeec;
   --color-danger-700: #a1281d;
-  --color-whatsapp-700: #13734b;
-  --color-whatsapp-800: #0f5c3c;
+  --color-whatsapp: #25d366; /* Official WhatsApp green */
+  --color-whatsapp-hover: #1ebe5b;
 
   /* Semantic aliases */
   --color-ink: var(--color-navy-950);

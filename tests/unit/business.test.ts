@@ -126,3 +126,39 @@ describe("class merging", () => {
     expect(cn("text-h1", "text-h2")).toBe("text-h2");
   });
 });
+
+describe("social and Google profiles", () => {
+  it("only lists configured profiles, in display order, and feeds structured data", async () => {
+    const { business, getProfileUrls, getSocialProfiles } = await import("@/data/business");
+    const sample = {
+      ...business,
+      social: { youtube: "https://www.youtube.com/@x", facebook: "https://www.facebook.com/x" },
+      google: { profileUrl: "https://maps.app.goo.gl/x", reviewUrl: null },
+    };
+    expect(getSocialProfiles(sample).map((p) => p.id)).toEqual(["facebook", "youtube"]);
+    expect(getProfileUrls(sample)).toEqual([
+      "https://www.facebook.com/x",
+      "https://www.youtube.com/@x",
+      "https://maps.app.goo.gl/x",
+    ]);
+  });
+
+  it("configured URLs are https links on the right platform", async () => {
+    const { business } = await import("@/data/business");
+    const hosts: Record<string, RegExp> = {
+      facebook: /(^|\.)facebook\.com$/,
+      instagram: /(^|\.)instagram\.com$/,
+      tiktok: /(^|\.)tiktok\.com$/,
+      youtube: /(^|\.)youtube\.com$/,
+      linkedin: /(^|\.)linkedin\.com$/,
+    };
+    for (const [platform, url] of Object.entries(business.social)) {
+      const parsed = new URL(url);
+      expect(parsed.protocol, platform).toBe("https:");
+      expect(parsed.hostname, platform).toMatch(hosts[platform]!);
+    }
+    for (const url of [business.google.profileUrl, business.google.reviewUrl]) {
+      if (url) expect(new URL(url).protocol).toBe("https:");
+    }
+  });
+});

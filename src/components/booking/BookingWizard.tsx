@@ -1,7 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, ArrowRight, Loader2, MessageCircle, Pencil } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2, Pencil } from "lucide-react";
+import { WhatsAppIcon } from "@/components/icons/BrandIcons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore, useTransition } from "react";
@@ -529,7 +530,7 @@ export function BookingWizard({
                   rel="noopener noreferrer"
                   className={buttonClasses("whatsapp", "lg")}
                 >
-                  <MessageCircle aria-hidden="true" />
+                  <WhatsAppIcon className="text-current" />
                   Send request on WhatsApp
                   <span className="sr-only"> (opens WhatsApp)</span>
                 </a>
@@ -542,7 +543,7 @@ export function BookingWizard({
                       rel="noopener noreferrer"
                       className={buttonClasses("whatsapp", "md")}
                     >
-                      <MessageCircle aria-hidden="true" />
+                      <WhatsAppIcon className="text-current" />
                       Send on WhatsApp instead
                       <span className="sr-only"> (opens WhatsApp)</span>
                     </a>

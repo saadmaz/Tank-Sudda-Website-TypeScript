@@ -3,8 +3,10 @@ import { ArrowUpRight } from "lucide-react";
 import { getContactMethods } from "@/components/contact/ContactActions";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { business } from "@/data/business";
+import { GoogleReviewsPanel, SocialLinks } from "@/components/contact/SocialLinks";
+import { business, getSocialProfiles } from "@/data/business";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { cn } from "@/lib/utils";
 import { isLeadDeliveryConfigured } from "@/server/notifications/channels";
 
 export const metadata = buildMetadata({
@@ -17,6 +19,8 @@ export const metadata = buildMetadata({
 export default function ContactPage() {
   const formAvailable = isLeadDeliveryConfigured() || process.env.NODE_ENV === "development";
   const methods = getContactMethods();
+  const hasSocial = getSocialProfiles().length > 0;
+  const hasGoogle = Boolean(business.google.profileUrl || business.google.reviewUrl);
   return (
     <>
       <PageHeader
@@ -41,7 +45,7 @@ export default function ContactPage() {
             Contact details
           </h2>
           <ul className="grid gap-4 md:grid-cols-3">
-            {methods.map(({ icon: Icon, label, value, href, external }) => (
+            {methods.map(({ icon: Icon, brandColored, label, value, href, external }) => (
               <li key={label}>
                 <a
                   href={href}
@@ -49,8 +53,15 @@ export default function ContactPage() {
                   className="group flex h-full flex-col rounded-xl border border-line bg-white p-6 shadow-card transition-[border-color,box-shadow] hover:border-water-300 hover:shadow-raised"
                 >
                   <span className="flex items-center justify-between">
-                    <span className="grid size-12 place-items-center rounded-lg bg-water-50 text-water-700 ring-1 ring-water-100">
-                      <Icon aria-hidden="true" className="size-5" />
+                    <span
+                      className={cn(
+                        "grid size-12 place-items-center rounded-lg ring-1",
+                        brandColored
+                          ? "bg-whatsapp/10 ring-whatsapp/30"
+                          : "bg-water-50 text-water-700 ring-water-100",
+                      )}
+                    >
+                      <Icon className="size-5" />
                     </span>
                     <ArrowUpRight
                       aria-hidden="true"
@@ -66,6 +77,23 @@ export default function ContactPage() {
               </li>
             ))}
           </ul>
+        </section>
+      ) : null}
+
+      {hasSocial || hasGoogle ? (
+        <section aria-label="Social media and reviews" className="container-site space-y-4 pt-4">
+          {hasSocial ? (
+            <div className="flex flex-col gap-4 rounded-xl border border-line bg-white p-6 shadow-card sm:flex-row sm:items-center sm:justify-between lg:px-8">
+              <div>
+                <h2 className="font-display text-lg font-bold text-navy-950">
+                  Follow {business.name}
+                </h2>
+                <p className="mt-1 text-muted">See our latest work and tank care tips.</p>
+              </div>
+              <SocialLinks />
+            </div>
+          ) : null}
+          {hasGoogle ? <GoogleReviewsPanel /> : null}
         </section>
       ) : null}
 

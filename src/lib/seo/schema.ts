@@ -4,7 +4,7 @@
  * are never emitted.
  */
 import { getPublishedAreas } from "@/data/areas";
-import { business, type Business } from "@/data/business";
+import { business, getProfileUrls, type Business } from "@/data/business";
 import type { Faq } from "@/data/faqs";
 import { describePrice, getPriceEntry, isDisplayablePrice } from "@/data/pricing";
 import type { Service } from "@/data/services";
@@ -49,7 +49,8 @@ export function organizationSchema(
   if (b.phone) schema.telephone = b.phone.e164;
   if (b.email) schema.email = b.email;
   if (b.foundingYear) schema.foundingDate = String(b.foundingYear);
-  if (b.sameAs.length > 0) schema.sameAs = b.sameAs;
+  const profiles = getProfileUrls(b);
+  if (profiles.length > 0) schema.sameAs = profiles;
   if (b.address) {
     schema.address = {
       "@type": "PostalAddress",

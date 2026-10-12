@@ -85,19 +85,20 @@ needs to return `{ id, raw }` sources (or already-parsed front matter) in place 
 
 ## Editing site data
 
-| What                                                 | File                                                 |
-| ---------------------------------------------------- | ---------------------------------------------------- |
-| Phone, WhatsApp, email, address, hours, social links | `src/data/business.ts`                               |
-| Services and their content                           | `src/data/services.ts`                               |
-| Prices (shown only when `verified: true`)            | `src/data/pricing.ts`                                |
-| Service areas (`status: "confirmed"` to publish)     | `src/data/areas.ts`                                  |
-| FAQs                                                 | `src/data/faqs.ts`                                   |
-| Testimonials (genuine, with consent)                 | `src/data/testimonials.ts`                           |
-| Gallery and before/after photos                      | `src/data/gallery.ts` + `public/images/gallery/`     |
-| Page photos (hero, about, …)                         | `src/data/images.ts` + `public/images/photos/`       |
-| Homepage process and commitments copy                | `src/data/site-content.ts`                           |
-| Navigation                                           | `src/data/navigation.ts`                             |
-| Logo                                                 | `src/components/layout/Logo.tsx`, `src/app/icon.svg` |
+| What                                             | File                                                 |
+| ------------------------------------------------ | ---------------------------------------------------- |
+| Phone, WhatsApp, email, address, hours           | `src/data/business.ts`                               |
+| Social media links and Google review links       | `src/data/business.ts` (`social`, `google`)          |
+| Services and their content                       | `src/data/services.ts`                               |
+| Prices (shown only when `verified: true`)        | `src/data/pricing.ts`                                |
+| Service areas (`status: "confirmed"` to publish) | `src/data/areas.ts`                                  |
+| FAQs                                             | `src/data/faqs.ts`                                   |
+| Testimonials (genuine, with consent)             | `src/data/testimonials.ts`                           |
+| Gallery and before/after photos                  | `src/data/gallery.ts` + `public/images/gallery/`     |
+| Page photos (hero, about, …)                     | `src/data/images.ts` + `public/images/photos/`       |
+| Homepage process and commitments copy            | `src/data/site-content.ts`                           |
+| Navigation                                       | `src/data/navigation.ts`                             |
+| Logo                                             | `src/components/layout/Logo.tsx`, `src/app/icon.svg` |
 
 ### Photos
 

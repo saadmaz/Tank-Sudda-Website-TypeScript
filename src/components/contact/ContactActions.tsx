@@ -1,7 +1,10 @@
-import { Mail, MessageCircle, Phone, type LucideIcon } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
+import type { ComponentType } from "react";
+import { WhatsAppIcon } from "@/components/icons/BrandIcons";
 import { business } from "@/data/business";
 import { ButtonAnchor, type ButtonSize, type ButtonVariant } from "@/components/ui/Button";
 import { MissingInfo } from "@/components/ui/MissingInfo";
+import { cn } from "@/lib/utils";
 import { buildWhatsAppUrl, serviceEnquiryMessage } from "@/lib/whatsapp";
 
 /**
@@ -27,7 +30,7 @@ export function WhatsAppButton({
   if (!href) return <MissingInfo what="WhatsApp number" />;
   return (
     <ButtonAnchor href={href} external variant={variant} size={size} className={className}>
-      <MessageCircle aria-hidden="true" />
+      <WhatsAppIcon className="text-current" />
       {label}
       <span className="sr-only"> (opens WhatsApp)</span>
     </ButtonAnchor>
@@ -58,7 +61,9 @@ export function PhoneButton({
 }
 
 export interface ContactMethod {
-  icon: LucideIcon;
+  icon: ComponentType<{ className?: string }>;
+  /** The icon carries its own brand colour; don't recolour it. */
+  brandColored: boolean;
   label: string;
   value: string;
   href: string;
@@ -72,6 +77,7 @@ export function getContactMethods(whatsappMessage = serviceEnquiryMessage()): Co
   if (business.phone) {
     items.push({
       icon: Phone,
+      brandColored: false,
       label: "Phone",
       value: business.phone.display,
       href: `tel:${business.phone.e164}`,
@@ -80,7 +86,8 @@ export function getContactMethods(whatsappMessage = serviceEnquiryMessage()): Co
   }
   if (business.whatsapp && whatsappUrl) {
     items.push({
-      icon: MessageCircle,
+      icon: WhatsAppIcon,
+      brandColored: true,
       label: "WhatsApp",
       value: business.whatsapp.display,
       href: whatsappUrl,
@@ -90,6 +97,7 @@ export function getContactMethods(whatsappMessage = serviceEnquiryMessage()): Co
   if (business.email) {
     items.push({
       icon: Mail,
+      brandColored: false,
       label: "Email",
       value: business.email,
       href: `mailto:${business.email}`,
@@ -108,11 +116,10 @@ export function ContactMethodList({ tone = "light" }: { tone?: "light" | "dark" 
   const dark = tone === "dark";
   return (
     <ul className="space-y-3">
-      {items.map(({ icon: Icon, label, value, href, external }) => (
+      {items.map(({ icon: Icon, brandColored, label, value, href, external }) => (
         <li key={label} className="flex items-center gap-3">
           <Icon
-            aria-hidden="true"
-            className={dark ? "size-5 text-water-300" : "size-5 text-water-600"}
+            className={cn("size-5", !brandColored && (dark ? "text-water-300" : "text-water-600"))}
           />
           <span className="sr-only">{label}: </span>
           <a

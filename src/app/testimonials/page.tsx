@@ -1,6 +1,8 @@
 import { PageHeader } from "@/components/layout/PageHeader";
+import { GoogleReviewsPanel } from "@/components/contact/SocialLinks";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { TestimonialList } from "@/components/sections/ProofSections";
+import { business } from "@/data/business";
 import { getPublishableTestimonials } from "@/data/testimonials";
 import { buildMetadata } from "@/lib/seo/metadata";
 
@@ -24,6 +26,11 @@ export default function TestimonialsPage() {
         intro="We only publish genuine feedback from real customers, with their permission. Each entry shows where and when it was given."
       />
       <section aria-label="Testimonials" className="container-site section-y">
+        {business.google.profileUrl || business.google.reviewUrl ? (
+          <div className="mb-10">
+            <GoogleReviewsPanel />
+          </div>
+        ) : null}
         {items.length > 0 ? (
           <TestimonialList items={items} />
         ) : (

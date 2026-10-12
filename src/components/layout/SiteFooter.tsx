@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { business } from "@/data/business";
+import { business, getSocialProfiles } from "@/data/business";
 import { footerNav, legalNav } from "@/data/navigation";
 import { ContactMethodList } from "@/components/contact/ContactActions";
+import { SocialLinks } from "@/components/contact/SocialLinks";
 import { WaterLines } from "@/components/illustrations/TechnicalIllustrations";
 import { Logo } from "./Logo";
 
@@ -16,6 +17,16 @@ export function SiteFooter() {
             <Logo tone="light" />
             <p className="text-sm leading-relaxed text-grey-300">{business.description}</p>
             <ContactMethodList tone="dark" />
+            {getSocialProfiles().length > 0 ? (
+              <div className="pt-2">
+                <p className="mb-3 text-xs font-semibold tracking-[0.12em] text-white uppercase">
+                  Follow us
+                </p>
+                <SocialLinks tone="dark" />
+              </div>
+            ) : (
+              <SocialLinks tone="dark" />
+            )}
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             {footerNav.map((group) => (
