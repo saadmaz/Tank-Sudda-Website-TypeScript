@@ -1,4 +1,6 @@
+import { business } from "@/data/business";
 import { primaryNav } from "@/data/navigation";
+import { buildWhatsAppUrl, serviceEnquiryMessage } from "@/lib/whatsapp";
 import { ButtonLink } from "@/components/ui/Button";
 import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
@@ -17,10 +19,15 @@ export function SiteHeader() {
           />
         </nav>
         <div className="flex items-center gap-2">
-          <ButtonLink href="/book" size="sm" className="hidden min-h-11 px-5 sm:inline-flex">
-            Book a cleaning
+          <ButtonLink href="/book" size="sm" className="min-h-11 px-4 sm:px-5">
+            <span className="sm:hidden">Book</span>
+            <span className="hidden sm:inline">Book a cleaning</span>
           </ButtonLink>
-          <MobileNav links={primaryNav} />
+          <MobileNav
+            links={primaryNav}
+            phoneHref={business.phone ? `tel:${business.phone.e164}` : null}
+            whatsappHref={buildWhatsAppUrl(business.whatsapp, serviceEnquiryMessage())}
+          />
         </div>
       </div>
     </header>

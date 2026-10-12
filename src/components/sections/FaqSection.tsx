@@ -23,7 +23,7 @@ export function FaqSection({
           {showAllLink ? (
             <Link
               href="/faq"
-              className="mt-6 inline-flex font-semibold text-water-700 underline-offset-4 hover:underline"
+              className="mt-4 inline-flex min-h-11 items-center font-semibold text-water-700 underline-offset-4 hover:underline"
             >
               See all questions
             </Link>

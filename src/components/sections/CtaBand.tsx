@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { getContactMethods } from "@/components/contact/ContactActions";
+import { BreakableValue, getContactMethods } from "@/components/contact/ContactActions";
 import { WaterLines } from "@/components/illustrations/TechnicalIllustrations";
 import { ButtonLink } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
@@ -23,12 +23,12 @@ export function CtaBand({
     >
       <WaterLines className="absolute inset-x-0 bottom-0 h-24 text-water-500/40" />
       <div className="relative container-site grid items-center gap-10 py-16 lg:grid-cols-[1.2fr_1fr] lg:py-24">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl min-w-0">
           <h2 id="cta-heading" className="text-h1 text-white">
             {title}
           </h2>
           <p className="mt-5 text-lead text-grey-200">{body}</p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <ButtonLink href="/book" variant="onDark" size="lg">
               Request a booking
               <ArrowRight aria-hidden="true" />
@@ -39,7 +39,7 @@ export function CtaBand({
           </div>
         </div>
         {contacts.length > 0 ? (
-          <div className="rounded-xl border border-white/10 bg-white/5 p-2 backdrop-blur-sm">
+          <div className="min-w-0 rounded-xl border border-white/10 bg-white/5 p-2 backdrop-blur-sm">
             <p className="px-4 pt-3 pb-2 text-xs font-semibold tracking-[0.12em] text-water-200 uppercase">
               Talk to us directly
             </p>
@@ -63,8 +63,8 @@ export function CtaBand({
                     </span>
                     <span className="min-w-0">
                       <span className="block text-sm text-grey-300">{label}</span>
-                      <span className="block truncate font-display text-lg font-bold text-white group-hover:text-water-200">
-                        {value}
+                      <span className="block font-display text-base font-bold break-words text-white group-hover:text-water-200 sm:text-lg">
+                        <BreakableValue value={value} />
                       </span>
                     </span>
                     {external ? <span className="sr-only"> (opens in a new tab)</span> : null}

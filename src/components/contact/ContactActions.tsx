@@ -115,7 +115,7 @@ export function ContactMethodList({ tone = "light" }: { tone?: "light" | "dark" 
   }
   const dark = tone === "dark";
   return (
-    <ul className="space-y-3">
+    <ul className="space-y-1">
       {items.map(({ icon: Icon, brandColored, label, value, href, external }) => (
         <li key={label} className="flex items-center gap-3">
           <Icon
@@ -127,8 +127,8 @@ export function ContactMethodList({ tone = "light" }: { tone?: "light" | "dark" 
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             className={
               dark
-                ? "text-white underline-offset-4 hover:underline"
-                : "font-medium text-navy-950 underline-offset-4 hover:underline"
+                ? "inline-flex min-h-11 items-center text-white underline-offset-4 hover:underline"
+                : "inline-flex min-h-11 items-center font-medium text-navy-950 underline-offset-4 hover:underline"
             }
           >
             {value}
@@ -136,5 +136,21 @@ export function ContactMethodList({ tone = "light" }: { tone?: "light" | "dark" 
         </li>
       ))}
     </ul>
+  );
+}
+
+/**
+ * Contact value with a preferred line-break point after "@" so a long email
+ * address wraps as "name@ / domain" on narrow screens instead of mid-word.
+ */
+export function BreakableValue({ value }: { value: string }) {
+  const at = value.indexOf("@");
+  if (at === -1) return <>{value}</>;
+  return (
+    <>
+      {value.slice(0, at + 1)}
+      <wbr />
+      {value.slice(at + 1)}
+    </>
   );
 }

@@ -52,7 +52,7 @@ export default function PricingPage() {
                   <h3 className="text-h3">
                     <Link
                       href={`/services/${service.slug}`}
-                      className="hover:text-water-700 hover:underline hover:underline-offset-4"
+                      className="inline-flex min-h-11 items-center hover:text-water-700 hover:underline hover:underline-offset-4"
                     >
                       {service.name}
                     </Link>

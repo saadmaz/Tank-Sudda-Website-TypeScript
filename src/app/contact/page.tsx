@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { getContactMethods } from "@/components/contact/ContactActions";
+import { BreakableValue, getContactMethods } from "@/components/contact/ContactActions";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { GoogleReviewsPanel, SocialLinks } from "@/components/contact/SocialLinks";
@@ -44,34 +44,34 @@ export default function ContactPage() {
           <h2 id="direct-heading" className="sr-only">
             Contact details
           </h2>
-          <ul className="grid gap-4 md:grid-cols-3">
+          <ul className="grid gap-3 md:grid-cols-3 md:gap-4">
             {methods.map(({ icon: Icon, brandColored, label, value, href, external }) => (
               <li key={label}>
                 <a
                   href={href}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="group flex h-full flex-col rounded-xl border border-line bg-white p-6 shadow-card transition-[border-color,box-shadow] hover:border-water-300 hover:shadow-raised"
+                  className="group grid h-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 rounded-xl border border-line bg-white p-4 shadow-card transition-[border-color,box-shadow] hover:border-water-300 hover:shadow-raised sm:p-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-x-4 md:gap-y-6 md:p-6"
                 >
-                  <span className="flex items-center justify-between">
-                    <span
-                      className={cn(
-                        "grid size-12 place-items-center rounded-lg ring-1",
-                        brandColored
-                          ? "bg-whatsapp/10 ring-whatsapp/30"
-                          : "bg-water-50 text-water-700 ring-water-100",
-                      )}
-                    >
-                      <Icon className="size-5" />
+                  <span
+                    className={cn(
+                      "grid size-12 place-items-center rounded-lg ring-1 md:col-start-1 md:row-start-1",
+                      brandColored
+                        ? "bg-whatsapp/10 ring-whatsapp/30"
+                        : "bg-water-50 text-water-700 ring-water-100",
+                    )}
+                  >
+                    <Icon className="size-5" />
+                  </span>
+                  <span className="flex min-w-0 flex-col md:col-span-2 md:row-start-2">
+                    <span className="text-sm font-medium text-muted">{label}</span>
+                    <span className="mt-0.5 font-display text-lg font-bold break-words text-navy-950 group-hover:text-water-700 md:mt-1 md:text-xl">
+                      <BreakableValue value={value} />
                     </span>
-                    <ArrowUpRight
-                      aria-hidden="true"
-                      className="size-5 text-grey-400 transition-colors group-hover:text-water-600"
-                    />
                   </span>
-                  <span className="mt-6 text-sm font-medium text-muted">{label}</span>
-                  <span className="mt-1 font-display text-xl font-bold break-all text-navy-950 group-hover:text-water-700">
-                    {value}
-                  </span>
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="size-5 text-grey-400 transition-colors group-hover:text-water-600 md:col-start-2 md:row-start-1"
+                  />
                   {external ? <span className="sr-only"> (opens in a new tab)</span> : null}
                 </a>
               </li>
@@ -83,7 +83,7 @@ export default function ContactPage() {
       {hasSocial || hasGoogle ? (
         <section aria-label="Social media and reviews" className="container-site space-y-4 pt-4">
           {hasSocial ? (
-            <div className="flex flex-col gap-4 rounded-xl border border-line bg-white p-6 shadow-card sm:flex-row sm:items-center sm:justify-between lg:px-8">
+            <div className="grid gap-5 rounded-xl border border-line bg-white p-6 shadow-card lg:grid-cols-[1fr_23rem] lg:items-center lg:px-8">
               <div>
                 <h2 className="font-display text-lg font-bold text-navy-950">
                   Follow {business.name}
@@ -118,7 +118,7 @@ export default function ContactPage() {
             </p>
             <Link
               href="/book"
-              className="mt-8 inline-flex min-h-12 items-center rounded-md bg-water-600 px-6 font-semibold text-white hover:bg-water-700"
+              className="mt-8 inline-flex min-h-12 w-full items-center justify-center rounded-md bg-water-600 px-6 font-semibold text-white hover:bg-water-700 sm:w-auto"
             >
               Request a booking
             </Link>

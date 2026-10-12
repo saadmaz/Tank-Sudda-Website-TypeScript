@@ -74,28 +74,37 @@ export default async function ArticlePage({ params }: PageProps<"/blog/[slug]">)
                   This article is a draft and is only visible in development.
                 </Notice>
               ) : null}
-              <Link href={`/blog/category/${article.category}`} className="eyebrow hover:underline">
+              <Link
+                href={`/blog/category/${article.category}`}
+                className="inline-flex min-h-11 items-center eyebrow hover:underline"
+              >
                 {article.categoryName}
               </Link>
               <h1 className="mt-3 text-h1">{article.title}</h1>
               <p className="mt-5 text-lead text-muted">{article.description}</p>
               <p className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
                 <span>{article.authorName}</span>
-                <span aria-hidden="true">·</span>
+                <span aria-hidden="true" className="hidden sm:inline">
+                  ·
+                </span>
                 <span>
                   Published{" "}
                   <time dateTime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
                 </span>
                 {article.updatedAt && article.updatedAt !== article.publishedAt ? (
                   <>
-                    <span aria-hidden="true">·</span>
+                    <span aria-hidden="true" className="hidden sm:inline">
+                      ·
+                    </span>
                     <span>
                       Updated{" "}
                       <time dateTime={article.updatedAt}>{formatDate(article.updatedAt)}</time>
                     </span>
                   </>
                 ) : null}
-                <span aria-hidden="true">·</span>
+                <span aria-hidden="true" className="hidden sm:inline">
+                  ·
+                </span>
                 <span className="inline-flex items-center gap-1">
                   <Clock aria-hidden="true" className="size-3.5" />
                   {article.readingTimeMinutes} min read
@@ -122,7 +131,7 @@ export default async function ArticlePage({ params }: PageProps<"/blog/[slug]">)
         <div className="container-site grid gap-12 section-y lg:grid-cols-[1fr_18rem] lg:gap-16">
           <div className="min-w-0">
             <div className="lg:hidden">
-              <TableOfContents headings={article.headings} />
+              <TableOfContents headings={article.headings} collapsible />
             </div>
             <div className="prose-article prose mt-8 max-w-[44rem] lg:prose-lg lg:mt-0">
               {content}
@@ -132,7 +141,11 @@ export default async function ArticlePage({ params }: PageProps<"/blog/[slug]">)
               <div className="mt-12 flex flex-wrap items-center gap-2 border-t border-line pt-6">
                 <span className="text-sm font-semibold text-navy-950">Tags:</span>
                 {article.tags.map((tag) => (
-                  <Link key={tag} href={`/blog/tag/${tag}`} className="hover:opacity-80">
+                  <Link
+                    key={tag}
+                    href={`/blog/tag/${tag}`}
+                    className="inline-flex min-h-11 items-center hover:opacity-80"
+                  >
                     <Badge tone="water">{tagLabel(tag)}</Badge>
                   </Link>
                 ))}
@@ -157,7 +170,7 @@ export default async function ArticlePage({ params }: PageProps<"/blog/[slug]">)
                     <li key={service.slug}>
                       <Link
                         href={`/services/${service.slug}`}
-                        className="inline-flex min-h-10 items-center font-medium text-water-700 underline-offset-4 hover:underline"
+                        className="inline-flex min-h-11 items-center font-medium text-water-700 underline-offset-4 hover:underline"
                       >
                         {service.name}
                       </Link>

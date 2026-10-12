@@ -48,7 +48,7 @@ export default function HomePage() {
           />
           <Link
             href="/services"
-            className="inline-flex items-center gap-1.5 font-semibold text-water-700 underline-offset-4 hover:underline"
+            className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-water-700 underline-offset-4 hover:underline"
           >
             Compare all services
             <ArrowRight aria-hidden="true" className="size-4" />
@@ -92,7 +92,7 @@ export default function HomePage() {
               />
               <Link
                 href="/guides"
-                className="font-semibold text-water-700 underline-offset-4 hover:underline"
+                className="inline-flex min-h-11 items-center font-semibold text-water-700 underline-offset-4 hover:underline"
               >
                 Browse all guides
               </Link>

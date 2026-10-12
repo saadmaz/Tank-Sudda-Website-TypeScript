@@ -8,7 +8,7 @@ export type ButtonVariant =
 export type ButtonSize = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-md font-semibold whitespace-nowrap transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60 [&_svg]:size-[1.1em] [&_svg]:shrink-0";
+  "inline-flex items-center justify-center gap-2 rounded-md text-center leading-tight font-semibold transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60 [&_svg]:size-[1.1em] [&_svg]:shrink-0";
 
 const variants: Record<ButtonVariant, string> = {
   primary: "bg-water-600 text-white hover:bg-water-700 active:bg-water-800",
@@ -21,9 +21,9 @@ const variants: Record<ButtonVariant, string> = {
 };
 
 const sizes: Record<ButtonSize, string> = {
-  sm: "min-h-9 px-3.5 text-sm",
-  md: "min-h-11 px-5 text-[0.9375rem]",
-  lg: "min-h-12 px-6 text-base",
+  sm: "min-h-11 px-4 py-2 text-sm",
+  md: "min-h-11 px-5 py-2.5 text-[0.9375rem]",
+  lg: "min-h-12 px-6 py-3 text-base",
 };
 
 export function buttonClasses(

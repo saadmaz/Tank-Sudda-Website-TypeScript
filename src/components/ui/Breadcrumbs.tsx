@@ -39,7 +39,7 @@ export function Breadcrumbs({
                   <Link
                     href={item.path as Route}
                     className={cn(
-                      "underline-offset-4 hover:underline",
+                      "inline-flex min-h-8 items-center underline-offset-4 hover:underline",
                       dark ? "text-water-200" : "text-water-700",
                     )}
                   >

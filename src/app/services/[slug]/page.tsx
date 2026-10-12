@@ -186,7 +186,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
                   <li key={related.slug}>
                     <Link
                       href={`/services/${related.slug}`}
-                      className="inline-flex min-h-10 items-center gap-1 font-medium text-water-700 underline-offset-4 hover:underline"
+                      className="inline-flex min-h-11 items-center gap-1 font-medium text-water-700 underline-offset-4 hover:underline"
                     >
                       {related.name}
                     </Link>

@@ -34,12 +34,12 @@ export function SiteFooter() {
                 <h2 className="mb-4 font-sans text-xs font-semibold tracking-[0.12em] text-white uppercase">
                   {group.title}
                 </h2>
-                <ul className="space-y-1">
+                <ul>
                   {group.links.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="inline-flex min-h-9 items-center text-sm text-grey-300 hover:text-white hover:underline hover:underline-offset-4"
+                        className="inline-flex min-h-11 items-center text-sm text-grey-300 hover:text-white hover:underline hover:underline-offset-4"
                       >
                         {link.label}
                       </Link>
@@ -60,7 +60,7 @@ export function SiteFooter() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="inline-flex min-h-9 items-center hover:text-white hover:underline hover:underline-offset-4"
+                    className="inline-flex min-h-11 items-center hover:text-white hover:underline hover:underline-offset-4"
                   >
                     {link.label}
                   </Link>

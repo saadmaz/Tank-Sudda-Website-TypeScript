@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Route } from "next";
-import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { blogCategories, type BlogCategoryKey } from "@/data/blog";
 import type { TocHeading } from "@/lib/content/articles";
 import { absoluteUrl } from "@/lib/site";
@@ -55,7 +55,7 @@ export function CategoryNav({ active }: { active?: BlogCategoryKey | "all" }) {
   ][];
   const linkClass = (isActive: boolean) =>
     cn(
-      "inline-flex min-h-10 items-center rounded-md border px-3.5 text-sm font-medium",
+      "inline-flex min-h-11 items-center rounded-md border px-3.5 text-sm font-medium",
       isActive
         ? "border-navy-950 bg-navy-950 text-white"
         : "border-line bg-white text-navy-950 hover:border-water-500 hover:text-water-700",
@@ -128,28 +128,60 @@ export function Pagination({ page, totalPages }: { page: number; totalPages: num
   );
 }
 
-export function TableOfContents({ headings }: { headings: TocHeading[] }) {
+/**
+ * Article table of contents. The collapsible variant (used on small screens)
+ * starts closed so readers reach the article without scrolling past the list.
+ */
+export function TableOfContents({
+  headings,
+  collapsible = false,
+}: {
+  headings: TocHeading[];
+  collapsible?: boolean;
+}) {
   if (headings.length < 3) return null;
+  const list = (
+    <ol className="space-y-0.5 text-[0.9375rem]">
+      {headings.map((heading) => (
+        <li key={heading.id} className={heading.depth === 3 ? "pl-4" : undefined}>
+          <a
+            href={`#${heading.id}`}
+            className="inline-block py-1.5 text-navy-900 underline-offset-4 hover:text-water-700 hover:underline"
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ol>
+  );
+  const label = "font-sans text-sm font-semibold tracking-[0.12em] text-muted uppercase";
+  if (collapsible) {
+    return (
+      <details className="group rounded-lg border border-line bg-mist">
+        <summary
+          className={cn(
+            label,
+            "flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 [&::-webkit-details-marker]:hidden",
+          )}
+        >
+          On this page
+          <ChevronDown
+            aria-hidden="true"
+            className="size-4 text-water-600 transition-transform group-open:rotate-180"
+          />
+        </summary>
+        <nav aria-label="On this page" className="px-5 pb-4">
+          {list}
+        </nav>
+      </details>
+    );
+  }
   return (
-    <nav aria-labelledby="toc-heading" className="rounded-lg border border-line bg-mist p-5">
-      <h2
-        id="toc-heading"
-        className="font-sans text-sm font-semibold tracking-[0.12em] text-muted uppercase"
-      >
+    <nav aria-label="On this page" className="rounded-lg border border-line bg-mist p-5">
+      <p className={label} aria-hidden="true">
         On this page
-      </h2>
-      <ol className="mt-3 space-y-1.5 text-[0.9375rem]">
-        {headings.map((heading) => (
-          <li key={heading.id} className={heading.depth === 3 ? "pl-4" : undefined}>
-            <a
-              href={`#${heading.id}`}
-              className="text-navy-900 underline-offset-4 hover:text-water-700 hover:underline"
-            >
-              {heading.text}
-            </a>
-          </li>
-        ))}
-      </ol>
+      </p>
+      <div className="mt-2">{list}</div>
     </nav>
   );
 }
@@ -178,7 +210,7 @@ export function ShareLinks({ path, title }: { path: string; title: string }) {
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-9 items-center rounded-md border border-line px-3 hover:border-water-500 hover:text-water-700"
+          className="inline-flex min-h-11 items-center rounded-md border border-line px-3 hover:border-water-500 hover:text-water-700"
         >
           {link.label}
           <span className="sr-only"> (opens in a new tab)</span>

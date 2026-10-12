@@ -39,7 +39,7 @@ export function ServiceCard({
           </Link>
         </Heading>
         <p className="mt-2.5 leading-relaxed text-muted">{service.summary}</p>
-        <ul className="mt-4 space-y-1.5 text-sm text-body">
+        <ul className="mt-4 mb-6 space-y-1.5 text-sm text-body">
           {service.suitableFor.slice(0, 2).map((item) => (
             <li key={item} className="flex gap-2">
               <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-water-600" />
@@ -47,9 +47,9 @@ export function ServiceCard({
             </li>
           ))}
         </ul>
-        <div className="mt-auto flex items-center justify-between gap-4 pt-6 text-sm">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-line pt-5 text-sm">
           <span className="text-muted">{describePrice(getPriceEntry(service.slug))}</span>
-          <span className="inline-flex items-center gap-1.5 font-semibold text-water-700">
+          <span className="inline-flex items-center gap-1.5 font-semibold whitespace-nowrap text-water-700">
             View service
             <ArrowRight
               aria-hidden="true"

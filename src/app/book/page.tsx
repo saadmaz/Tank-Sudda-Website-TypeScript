@@ -44,7 +44,7 @@ export default function BookPage() {
           <SlotImage
             slot="bookingAside"
             fallback={<TankCrossSection annotated={false} />}
-            className="rounded-lg border border-line bg-mist p-6"
+            className="hidden rounded-lg border border-line bg-mist p-6 lg:block"
           />
           <div className="rounded-lg border border-line p-5 text-[0.9375rem] leading-relaxed">
             <h2 className="font-sans text-sm font-semibold tracking-[0.12em] text-muted uppercase">

@@ -100,7 +100,7 @@ export function WhyItMattersSection() {
           </ul>
           <Link
             href="/blog/understanding-sediment-in-water-tanks"
-            className="mt-8 inline-flex items-center gap-1.5 font-semibold text-water-200 underline-offset-4 hover:text-white hover:underline"
+            className="mt-6 inline-flex min-h-11 items-center gap-1.5 font-semibold text-water-200 underline-offset-4 hover:text-white hover:underline"
           >
             Read: understanding sediment in water tanks
             <ArrowRight aria-hidden="true" className="size-4" />
@@ -146,7 +146,7 @@ export function AreasTeaser() {
           ) : null}
           <Link
             href="/areas"
-            className="mt-6 inline-flex items-center gap-1 font-semibold text-water-700 underline-offset-4 hover:underline"
+            className="mt-4 inline-flex min-h-11 items-center gap-1 font-semibold text-water-700 underline-offset-4 hover:underline"
           >
             About our service coverage
             <ArrowRight aria-hidden="true" className="size-4" />
@@ -168,7 +168,7 @@ export function PricingTeaser() {
             title="A clear quotation before any work starts"
             intro="Every tank is different, so we quote based on your tank rather than a one-size price. You will know the cost before you agree to anything."
           />
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <ButtonLink href="/book">Request a quotation</ButtonLink>
             <ButtonLink href="/pricing" variant="secondary">
               How pricing works

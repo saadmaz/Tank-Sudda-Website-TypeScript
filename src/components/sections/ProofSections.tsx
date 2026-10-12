@@ -74,7 +74,7 @@ export function HomeGallerySection() {
       </div>
       <Link
         href="/gallery"
-        className="mt-8 inline-flex font-semibold text-water-700 underline-offset-4 hover:underline"
+        className="mt-6 inline-flex min-h-11 items-center font-semibold text-water-700 underline-offset-4 hover:underline"
       >
         View the gallery
       </Link>
@@ -156,7 +156,7 @@ export function HomeTestimonialsSection() {
           </div>
           <Link
             href="/testimonials"
-            className="mt-8 inline-flex font-semibold text-water-700 underline-offset-4 hover:underline"
+            className="mt-6 inline-flex min-h-11 items-center font-semibold text-water-700 underline-offset-4 hover:underline"
           >
             Read more feedback
           </Link>

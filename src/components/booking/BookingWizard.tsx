@@ -482,7 +482,7 @@ export function BookingWizard({
                       <button
                         type="button"
                         onClick={() => goTo(steps.indexOf(item))}
-                        className="inline-flex min-h-10 items-center gap-1.5 rounded-md px-2 text-sm font-semibold text-water-700 hover:bg-water-50"
+                        className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-semibold text-water-700 hover:bg-water-50"
                       >
                         <Pencil aria-hidden="true" className="size-4" />
                         Edit<span className="sr-only"> {item.title}</span>
@@ -518,17 +518,15 @@ export function BookingWizard({
               <ArrowLeft aria-hidden="true" />
               Back
             </Button>
-          ) : (
-            <span />
-          )}
+          ) : null}
           {isReview ? (
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-1 flex-wrap items-center justify-end gap-3 sm:ml-auto sm:flex-none">
               {viaWhatsApp ? (
                 <a
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={buttonClasses("whatsapp", "lg")}
+                  className={buttonClasses("whatsapp", "lg", "w-full sm:w-auto")}
                 >
                   <WhatsAppIcon className="text-current" />
                   Send request on WhatsApp
@@ -561,7 +559,7 @@ export function BookingWizard({
               )}
             </div>
           ) : (
-            <Button onClick={next} size="lg">
+            <Button onClick={next} size="lg" className="flex-1 sm:ml-auto sm:flex-none">
               Continue
               <ArrowRight aria-hidden="true" />
             </Button>

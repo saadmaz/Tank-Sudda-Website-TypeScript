@@ -28,7 +28,7 @@ export default function NotFound() {
             <li key={href}>
               <Link
                 href={href}
-                className="font-medium text-water-700 underline underline-offset-4 hover:text-navy-950"
+                className="inline-flex min-h-11 items-center font-medium text-water-700 underline underline-offset-4 hover:text-navy-950"
               >
                 {label}
               </Link>

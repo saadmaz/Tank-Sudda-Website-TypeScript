@@ -49,8 +49,40 @@ export default function ServicesPage() {
             title="Which service is right for you?"
             intro="A quick comparison. Final recommendations are made after we understand your tank."
           />
-          <div className="mt-10 overflow-x-auto rounded-lg border border-line bg-white">
-            <table className="w-full min-w-[44rem] text-left text-[0.9375rem]">
+          {/* Small screens: stacked cards instead of a sideways-scrolling table. */}
+          <ul className="mt-10 space-y-3 md:hidden">
+            {services.map((service) => (
+              <li
+                key={service.slug}
+                className="rounded-xl border border-line bg-white p-5 shadow-card"
+              >
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="inline-flex min-h-11 items-center font-display text-lg font-bold text-navy-950 hover:text-water-700"
+                >
+                  {service.name}
+                </Link>
+                <dl className="mt-2 space-y-2 text-[0.9375rem]">
+                  <div>
+                    <dt className="text-xs font-semibold tracking-[0.12em] text-muted uppercase">
+                      Best for
+                    </dt>
+                    <dd className="mt-0.5 text-body">{service.suitableFor[0]}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs font-semibold tracking-[0.12em] text-muted uppercase">
+                      Price
+                    </dt>
+                    <dd className="mt-0.5 text-body">
+                      {describePrice(getPriceEntry(service.slug))}
+                    </dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 hidden overflow-x-auto rounded-lg border border-line bg-white md:block">
+            <table className="w-full min-w-[40rem] text-left text-[0.9375rem]">
               <caption className="sr-only">Comparison of Tank Sudda services</caption>
               <thead className="border-b border-line bg-grey-50 text-sm text-navy-950">
                 <tr>
@@ -71,7 +103,7 @@ export default function ServicesPage() {
                     <th scope="row" className="p-4 font-semibold text-navy-950">
                       <Link
                         href={`/services/${service.slug}`}
-                        className="text-water-700 underline-offset-4 hover:underline"
+                        className="inline-flex min-h-11 items-center text-water-700 underline-offset-4 hover:underline"
                       >
                         {service.name}
                       </Link>

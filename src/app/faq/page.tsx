@@ -21,7 +21,7 @@ export default function FaqPage() {
         breadcrumbs={[{ name: "FAQ", path: "/faq" }]}
         eyebrow="FAQ"
         title="Frequently asked questions"
-        intro="Can’t find what you need? Ask us through the contact form and we will get back to you."
+        intro="Can’t find what you need? Call, WhatsApp or email us and we will get back to you."
       />
       <div className="container-site grid gap-12 section-y lg:grid-cols-[14rem_1fr]">
         <nav aria-label="FAQ topics" className="lg:sticky lg:top-24 lg:self-start">
@@ -30,7 +30,7 @@ export default function FaqPage() {
               <li key={category}>
                 <a
                   href={`#${category}`}
-                  className="inline-flex min-h-10 items-center rounded-md border border-line px-3 text-sm font-medium text-navy-950 hover:border-water-500 lg:border-0 lg:px-0 lg:hover:text-water-700"
+                  className="inline-flex min-h-11 items-center rounded-md border border-line px-3 text-sm font-medium text-navy-950 hover:border-water-500 lg:border-0 lg:px-0 lg:hover:text-water-700"
                 >
                   {faqCategories[category]}
                 </a>

@@ -122,6 +122,9 @@ test.describe("indexing without a configured domain", () => {
 test.describe("blog", () => {
   test("article has a working table of contents and related services", async ({ page }) => {
     await page.goto("/blog/how-often-should-you-clean-your-water-tank");
+    // On small screens the contents start collapsed; open them first.
+    const summary = page.locator("summary", { hasText: "On this page" });
+    if (await summary.isVisible()) await summary.click();
     const toc = page.getByRole("navigation", { name: "On this page" }).filter({ visible: true });
     const links = toc.getByRole("link");
     expect(await links.count()).toBeGreaterThanOrEqual(3);

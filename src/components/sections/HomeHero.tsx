@@ -84,7 +84,7 @@ export function HomeHero() {
           {business.phone ? (
             <a
               href={`tel:${business.phone.e164}`}
-              className="group mt-6 inline-flex items-center gap-3 text-grey-300 hover:text-white"
+              className="group mt-5 inline-flex min-h-11 items-center gap-3 text-grey-300 hover:text-white"
             >
               <span className="grid size-9 place-items-center rounded-full ring-1 ring-white/20 transition-colors group-hover:ring-water-300">
                 <Phone aria-hidden="true" className="size-4 text-water-300" />
@@ -99,7 +99,7 @@ export function HomeHero() {
           ) : null}
         </div>
 
-        <div className="relative mx-auto w-full max-w-md lg:max-w-lg">
+        <div className="relative mx-auto w-full max-w-[17rem] sm:max-w-md lg:max-w-lg">
           <div
             aria-hidden="true"
             className="absolute inset-[12%] rounded-full bg-water-500/25 blur-3xl"
