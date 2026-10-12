@@ -440,7 +440,7 @@ export const ta: Dictionary = {
   },
 
   chrome: {
-    tagline: "இலங்கையில் தண்ணீர் தொட்டி மற்றும் சம்ப் சுத்தம்",
+    tagline: "அனைவருக்கும் சுத்தமான தண்ணீர்.",
     contactDetails: "தொடர்பு விவரங்கள்",
     mainNav: "முதன்மை",
     mobileNav: "கைபேசி",

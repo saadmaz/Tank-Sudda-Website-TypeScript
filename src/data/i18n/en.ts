@@ -138,7 +138,7 @@ export const en = {
   },
 
   chrome: {
-    tagline: "Water tank & sump cleaning in Sri Lanka",
+    tagline: "Clean water for anyone and everyone.",
     contactDetails: "Contact details",
     mainNav: "Main",
     mobileNav: "Mobile",

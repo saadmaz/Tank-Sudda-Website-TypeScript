@@ -434,7 +434,7 @@ export const si: Dictionary = {
   },
 
   chrome: {
-    tagline: "ශ්‍රී ලංකාවේ ජල ටැංකි සහ සම්ප් පිරිසිදු කිරීම",
+    tagline: "සැමට පිරිසිදු ජලය.",
     contactDetails: "සම්බන්ධතා විස්තර",
     mainNav: "ප්‍රධාන",
     mobileNav: "ජංගම",
