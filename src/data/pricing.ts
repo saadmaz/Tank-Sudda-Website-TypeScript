@@ -43,7 +43,7 @@ export const pricing: PriceEntry[] = [
     amountLkr: null,
     unit: null,
     verified: false,
-    notes: "Quoted after a site assessment.",
+    notes: null,
   },
 ];
 

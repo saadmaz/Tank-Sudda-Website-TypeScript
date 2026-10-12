@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { CtaBand } from "@/components/sections/CtaBand";
+import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { ButtonLink } from "@/components/ui/Button";
 import { Notice, SectionHeading } from "@/components/ui/primitives";
 import { describePrice, getPriceEntry, isDisplayablePrice, pricingFactors } from "@/data/pricing";
@@ -13,6 +14,23 @@ export const metadata = buildMetadata({
     "How Tank Sudda prices water tank and sump cleaning in Sri Lanka: what affects the cost, how quotations work, and how to request one.",
   path: "/pricing",
 });
+
+const quotationSteps = [
+  {
+    title: "Send your details",
+    description: "Use the booking form to describe your property, tanks and preferred timing.",
+  },
+  {
+    title: "Receive a quotation",
+    description:
+      "We review the details and contact you with a quotation, or arrange a site assessment for larger jobs.",
+  },
+  {
+    title: "Confirm the booking",
+    description:
+      "Once you accept the quotation, we agree a date. Your booking is only confirmed at this point.",
+  },
+];
 
 export default function PricingPage() {
   const anyPublishedPrice = services.some((service) =>
@@ -89,32 +107,7 @@ export default function PricingPage() {
       <section aria-labelledby="quote-heading" className="container-site section-y">
         <div className="grid gap-10 lg:grid-cols-2">
           <SectionHeading id="quote-heading" title="How quotations work" />
-          <ol className="space-y-6">
-            {[
-              [
-                "Send your details",
-                "Use the booking form to describe your property, tanks and preferred timing.",
-              ],
-              [
-                "Receive a quotation",
-                "We review the details and contact you with a quotation, or arrange a site assessment for larger jobs.",
-              ],
-              [
-                "Confirm the booking",
-                "Once you accept the quotation, we agree a date. Your booking is only confirmed at this point.",
-              ],
-            ].map(([title, body], index) => (
-              <li key={title} className="flex gap-4">
-                <span className="grid size-9 shrink-0 place-items-center rounded-md bg-water-50 font-display font-semibold text-water-700">
-                  {index + 1}
-                </span>
-                <div>
-                  <h3 className="font-sans text-base font-semibold text-navy-950">{title}</h3>
-                  <p className="mt-1 leading-relaxed text-muted">{body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <ProcessSteps steps={quotationSteps} layout="column" />
         </div>
       </section>
 

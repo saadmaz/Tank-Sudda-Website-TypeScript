@@ -115,9 +115,9 @@ export function HomeHero() {
       </div>
 
       <div className="relative border-t border-white/10 bg-navy-950/40 backdrop-blur-sm">
-        <ul className="container-site grid divide-white/10 sm:grid-cols-3 sm:divide-x">
+        <ul className="container-site grid divide-y divide-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {assurances.map(({ icon: Icon, title, text }) => (
-            <li key={title} className="flex gap-4 py-6 sm:px-6 sm:first:pl-0 lg:py-8">
+            <li key={title} className="flex gap-4 py-5 sm:px-6 sm:py-6 sm:first:pl-0 lg:py-8">
               <Icon aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-water-300" />
               <div>
                 <p className="font-semibold text-white">{title}</p>

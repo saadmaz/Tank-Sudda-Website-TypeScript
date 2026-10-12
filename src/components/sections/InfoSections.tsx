@@ -11,7 +11,14 @@ import { isContentPreview } from "@/lib/site";
 
 const commitmentIcons = [ClipboardCheck, Waves, Clock, Eye];
 
-export function CommitmentsSection({ headingId = "commitments-heading" }: { headingId?: string }) {
+export function CommitmentsSection({
+  headingId = "commitments-heading",
+  showAboutLink = true,
+}: {
+  headingId?: string;
+  /** Hidden on the About page itself. */
+  showAboutLink?: boolean;
+}) {
   return (
     <section aria-labelledby={headingId} className="bg-mist">
       <div className="container-site section-y">
@@ -23,9 +30,11 @@ export function CommitmentsSection({ headingId = "commitments-heading" }: { head
               title="How we work"
               intro="Straightforward commitments that apply to every job, from a single home tank to a whole building."
             />
-            <ButtonLink href="/about" variant="secondary" className="mt-8">
-              About us
-            </ButtonLink>
+            {showAboutLink ? (
+              <ButtonLink href="/about" variant="secondary" className="mt-8 w-full sm:w-auto">
+                About us
+              </ButtonLink>
+            ) : null}
           </div>
           <ul className="grid gap-5 sm:grid-cols-2">
             {commitments.map((item, index) => {
@@ -115,7 +124,7 @@ export function AreasTeaser() {
   const areas = getPublishedAreas(isContentPreview);
   return (
     <section aria-labelledby="areas-heading" className="container-site section-y">
-      <div className="grid gap-10 rounded-lg border border-line p-6 sm:p-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+      <div className="grid gap-8 sm:gap-10 sm:rounded-lg sm:border sm:border-line sm:p-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
         <div>
           <SectionHeading
             id="areas-heading"

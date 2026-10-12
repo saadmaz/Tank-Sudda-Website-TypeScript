@@ -46,7 +46,7 @@ export default async function ThankYouPage({ searchParams }: PageProps<"/book/th
             explains how to get ready.
           </p>
         </div>
-        <div className="mt-10 flex flex-wrap gap-3">
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <ButtonLink href="/">Back to the homepage</ButtonLink>
           <ButtonLink href="/guides" variant="secondary">
             Read our guides

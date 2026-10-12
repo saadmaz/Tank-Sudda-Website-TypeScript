@@ -68,7 +68,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <CommitmentsSection />
+      <CommitmentsSection showAboutLink={false} />
 
       <section aria-labelledby="learn-heading" className="container-site section-y">
         <div className="max-w-3xl">

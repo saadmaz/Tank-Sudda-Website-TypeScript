@@ -35,7 +35,7 @@ export default function NotFound() {
             </li>
           ))}
         </ul>
-        <div className="mt-10 flex flex-wrap gap-3">
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <ButtonLink href="/">Go to the homepage</ButtonLink>
           <ButtonLink href="/book" variant="secondary">
             Book a cleaning

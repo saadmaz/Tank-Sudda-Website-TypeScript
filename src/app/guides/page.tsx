@@ -60,19 +60,18 @@ export default function GuidesPage() {
             <ul className="mt-8 divide-y divide-line border-y border-line">
               {categories.map((category) => (
                 <li key={category.key}>
-                  <Link
-                    href={`/blog/category/${category.key}`}
-                    className="group flex min-h-16 items-center justify-between gap-4 py-4"
-                  >
-                    <span>
+                  <Link href={`/blog/category/${category.key}`} className="group block py-4">
+                    <span className="flex items-center justify-between gap-4">
                       <span className="flex items-center gap-2 font-semibold text-navy-950 group-hover:text-water-700">
-                        <BookOpen aria-hidden="true" className="size-4 text-water-600" />
+                        <BookOpen aria-hidden="true" className="size-4 shrink-0 text-water-600" />
                         {category.name}
                       </span>
-                      <span className="mt-1 block text-sm text-muted">{category.description}</span>
+                      <span className="shrink-0 rounded-sm bg-water-50 px-2 py-0.5 text-xs font-semibold text-water-800">
+                        {category.count} {category.count === 1 ? "article" : "articles"}
+                      </span>
                     </span>
-                    <span className="shrink-0 text-sm text-muted">
-                      {category.count} {category.count === 1 ? "article" : "articles"}
+                    <span className="mt-1.5 block pl-6 text-sm leading-relaxed text-muted">
+                      {category.description}
                     </span>
                   </Link>
                 </li>
