@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Schibsted_Grotesk } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { MobileActionBar } from "@/components/layout/MobileActionBar";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { TopBar } from "@/components/layout/TopBar";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -28,7 +27,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang={htmlLang[defaultLocale]} className={`${inter.variable} ${schibsted.variable}`}>
-      <body className="flex min-h-dvh flex-col pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+      <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
           className="sr-only z-50 rounded-md bg-navy-950 px-4 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
@@ -41,7 +40,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
-        <MobileActionBar />
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
       </body>
     </html>
