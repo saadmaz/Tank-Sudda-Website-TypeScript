@@ -10,6 +10,8 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Hide the Next.js "N" badge shown in development (never shown in production).
+  devIndicators: false,
   typedRoutes: true,
   // Pin the workspace root (a lockfile exists in a parent directory).
   turbopack: { root: process.cwd() },
