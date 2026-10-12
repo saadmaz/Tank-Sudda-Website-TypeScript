@@ -29,7 +29,7 @@ export async function generateMetadata({
   if (!key) return {};
   const category = blogCategories[key];
   return buildMetadata({
-    title: `${category.name} — Articles`,
+    title: `${category.name}: Articles`,
     description: category.description,
     path: `/blog/category/${key}`,
     noIndex: getArticlesByCategory(key).length === 0,

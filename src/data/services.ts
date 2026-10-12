@@ -98,7 +98,7 @@ export const services: Service[] = [
       {
         title: "Handover",
         description:
-          "We tell you what we observed — such as damaged lids, cracks or gaps — so you can decide whether any repairs are needed.",
+          "We tell you what we observed, such as damaged lids, cracks or gaps, so you can decide whether any repairs are needed.",
       },
     ],
     sections: [
@@ -119,7 +119,7 @@ export const services: Service[] = [
     ],
     beforeYouBook: [
       "Know the approximate capacity of the tank (often printed on plastic tanks, for example 1,000 L).",
-      "Check how the tank is reached — roof access, ladder, or an internal hatch.",
+      "Check how the tank is reached: roof access, a ladder or an internal hatch.",
       "Plan for water supply being interrupted during the clean; store some water for essential use.",
       "Let us know if the lid, ladder or access area is damaged.",
     ],
@@ -136,7 +136,7 @@ export const services: Service[] = [
     name: "Water Tank Vacuum Cleaning",
     shortName: "Vacuum cleaning",
     summary:
-      "Suction equipment lifts settled sediment and loose debris from the tank floor — useful for routine maintenance between deep cleans.",
+      "Suction equipment lifts settled sediment and loose debris from the tank floor. It is useful for routine maintenance between deep cleans.",
     metaDescription:
       "Water tank vacuum cleaning in Sri Lanka. Settled sediment and debris lifted from the tank floor with suction equipment. Request a quote.",
     intro:
@@ -188,7 +188,7 @@ export const services: Service[] = [
       {
         heading: "Will my water be switched off?",
         paragraphs: [
-          "That depends on the tank's size, design and condition. We confirm how much water must be drawn down, and for how long, during assessment — before any work starts.",
+          "That depends on the tank's size, design and condition. We confirm how much water must be drawn down, and for how long, during the assessment, before any work starts.",
         ],
       },
     ],
@@ -340,7 +340,7 @@ export const services: Service[] = [
         heading: "Planning around the people who use the building",
         paragraphs: [
           "The biggest difference between domestic and commercial work is coordination. Turning off water in an apartment building or a hotel affects many people, so timing, notice and the order in which tanks are cleaned matter as much as the cleaning itself.",
-          "Share any constraints when you enquire — operating hours, quiet periods, security procedures or access permissions — and we will plan around them where we can.",
+          "Share any constraints when you enquire, such as operating hours, quiet periods, security procedures or access permissions, and we will plan around them where we can.",
         ],
       },
       {

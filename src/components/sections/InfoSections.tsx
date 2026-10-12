@@ -46,7 +46,7 @@ export function AreasTeaser() {
             title="Where we work"
             intro={
               areas.length > 0
-                ? "We currently serve the areas below. If your location isn't listed, ask — we will tell you honestly whether we can help."
+                ? "We currently serve the areas below. If your location isn't listed, ask us and we will tell you honestly whether we can help."
                 : "We work in Sri Lanka. Include your town and address when you request a booking and we will confirm whether we can serve your location before arranging anything."
             }
           />

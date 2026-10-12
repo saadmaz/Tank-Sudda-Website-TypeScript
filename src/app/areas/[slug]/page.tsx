@@ -50,7 +50,7 @@ export default async function AreaPage({ params }: PageProps<"/areas/[slug]">) {
 
       {area.status !== "confirmed" ? (
         <div className="container-site pt-8">
-          <Notice tone="warning" title="Draft area — not published">
+          <Notice tone="warning" title="Draft area: not published">
             This area is unverified and only visible in development. Set its status to “confirmed”
             in src/data/areas.ts once coverage is verified.
           </Notice>

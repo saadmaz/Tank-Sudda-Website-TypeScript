@@ -38,8 +38,8 @@ export default function AboutPage() {
             </p>
             <p>
               Our work is simple to describe: we remove what has built up, clean the surfaces, and
-              return the tank to service — while keeping you informed about how long your water will
-              be off and anything we notice along the way.
+              return the tank to service, keeping you informed about how long your water will be off
+              and anything we notice along the way.
             </p>
             <p>
               Our services cover{" "}
@@ -76,8 +76,8 @@ export default function AboutPage() {
             Sharing what we know
           </h2>
           <p className="mt-4 text-lead text-muted">
-            We publish practical guides to help property owners understand their tanks — how
-            sediment builds up, how often to clean, and how to prepare. Start with our{" "}
+            We publish practical guides to help property owners understand their tanks: how sediment
+            builds up, how often to clean, and how to prepare. Start with our{" "}
             <Link href="/guides" className="text-water-700 underline underline-offset-4">
               guides
             </Link>{" "}

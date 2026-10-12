@@ -1,6 +1,6 @@
 /**
  * Project photographs. Place image files in /public/images/gallery and add an
- * entry here — no component changes are needed.
+ * entry here; no component changes are needed.
  *
  * Only use real Tank Sudda photographs. A "before-after" entry must pair two
  * photos of the same tank taken on the same job.

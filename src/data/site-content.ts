@@ -1,7 +1,7 @@
 /**
  * Shared marketing copy: the general customer journey and the working
  * commitments shown on the homepage and About page. These describe how Tank
- * Sudda intends to work — the owner should confirm each one before launch.
+ * Sudda intends to work; the owner should confirm each one before launch.
  */
 import type { ServiceStep } from "./services";
 
@@ -24,7 +24,7 @@ export const customerJourney: ServiceStep[] = [
   {
     title: "Cleaning",
     description:
-      "The tank is cleaned using the agreed service — deep cleaning, vacuum cleaning or sump cleaning.",
+      "The tank is cleaned using the agreed service: deep cleaning, vacuum cleaning or sump cleaning.",
   },
   {
     title: "Handover",
@@ -51,6 +51,6 @@ export const commitments: { title: string; description: string }[] = [
   {
     title: "Honest observations",
     description:
-      "If we see a cracked lid, a gap or a damaged fitting, we tell you — and leave the decision to you.",
+      "If we see a cracked lid, a gap or a damaged fitting, we tell you and leave the decision to you.",
   },
 ];

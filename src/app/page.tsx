@@ -19,7 +19,7 @@ import { getPublishedArticles } from "@/lib/content/blog.server";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
-  title: "Tank Sudda — Water Tank & Sump Cleaning in Sri Lanka",
+  title: "Tank Sudda | Water Tank & Sump Cleaning in Sri Lanka",
   absoluteTitle: true,
   description:
     "Water tank deep cleaning, vacuum cleaning and sump cleaning for homes, apartments and organisations in Sri Lanka. Request a booking with Tank Sudda.",
@@ -42,7 +42,7 @@ export default function HomePage() {
           <div className="space-y-4 text-lead text-muted">
             <p>
               Water tanks and sumps quietly collect sediment, debris and build-up. Because they are
-              out of sight, they are easy to forget — until cloudy water or grit at the tap is a
+              out of sight, they are easy to forget until cloudy water or grit at the tap is a
               reminder.
             </p>
             <p>

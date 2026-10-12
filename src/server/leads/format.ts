@@ -14,7 +14,7 @@ export const REFERENCE_PATTERN = /^TS-\d{8}-[A-HJ-NP-Z2-9]{5}$/;
 
 export function leadSubject(lead: Lead): string {
   const kind = lead.kind === "booking" ? "Booking request" : "Website enquiry";
-  return `${kind} ${lead.reference} — ${lead.contact.name}`;
+  return `${kind} ${lead.reference}: ${lead.contact.name}`;
 }
 
 /** Plain-text summary used for email and logs (no HTML, so nothing to inject). */

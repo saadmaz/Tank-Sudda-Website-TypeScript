@@ -25,7 +25,7 @@ export function labelFor<V extends string>(
 
 export const serviceOptions = [
   ...services.map((service) => ({ value: service.slug, label: service.name })),
-  { value: "not-sure", label: "Not sure — please advise" },
+  { value: "not-sure", label: "Not sure, please advise" },
 ] as const satisfies Options<string>;
 
 export const propertyTypeOptions = [
@@ -48,8 +48,8 @@ const COMMERCIAL_PROPERTY_TYPES: readonly string[] = [
 ];
 
 export const tankTypeOptions = [
-  { value: "overhead-plastic", label: "Overhead tank — plastic" },
-  { value: "overhead-concrete", label: "Overhead tank — concrete" },
+  { value: "overhead-plastic", label: "Overhead tank (plastic)" },
+  { value: "overhead-concrete", label: "Overhead tank (concrete)" },
   { value: "steel", label: "Steel tank" },
   { value: "sump", label: "Underground sump" },
   { value: "ground-level", label: "Ground-level tank" },

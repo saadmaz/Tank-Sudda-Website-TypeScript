@@ -44,7 +44,7 @@ function bookingToLead(data: BookingData, meta: { reference: string; submittedAt
   fields.push(
     { label: "Name", value: data.name },
     { label: "Phone", value: phone },
-    { label: "Email", value: data.email || "—" },
+    { label: "Email", value: data.email || "Not provided" },
     {
       label: "Preferred contact",
       value: labelFor(contactPreferenceOptions, data.contactPreference) ?? data.contactPreference,

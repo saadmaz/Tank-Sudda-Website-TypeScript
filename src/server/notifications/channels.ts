@@ -70,7 +70,7 @@ export const developmentLogChannel: NotificationChannel = {
   name: "development-log",
   async send(lead) {
     console.info(
-      `\n[lead:development-only] Not delivered anywhere — configure a channel.\n${leadToText(lead)}\n`,
+      `\n[lead:development-only] Not delivered anywhere; configure a channel.\n${leadToText(lead)}\n`,
     );
   },
 };
@@ -97,10 +97,10 @@ export function configuredChannels(env: Env = process.env): NotificationChannel[
           webhookChannel({ url: url.toString(), secret: env.LEAD_WEBHOOK_SECRET ?? null }),
         );
       } else {
-        console.error("LEAD_WEBHOOK_URL must use https — webhook channel disabled.");
+        console.error("LEAD_WEBHOOK_URL must use https; webhook channel disabled.");
       }
     } catch {
-      console.error("LEAD_WEBHOOK_URL is not a valid URL — webhook channel disabled.");
+      console.error("LEAD_WEBHOOK_URL is not a valid URL; webhook channel disabled.");
     }
   }
   return channels;

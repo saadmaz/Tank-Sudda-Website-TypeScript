@@ -557,7 +557,8 @@ export function BookingWizard({
 }
 
 function reviewRows(step: BookingStep, values: Partial<BookingInput>): [string, string][] {
-  const show = (value: string | undefined | null) => (value && value.trim() !== "" ? value : "—");
+  const show = (value: string | undefined | null) =>
+    value && value.trim() !== "" ? value : "Not provided";
   switch (step.id) {
     case "service":
       return [

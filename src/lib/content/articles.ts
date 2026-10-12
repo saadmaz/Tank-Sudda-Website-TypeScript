@@ -62,7 +62,7 @@ export const frontmatterSchema = z
 export type ArticleFrontmatter = z.infer<typeof frontmatterSchema>;
 
 export interface ArticleSource {
-  /** File name or CMS identifier — used in error messages. */
+  /** File name or CMS identifier, used in error messages. */
   id: string;
   raw: string;
 }

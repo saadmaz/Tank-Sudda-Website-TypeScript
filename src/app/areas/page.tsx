@@ -56,7 +56,7 @@ export default function AreasPage() {
           <Notice className="mt-8 max-w-3xl" title="Our coverage list is being finalised">
             We are confirming the areas we can serve reliably before listing them here. In the
             meantime, include your town and address in your booking request and we will tell you
-            whether we can help — before anything is arranged.
+            whether we can help before anything is arranged.
           </Notice>
         )}
       </section>

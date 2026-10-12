@@ -35,6 +35,6 @@ export const MISSING_ROUTES = [
   "/blog/tag/not-a-tag",
   "/blog/page/1",
   "/blog/page/2",
-  // Unverified draft service area — never published.
+  // Unverified draft service area: never published.
   "/areas/colombo",
 ] as const;

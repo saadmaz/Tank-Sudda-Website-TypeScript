@@ -24,7 +24,7 @@ export default function PricingPage() {
         breadcrumbs={[{ name: "Pricing", path: "/pricing" }]}
         eyebrow="Pricing"
         title="Clear quotations, agreed before work begins"
-        intro="Tanks vary widely in size, access and condition, so we price each job on what it actually involves. You receive a quotation before anything is booked — and nothing is charged that you have not agreed."
+        intro="Tanks vary widely in size, access and condition, so we price each job on what it actually involves. You receive a quotation before anything is booked, and nothing is charged that you have not agreed."
         actions={<ButtonLink href="/book">Request a quotation</ButtonLink>}
       />
 

@@ -19,7 +19,7 @@ export interface ServiceArea {
   intro: string;
   /** Location-specific notes that make the page genuinely useful. */
   localNotes: { heading: string; body: string }[];
-  /** Neighbourhoods or towns — only list places the owner confirms. */
+  /** Neighbourhoods or towns. Only list places the owner confirms. */
   placesCovered: string[];
   serviceSlugs: string[];
 }
@@ -66,7 +66,7 @@ export const areas: ServiceArea[] = [
     localNotes: [
       {
         heading: "Homes with wells and mixed supplies",
-        body: "Some properties combine mains water with other sources. If your tank is filled from more than one source, tell us in your booking — it can affect how quickly sediment builds up.",
+        body: "Some properties combine mains water with other sources. If your tank is filled from more than one source, tell us in your booking, as it can affect how quickly sediment builds up.",
       },
       {
         heading: "Industrial and commercial sites",

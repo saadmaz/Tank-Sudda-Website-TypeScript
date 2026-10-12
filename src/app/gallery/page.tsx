@@ -20,7 +20,7 @@ export default function GalleryPage() {
         breadcrumbs={[{ name: "Gallery", path: "/gallery" }]}
         eyebrow="Gallery"
         title="Our work"
-        intro="Photographs from real Tank Sudda jobs — tanks, sumps and the equipment we use."
+        intro="Photographs from real Tank Sudda jobs: tanks, sumps and the equipment we use."
       />
       <section aria-label="Photographs" className="container-site section-y">
         {gallery.length > 0 ? (

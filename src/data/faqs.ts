@@ -73,7 +73,7 @@ export const faqs: Faq[] = [
     category: "booking",
     question: "How do I book?",
     answer:
-      "Use the online booking form to tell us about your property, the tanks and your preferred timing. Your request is not a confirmed appointment — our team will contact you to confirm the details, the price and the date.",
+      "Use the online booking form to tell us about your property, the tanks and your preferred timing. Your request is not a confirmed appointment. Our team will contact you to confirm the details, the price and the date.",
   },
   {
     id: "how-pricing-works",
@@ -81,7 +81,7 @@ export const faqs: Faq[] = [
     featured: true,
     question: "How much does tank cleaning cost?",
     answer:
-      "The price depends on the service, tank capacity, number of tanks, access and the condition of the tank. Because these vary so much, we provide a quotation once we understand your tank — usually from the details in your booking request, and through a site assessment for larger jobs.",
+      "The price depends on the service, tank capacity, number of tanks, access and the condition of the tank. Because these vary so much, we provide a quotation once we understand your tank. We usually work from the details in your booking request and arrange a site assessment for larger jobs.",
   },
   {
     id: "commercial-scheduling",

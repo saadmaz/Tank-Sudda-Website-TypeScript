@@ -23,7 +23,7 @@ export function HomeHero() {
           </h1>
           <p className="mt-6 max-w-xl text-lead text-grey-200">
             Tank Sudda cleans overhead tanks and underground sumps for homes, apartment buildings
-            and organisations — removing the sediment and build-up that collect where you cannot see
+            and organisations, removing the sediment and build-up that collect where you cannot see
             them.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">

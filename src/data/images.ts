@@ -1,6 +1,6 @@
 /**
  * Image slots used by page sections. Set a slot to a photo object to replace
- * the built-in technical illustration — no component changes required.
+ * the built-in technical illustration; no component changes required.
  *
  * Put files in /public/images/photos and use real Tank Sudda photographs of
  * tanks, equipment and work in progress. Avoid identifiable people unless they

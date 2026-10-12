@@ -1,5 +1,5 @@
 /**
- * Sections that depend on real evidence — photographs, before/after pairs and
+ * Sections that depend on real evidence: photographs, before/after pairs and
  * customer feedback. Each renders nothing until genuine content is supplied.
  */
 import Image from "next/image";

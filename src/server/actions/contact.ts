@@ -22,8 +22,8 @@ function contactToLead(data: ContactData, meta: { reference: string; submittedAt
     fields: [
       { label: "Topic", value: labelFor(contactTopicOptions, data.topic) ?? data.topic },
       { label: "Name", value: data.name },
-      { label: "Phone", value: phone ?? "—" },
-      { label: "Email", value: data.email || "—" },
+      { label: "Phone", value: phone ?? "Not provided" },
+      { label: "Email", value: data.email || "Not provided" },
       { label: "Message", value: data.message },
     ],
     marketingConsent: false,

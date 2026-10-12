@@ -1,5 +1,5 @@
 /**
- * Verified business information — the single source of truth for contact
+ * Verified business information: the single source of truth for contact
  * details shown on the site and in structured data.
  *
  * RULE: Only enter facts the owner has confirmed. Leave a value as `null`

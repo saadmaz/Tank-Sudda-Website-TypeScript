@@ -28,7 +28,7 @@ export function buildMetadata(input: PageMetadataInput, origin: URL | null = sit
     ? [
         {
           url: imageUrl,
-          alt: input.image?.alt ?? `${business.name} — water tank and sump cleaning in Sri Lanka`,
+          alt: input.image?.alt ?? `${business.name}: water tank and sump cleaning in Sri Lanka`,
           width: input.image?.width ?? 1200,
           height: input.image?.height ?? 630,
         },
@@ -79,7 +79,7 @@ export function rootMetadata(): Metadata {
   return {
     ...(siteUrl ? { metadataBase: siteUrl } : {}),
     title: {
-      default: `${business.name} — Water Tank & Sump Cleaning in Sri Lanka`,
+      default: `${business.name} | Water Tank & Sump Cleaning in Sri Lanka`,
       template: `%s | ${business.name}`,
     },
     description: business.description,

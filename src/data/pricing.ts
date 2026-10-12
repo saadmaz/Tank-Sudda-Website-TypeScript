@@ -55,7 +55,7 @@ export const pricing: PriceEntry[] = [
   },
 ];
 
-/** Factors that affect a quotation — shown on the pricing page. */
+/** Factors that affect a quotation, shown on the pricing page. */
 export const pricingFactors: { title: string; description: string }[] = [
   {
     title: "Tank capacity",

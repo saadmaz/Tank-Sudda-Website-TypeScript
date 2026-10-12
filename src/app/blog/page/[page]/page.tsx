@@ -25,7 +25,7 @@ export async function generateMetadata({
   const page = parsePage((await params).page);
   if (!page) return {};
   return buildMetadata({
-    title: `Tank Care Blog — Page ${page}`,
+    title: `Tank Care Blog: Page ${page}`,
     description: blogIntro,
     path: `/blog/page/${page}`,
   });

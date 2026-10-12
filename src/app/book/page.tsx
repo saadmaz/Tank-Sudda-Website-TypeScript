@@ -26,7 +26,7 @@ export default function BookPage() {
         breadcrumbs={[{ name: "Book", path: "/book" }]}
         eyebrow="Booking request"
         title="Request a tank cleaning"
-        intro="It takes about three minutes. Your request is not a confirmed appointment — we will contact you to confirm the details, the quotation and a date."
+        intro="It takes about three minutes. Your request is not a confirmed appointment. We will contact you to confirm the details, the quotation and a date."
       />
       <div className="container-site grid gap-12 section-y lg:grid-cols-[1fr_20rem] lg:gap-16">
         <div className="min-w-0">

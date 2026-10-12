@@ -5,7 +5,7 @@ import { ArticleGrid } from "./ArticleCard";
 import { BlogSearchForm, CategoryNav, Pagination } from "./BlogChrome";
 
 export const blogIntro =
-  "Practical guidance on water tanks and sumps — maintenance, sediment, cleaning schedules and how to prepare for a clean.";
+  "Practical guidance on water tanks and sumps: maintenance, sediment, cleaning schedules and how to prepare for a clean.";
 
 /** Shared body of /blog and /blog/page/[page]. */
 export function BlogIndex({ articles, page }: { articles: Article[]; page: number }) {
@@ -17,7 +17,7 @@ export function BlogIndex({ articles, page }: { articles: Article[]; page: numbe
       <PageHeader
         breadcrumbs={breadcrumbs}
         eyebrow="Blog"
-        title={page > 1 ? `Blog — page ${page}` : "Tank care blog"}
+        title={page > 1 ? `Blog: page ${page}` : "Tank care blog"}
         intro={blogIntro}
         actions={<BlogSearchForm />}
       />

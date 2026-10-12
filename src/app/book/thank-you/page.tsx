@@ -20,7 +20,7 @@ export default async function ThankYouPage({ searchParams }: PageProps<"/book/th
     <section className="container-site section-y">
       <div className="max-w-2xl">
         <CheckCircle2 aria-hidden="true" className="size-12 text-success-700" />
-        <h1 className="mt-6 text-h1">Thank you — we’ve received your request</h1>
+        <h1 className="mt-6 text-h1">Thank you, we’ve received your request</h1>
         {reference ? (
           <p className="mt-6 inline-flex flex-wrap items-center gap-2 rounded-md border border-line bg-mist px-4 py-3">
             <span className="text-muted">Your reference:</span>
