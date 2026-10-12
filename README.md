@@ -45,3 +45,4 @@ production (a dashed "Owner to confirm" marker appears in development only). See
 - [docs/CONFIGURATION.md](docs/CONFIGURATION.md) — environment variables, form delivery, hosting, post-deployment checks, Search Console
 - [docs/BACKEND.md](docs/BACKEND.md) — planned database, admin and reporting
 - [docs/OWNER-CHECKLIST.md](docs/OWNER-CHECKLIST.md) — information needed before launch
+- [docs/GROWTH-PLAN.md](docs/GROWTH-PLAN.md) — launch, local SEO, trust and marketing plan
