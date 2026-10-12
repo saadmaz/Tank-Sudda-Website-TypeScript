@@ -51,9 +51,11 @@ export const business: Business = {
   description:
     "Tank Sudda provides water tank cleaning, vacuum cleaning and sump cleaning for homes, apartments and organisations in Sri Lanka.",
   countryName: "Sri Lanka",
-  phone: null,
+  // Confirmed by the owner on 2026-10-12.
+  phone: { display: "+94 74 100 4296", e164: "+94741004296" },
+  // WhatsApp not yet confirmed for this number; leave null until it is.
   whatsapp: null,
-  email: null,
+  email: "tanksuddaglobal@gmail.com",
   address: null,
   openingHours: [],
   sameAs: [],

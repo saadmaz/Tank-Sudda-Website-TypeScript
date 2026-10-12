@@ -77,12 +77,21 @@ test.describe("indexing without a configured domain", () => {
     await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
   });
 
-  test("no placeholder contact details are rendered", async ({ page }) => {
+  test("only verified contact details are rendered", async ({ page }) => {
     for (const route of ["/", "/contact", "/book"]) {
       await page.goto(route);
       const html = await page.content();
       expect(html).not.toMatch(/123\s?4567|hello@tanksudda|Owner to confirm/);
-      await expect(page.locator('a[href^="tel:"], a[href^="https://wa.me/"]')).toHaveCount(0);
+      const telLinks = await page
+        .locator('a[href^="tel:"]')
+        .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
+      expect(telLinks.length).toBeGreaterThan(0);
+      for (const href of telLinks) expect(href).toBe("tel:+94741004296");
+      await expect(
+        page.locator('a[href="mailto:tanksuddaglobal@gmail.com"]').first(),
+      ).toBeVisible();
+      // WhatsApp is not confirmed yet, so no WhatsApp links may appear.
+      await expect(page.locator('a[href^="https://wa.me/"]')).toHaveCount(0);
     }
   });
 });

@@ -201,7 +201,7 @@ export function BookingWizard({
         <Notice tone="warning" className="mb-8" title="Online requests are temporarily unavailable">
           {whatsappUrl
             ? "You can still send your request on WhatsApp using the button at the end of the form."
-            : "Please check back soon."}
+            : "Please call or email us instead, using the contact details on this page."}
         </Notice>
       ) : null}
       {deliveryMode === "development" ? (

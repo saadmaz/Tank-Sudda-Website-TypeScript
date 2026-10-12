@@ -10,9 +10,10 @@ were placeholders, so none of it was carried over.
 - [ ] **Production domain** → `NEXT_PUBLIC_SITE_URL`
 - [ ] **Form delivery** → Resend email and/or webhook (see CONFIGURATION.md). Without it, online
       booking and contact are disabled in production.
-- [ ] **Phone number** and **WhatsApp number** → `src/data/business.ts` (enables call/WhatsApp
-      buttons and context-aware WhatsApp messages)
-- [ ] **Email address** (privacy requests, footer, structured data)
+- [x] **Phone number**: +94 74 100 4296 (added 2026-10-12)
+- [ ] **WhatsApp**: confirm whether +94 74 100 4296 (or another number) takes WhatsApp, then set
+      `whatsapp` in `src/data/business.ts` to enable WhatsApp buttons and pre-filled messages
+- [x] **Email address**: tanksuddaglobal@gmail.com (added 2026-10-12)
 - [ ] **Service coverage** → mark areas `confirmed` in `src/data/areas.ts`, add towns to
       `placesCovered`, or add new areas. Draft entries exist for Colombo and Gampaha.
 - [ ] Review **service descriptions and process steps** (`src/data/services.ts`) — confirm they

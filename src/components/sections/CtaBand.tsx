@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { WhatsAppButton } from "@/components/contact/ContactActions";
+import { PhoneButton, WhatsAppButton } from "@/components/contact/ContactActions";
 import { WaterLines } from "@/components/illustrations/TechnicalIllustrations";
 import { ButtonLink } from "@/components/ui/Button";
 
@@ -27,6 +27,7 @@ export function CtaBand({
               <ArrowRight aria-hidden="true" />
             </ButtonLink>
             <WhatsAppButton serviceName={serviceName} />
+            <PhoneButton variant="onDarkOutline" />
           </div>
         </div>
       </div>

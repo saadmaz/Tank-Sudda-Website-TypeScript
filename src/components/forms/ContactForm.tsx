@@ -95,7 +95,7 @@ export function ContactForm({ available }: { available: boolean }) {
     >
       {!available ? (
         <Notice tone="warning" title="The contact form is temporarily unavailable">
-          Please check back soon.
+          Please call or email us instead, using the contact details on this page.
         </Notice>
       ) : null}
       <HoneypotField inputRef={honeypotRef} />
