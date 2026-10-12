@@ -143,6 +143,19 @@ describe("social and Google profiles", () => {
     ]);
   });
 
+  it("shows the official profiles in the owner's preferred order", async () => {
+    const { getSocialProfiles } = await import("@/data/business");
+    expect(getSocialProfiles().map((p) => p.id)).toEqual([
+      "facebook",
+      "instagram",
+      "linkedin",
+      "tiktok",
+      "youtube",
+      "x",
+      "threads",
+    ]);
+  });
+
   it("configured URLs are https links on the right platform", async () => {
     const { business } = await import("@/data/business");
     const hosts: Record<string, RegExp> = {
