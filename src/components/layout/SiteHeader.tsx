@@ -1,0 +1,28 @@
+import { primaryNav } from "@/data/navigation";
+import { ButtonLink } from "@/components/ui/Button";
+import { Logo } from "./Logo";
+import { MobileNav } from "./MobileNav";
+import { NavLinks } from "./NavLinks";
+
+export function SiteHeader() {
+  return (
+    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
+      <div className="container-site flex h-16 items-center justify-between gap-6">
+        <Logo />
+        <nav aria-label="Main" className="hidden lg:block">
+          <NavLinks
+            links={primaryNav}
+            className="flex items-center gap-1"
+            linkClassName="inline-flex min-h-11 items-center rounded-md px-3 text-[0.9375rem] font-medium text-navy-900 hover:bg-grey-50 hover:text-water-700"
+          />
+        </nav>
+        <div className="flex items-center gap-2">
+          <ButtonLink href="/book" size="sm" className="hidden min-h-10 sm:inline-flex">
+            Book a cleaning
+          </ButtonLink>
+          <MobileNav links={primaryNav} />
+        </div>
+      </div>
+    </header>
+  );
+}

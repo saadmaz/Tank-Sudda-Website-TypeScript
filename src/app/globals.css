@@ -1,0 +1,205 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ------------------------------------------------------------------
+   Tank Sudda design tokens
+   Brand: deep navy #061C36 · water blue #1A89CA · neutral grey #8D9299
+   Text colours are tuned for WCAG AA contrast; the brand grey and brand
+   blue are used for large text, borders and decoration only.
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-schibsted), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-navy-950: #061c36;
+  --color-navy-900: #0a2747;
+  --color-navy-800: #12345c;
+  --color-navy-700: #1d4570;
+  --color-navy-600: #2b5a8a;
+
+  --color-water-50: #eef7fc;
+  --color-water-100: #d8edf8;
+  --color-water-200: #afd9f0;
+  --color-water-300: #7fc1e6;
+  --color-water-400: #4ba7db;
+  --color-water-500: #1a89ca;
+  --color-water-600: #136fa6;
+  --color-water-700: #105a87;
+  --color-water-800: #0e4a6e;
+
+  --color-grey-50: #f7f8fa;
+  --color-grey-100: #eff1f4;
+  --color-grey-200: #e2e5e9;
+  --color-grey-300: #c9cdd3;
+  --color-grey-400: #8d9299;
+  --color-grey-500: #6b717a;
+  --color-grey-600: #535962;
+  --color-grey-700: #3c4148;
+
+  --color-success-50: #ecf8f1;
+  --color-success-700: #1b6b44;
+  --color-warning-50: #fdf6e7;
+  --color-warning-700: #7a4f00;
+  --color-danger-50: #fdeeec;
+  --color-danger-700: #a1281d;
+  --color-whatsapp-700: #13734b;
+  --color-whatsapp-800: #0f5c3c;
+
+  /* Semantic aliases */
+  --color-ink: var(--color-navy-950);
+  --color-body: var(--color-grey-700);
+  --color-muted: var(--color-grey-600);
+  --color-line: var(--color-grey-200);
+  --color-surface: #ffffff;
+  --color-mist: #f4f8fb;
+
+  /* Type scale (fluid display sizes, fixed body sizes) */
+  --text-display: clamp(2.25rem, 1.6rem + 2.8vw, 3.75rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.025em;
+  --text-h1: clamp(2rem, 1.6rem + 1.6vw, 3rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: clamp(1.625rem, 1.35rem + 1.1vw, 2.25rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.35;
+  --text-lead: 1.1875rem;
+  --text-lead--line-height: 1.6;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  --shadow-card: 0 1px 2px rgb(6 28 54 / 0.06), 0 1px 1px rgb(6 28 54 / 0.04);
+  --shadow-raised: 0 10px 30px -12px rgb(6 28 54 / 0.25);
+
+  --breakpoint-xs: 23.75rem;
+}
+
+@layer base {
+  :root {
+    --focus-ring: var(--color-water-600);
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-weight: 650;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .on-dark {
+    --focus-ring: var(--color-water-300);
+  }
+
+  ::selection {
+    background-color: var(--color-water-100);
+    color: var(--color-navy-950);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility section-y {
+  padding-block: 4rem;
+  @media (width >= 64rem) {
+    padding-block: 6rem;
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-water-700);
+}
+
+/* Measurement-tick rule used as a quiet brand motif. */
+@utility gauge-rule {
+  height: 8px;
+  background-image: repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 12px);
+  mask-image: linear-gradient(to right, black, transparent);
+}
+
+@layer components {
+  .prose-article {
+    --tw-prose-body: var(--color-grey-700);
+    --tw-prose-headings: var(--color-navy-950);
+    --tw-prose-links: var(--color-water-700);
+    --tw-prose-bold: var(--color-navy-950);
+    --tw-prose-bullets: var(--color-water-500);
+    --tw-prose-counters: var(--color-water-700);
+    --tw-prose-quotes: var(--color-navy-900);
+    --tw-prose-quote-borders: var(--color-water-300);
+    --tw-prose-hr: var(--color-grey-200);
+    --tw-prose-th-borders: var(--color-grey-300);
+    --tw-prose-td-borders: var(--color-grey-200);
+  }
+
+  .prose-article :where(h2, h3) {
+    font-family: var(--font-display);
+    font-weight: 650;
+    scroll-margin-top: 6rem;
+  }
+
+  .prose-article :where(a) {
+    text-underline-offset: 3px;
+  }
+
+  .prose-article :where(a):hover {
+    color: var(--color-navy-950);
+  }
+}

@@ -1,0 +1,113 @@
+import { expect, test } from "@playwright/test";
+import { MISSING_ROUTES, PUBLIC_ROUTES } from "./routes";
+
+test.describe("routing", () => {
+  for (const route of PUBLIC_ROUTES) {
+    test(`${route} renders with one h1 and a title`, async ({ page }) => {
+      const errors: string[] = [];
+      page.on("pageerror", (error) => errors.push(error.message));
+      const response = await page.goto(route);
+      expect(response?.status()).toBe(200);
+      await expect(page.locator("h1")).toHaveCount(1);
+      expect(await page.title()).toMatch(/Tank Sudda|received/);
+      expect(errors).toEqual([]);
+    });
+  }
+
+  for (const route of MISSING_ROUTES) {
+    test(`${route} returns 404`, async ({ request }) => {
+      const response = await request.get(route);
+      expect(response.status()).toBe(404);
+    });
+  }
+
+  test("old /knowledge route redirects permanently to /guides", async ({ request }) => {
+    const response = await request.get("/knowledge", { maxRedirects: 0 });
+    expect(response.status()).toBe(308);
+    expect(response.headers()["location"]).toBe("/guides");
+  });
+
+  test("page titles are unique", async ({ page }) => {
+    const titles = new Map<string, string>();
+    for (const route of PUBLIC_ROUTES) {
+      await page.goto(route);
+      const title = await page.title();
+      expect(titles.get(title), `${route} duplicates ${titles.get(title)}`).toBeUndefined();
+      titles.set(title, route);
+    }
+  });
+});
+
+test.describe("internal links", () => {
+  test("no internal link is broken", async ({ page, request }) => {
+    test.setTimeout(120_000);
+    const seen = new Set<string>();
+    const targets = new Set<string>();
+    for (const route of PUBLIC_ROUTES) {
+      await page.goto(route);
+      const hrefs = await page.$$eval("a[href]", (anchors) =>
+        anchors.map((a) => a.getAttribute("href") ?? ""),
+      );
+      for (const href of hrefs) {
+        if (!href.startsWith("/") || href.startsWith("//")) continue;
+        targets.add(href.split("#")[0]!);
+      }
+    }
+    for (const target of targets) {
+      if (seen.has(target) || target === "") continue;
+      seen.add(target);
+      const response = await request.get(target);
+      expect(response.status(), `broken link: ${target}`).toBeLessThan(400);
+    }
+    expect(seen.size).toBeGreaterThan(30);
+  });
+});
+
+test.describe("indexing without a configured domain", () => {
+  test("robots.txt blocks crawling and sitemap is empty", async ({ request }) => {
+    const robots = await (await request.get("/robots.txt")).text();
+    expect(robots).toMatch(/Disallow: \/\s*$/m);
+    const sitemap = await (await request.get("/sitemap.xml")).text();
+    expect(sitemap).not.toContain("<url>");
+  });
+
+  test("pages are noindex and emit no canonical URL", async ({ page }) => {
+    await page.goto("/services");
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+  });
+
+  test("no placeholder contact details are rendered", async ({ page }) => {
+    for (const route of ["/", "/contact", "/book"]) {
+      await page.goto(route);
+      const html = await page.content();
+      expect(html).not.toMatch(/123\s?4567|hello@tanksudda|Owner to confirm/);
+      await expect(page.locator('a[href^="tel:"], a[href^="https://wa.me/"]')).toHaveCount(0);
+    }
+  });
+});
+
+test.describe("blog", () => {
+  test("article has a working table of contents and related services", async ({ page }) => {
+    await page.goto("/blog/how-often-should-you-clean-your-water-tank");
+    const toc = page.getByRole("navigation", { name: "On this page" }).filter({ visible: true });
+    const links = toc.getByRole("link");
+    expect(await links.count()).toBeGreaterThanOrEqual(3);
+    for (const href of await links.evaluateAll((els) => els.map((el) => el.getAttribute("href")))) {
+      await expect(page.locator(href!)).toHaveCount(1);
+    }
+    await expect(
+      page.getByRole("complementary").getByRole("link", { name: "Water Tank Deep Cleaning" }),
+    ).toBeVisible();
+    await expect(page.getByText(/min read/).first()).toBeVisible();
+  });
+
+  test("search form finds articles", async ({ page }) => {
+    await page.goto("/blog");
+    await page.getByRole("searchbox", { name: "Search articles" }).fill("sump");
+    await page.getByRole("button", { name: "Search" }).click();
+    await expect(page).toHaveURL(/\/blog\/search\?q=sump/);
+    await expect(page.getByRole("status")).toContainText(/article/);
+    await expect(page.getByRole("heading", { level: 2 }).first()).toBeVisible();
+  });
+});

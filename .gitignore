@@ -1,0 +1,29 @@
+# Dependencies
+node_modules
+
+# Next.js
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+
+# Testing
+coverage
+playwright-report
+test-results
+blob-report
+
+# Environment (never commit secrets)
+.env
+.env*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.sw?
