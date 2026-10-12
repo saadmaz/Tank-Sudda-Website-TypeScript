@@ -28,7 +28,7 @@ export const metadata = buildMetadata({
   title: "Tank Sudda | Water Tank & Sump Cleaning in Sri Lanka",
   absoluteTitle: true,
   description:
-    "Water tank deep cleaning, vacuum cleaning and sump cleaning for homes, apartments and organisations in Sri Lanka. Request a booking with Tank Sudda.",
+    "Water tank deep cleaning and sump cleaning for homes, apartments and organisations in Sri Lanka. Request a booking with Tank Sudda.",
   path: "/",
 });
 

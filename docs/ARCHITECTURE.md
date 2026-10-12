@@ -51,7 +51,7 @@ tests/
 | -------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | `/`                                                            | Homepage                                                               |
 | `/about`, `/pricing`, `/faq`, `/contact`                       | Static                                                                 |
-| `/services`, `/services/[slug]`                                | 4 services from `data/services.ts`                                     |
+| `/services`, `/services/[slug]`                                | 3 services from `data/services.ts`                                     |
 | `/book`, `/book/thank-you`                                     | Booking wizard; acknowledgement (`noindex`)                            |
 | `/gallery`, `/testimonials`                                    | Empty states until real content exists (`noindex` while empty)         |
 | `/areas`, `/areas/[slug]`                                      | Only `status: "confirmed"` areas are generated                         |

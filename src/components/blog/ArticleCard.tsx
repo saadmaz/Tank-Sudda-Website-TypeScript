@@ -10,7 +10,7 @@ import { formatDate } from "@/lib/utils";
 /** Placeholder artwork per category until article cover photos are added. */
 const categoryIllustration: Record<BlogCategoryKey, ServiceIllustration> = {
   maintenance: "tank",
-  "cleaning-explained": "vacuum",
+  "cleaning-explained": "sump",
   "choosing-a-service": "commercial",
 };
 

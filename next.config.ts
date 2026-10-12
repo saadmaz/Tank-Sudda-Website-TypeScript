@@ -25,6 +25,12 @@ const nextConfig: NextConfig = {
     return [
       // Route used by the previous version of the site.
       { source: "/knowledge", destination: "/guides", permanent: true },
+      // Vacuum cleaning is no longer offered.
+      {
+        source: "/services/water-tank-vacuum-cleaning",
+        destination: "/services/water-tank-deep-cleaning",
+        permanent: true,
+      },
     ];
   },
 };

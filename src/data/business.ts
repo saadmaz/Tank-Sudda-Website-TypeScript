@@ -49,7 +49,7 @@ export const business: Business = {
   name: "Tank Sudda",
   legalName: null,
   description:
-    "Tank Sudda provides water tank cleaning, vacuum cleaning and sump cleaning for homes, apartments and organisations in Sri Lanka.",
+    "Tank Sudda provides water tank and sump cleaning for homes, apartments and organisations in Sri Lanka.",
   countryName: "Sri Lanka",
   // Confirmed by the owner on 2026-10-12.
   phone: { display: "+94 74 100 4296", e164: "+94741004296" },

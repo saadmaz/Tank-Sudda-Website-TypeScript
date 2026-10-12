@@ -16,8 +16,8 @@ export function ServiceCard({
 }) {
   const Heading = `h${headingLevel}` as const;
   return (
-    <article className="group relative grid h-full overflow-hidden rounded-xl border border-line bg-white shadow-card transition-[border-color,box-shadow] duration-200 hover:border-water-300 hover:shadow-raised sm:grid-cols-[12rem_1fr] lg:grid-cols-[13rem_1fr]">
-      <div className="relative flex items-center justify-center border-b border-line bg-mist p-5 sm:border-r sm:border-b-0">
+    <article className="group relative grid h-full overflow-hidden rounded-xl border border-line bg-white shadow-card transition-[border-color,box-shadow] duration-200 hover:border-water-300 hover:shadow-raised sm:grid-cols-[12rem_1fr] lg:grid-cols-1 lg:grid-rows-[auto_1fr]">
+      <div className="relative flex items-center justify-center border-b border-line bg-mist p-5 sm:border-r sm:border-b-0 lg:border-r-0 lg:border-b lg:py-8">
         {index !== undefined ? (
           <span className="absolute top-4 left-4 font-display text-sm font-bold text-water-600 tabular-nums">
             {String(index + 1).padStart(2, "0")}
@@ -72,7 +72,7 @@ export function ServiceGrid({
   numbered?: boolean;
 }) {
   return (
-    <ul className="grid gap-6 lg:grid-cols-2">
+    <ul className="grid gap-6 lg:grid-cols-3">
       {services.map((service, index) => (
         <li key={service.slug}>
           <ServiceCard

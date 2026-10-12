@@ -191,80 +191,6 @@ export function TankCrossSection({
   );
 }
 
-export function VacuumDiagram({ tone = "light", className, annotated = true }: IllustrationProps) {
-  const p = palettes[tone];
-  const sedimentId = `sediment-vac-${tone}`;
-  return (
-    <svg
-      viewBox="0 0 480 400"
-      className={cn("h-auto w-full", className)}
-      aria-hidden="true"
-      focusable="false"
-    >
-      <defs>
-        <SedimentPattern id={sedimentId} color={p.sediment} />
-      </defs>
-      <path
-        d="M103 160 q 19 -6 39 0 t 39 0 t 39 0 t 39 0 t 39 0 t 39 0 V 326 H103 Z"
-        fill={p.water}
-      />
-      <path
-        d="M103 160 q 19 -6 39 0 t 39 0 t 39 0 t 39 0 t 39 0 t 39 0"
-        fill="none"
-        stroke={p.waterEdge}
-        strokeWidth="2"
-      />
-      {/* Remaining sediment on the right; cleared path on the left */}
-      <path
-        d="M262 326 V312 q 26 -8 52 -2 t 24 0 V326 Z"
-        fill={`url(#${sedimentId})`}
-        stroke={p.sediment}
-      />
-      <rect
-        x="100"
-        y="80"
-        width="240"
-        height="250"
-        rx="12"
-        fill="none"
-        stroke={p.line}
-        strokeWidth="2.5"
-      />
-      <rect
-        x="178"
-        y="66"
-        width="84"
-        height="14"
-        rx="3"
-        fill="none"
-        stroke={p.line}
-        strokeWidth="2"
-      />
-      {/* Hose */}
-      <path
-        d="M452 60 C 400 60, 380 40, 330 40 C 260 40, 230 50, 230 90 V 290"
-        fill="none"
-        stroke={p.accent}
-        strokeWidth="6"
-        strokeLinecap="round"
-      />
-      {/* Nozzle */}
-      <path d="M210 300 H252 L246 290 H216 Z" fill={p.accent} />
-      {/* Suction arrows */}
-      <g stroke={p.waterEdge} strokeWidth="1.5" fill="none" strokeLinecap="round">
-        <path d="M196 318 q 10 -6 18 -16" />
-        <path d="M266 318 q -10 -6 -18 -16" />
-      </g>
-      {annotated ? (
-        <>
-          <Label fromX={231} fromY={120} x={360} y={130} text="Suction hose" p={p} />
-          <Label fromX={300} fromY={316} x={360} y={364} text="Settled sediment" p={p} />
-        </>
-      ) : null}
-    </svg>
-  );
-}
-
 export function SumpDiagram({ tone = "light", className, annotated = true }: IllustrationProps) {
   const p = palettes[tone];
   const sedimentId = `sediment-sump-${tone}`;
@@ -435,8 +361,6 @@ export function ServiceIllustrationView({
   switch (kind) {
     case "tank":
       return <TankCrossSection {...props} />;
-    case "vacuum":
-      return <VacuumDiagram {...props} />;
     case "sump":
       return <SumpDiagram {...props} />;
     case "commercial":

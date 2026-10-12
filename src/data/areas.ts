@@ -46,12 +46,7 @@ export const areas: ServiceArea[] = [
       },
     ],
     placesCovered: [],
-    serviceSlugs: [
-      "water-tank-deep-cleaning",
-      "water-tank-vacuum-cleaning",
-      "sump-cleaning",
-      "commercial-tank-cleaning",
-    ],
+    serviceSlugs: ["water-tank-deep-cleaning", "sump-cleaning", "commercial-tank-cleaning"],
   },
   {
     slug: "gampaha",
@@ -74,12 +69,7 @@ export const areas: ServiceArea[] = [
       },
     ],
     placesCovered: [],
-    serviceSlugs: [
-      "water-tank-deep-cleaning",
-      "water-tank-vacuum-cleaning",
-      "sump-cleaning",
-      "commercial-tank-cleaning",
-    ],
+    serviceSlugs: ["water-tank-deep-cleaning", "sump-cleaning", "commercial-tank-cleaning"],
   },
 ];
 

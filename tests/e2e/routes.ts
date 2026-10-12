@@ -4,7 +4,6 @@ export const PUBLIC_ROUTES = [
   "/about",
   "/services",
   "/services/water-tank-deep-cleaning",
-  "/services/water-tank-vacuum-cleaning",
   "/services/sump-cleaning",
   "/services/commercial-tank-cleaning",
   "/pricing",

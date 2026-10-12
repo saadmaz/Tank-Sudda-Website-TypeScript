@@ -27,6 +27,14 @@ test.describe("routing", () => {
     expect(response.headers()["location"]).toBe("/guides");
   });
 
+  test("discontinued vacuum cleaning page redirects to deep cleaning", async ({ request }) => {
+    const response = await request.get("/services/water-tank-vacuum-cleaning", {
+      maxRedirects: 0,
+    });
+    expect(response.status()).toBe(308);
+    expect(response.headers()["location"]).toBe("/services/water-tank-deep-cleaning");
+  });
+
   test("page titles are unique", async ({ page }) => {
     const titles = new Map<string, string>();
     for (const route of PUBLIC_ROUTES) {

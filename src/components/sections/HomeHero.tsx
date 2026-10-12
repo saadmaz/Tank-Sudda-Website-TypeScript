@@ -77,7 +77,7 @@ export function HomeHero() {
             <div className="rounded-lg bg-navy-950/80 px-4 pt-4 pb-2 ring-1 ring-white/5">
               <SlotImage slot="homeHero" priority fallback={<TankCrossSection tone="dark" />} />
             </div>
-            <ul className="grid grid-cols-2 gap-2 p-2 pt-3">
+            <ul className="grid grid-cols-2 gap-2 p-2 pt-3 [&>li:last-child:nth-child(odd)]:col-span-2">
               {services.map((service) => (
                 <li key={service.slug}>
                   <Link

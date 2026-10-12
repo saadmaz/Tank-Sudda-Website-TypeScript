@@ -24,7 +24,7 @@ export const customerJourney: ServiceStep[] = [
   {
     title: "Cleaning",
     description:
-      "The tank is cleaned using the agreed service: deep cleaning, vacuum cleaning or sump cleaning.",
+      "The tank is cleaned using the agreed service: deep cleaning, sump cleaning, or both.",
   },
   {
     title: "Handover",

@@ -30,14 +30,6 @@ export const pricing: PriceEntry[] = [
     notes: null,
   },
   {
-    serviceSlug: "water-tank-vacuum-cleaning",
-    model: "quote",
-    amountLkr: null,
-    unit: null,
-    verified: false,
-    notes: null,
-  },
-  {
     serviceSlug: "sump-cleaning",
     model: "quote",
     amountLkr: null,

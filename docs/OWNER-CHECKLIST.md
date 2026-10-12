@@ -16,7 +16,7 @@ were placeholders, so none of it was carried over.
 - [ ] **Service coverage** → mark areas `confirmed` in `src/data/areas.ts`, add towns to
       `placesCovered`, or add new areas. Draft entries exist for Colombo and Gampaha.
 - [ ] Review **service descriptions and process steps** (`src/data/services.ts`) — confirm they
-      match how Tank Sudda actually works (draining, scrubbing, vacuum equipment, sump procedure,
+      match how Tank Sudda actually works (draining, scrubbing, sump procedure,
       any cleaning agents).
 - [ ] Review **"How we work" commitments** (`src/data/site-content.ts`).
 - [ ] Have the **Privacy Policy, Terms and Cookie pages** reviewed (ideally by a lawyer), including

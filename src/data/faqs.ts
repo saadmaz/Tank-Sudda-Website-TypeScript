@@ -31,16 +31,9 @@ export const faqs: Faq[] = [
       "There is no single interval that suits every tank. It depends on the quality of the incoming supply, how much sediment builds up, whether the tank is well covered, and how many people use the water. Regular visual inspection is the best guide; many owners plan a clean at least once a year and adjust from there. We can suggest a sensible interval after seeing your tank.",
   },
   {
-    id: "vacuum-vs-deep",
-    category: "service",
-    featured: true,
-    question: "What is the difference between deep cleaning and vacuum cleaning?",
-    answer:
-      "Deep cleaning empties the tank and scrubs the walls, floor and lid area as well as removing sediment. Vacuum cleaning focuses on lifting settled sediment from the tank floor with suction equipment. Deep cleaning suits first cleans and neglected tanks; vacuum cleaning suits routine maintenance. We recommend one or the other after assessment.",
-  },
-  {
     id: "what-tanks",
     category: "general",
+    featured: true,
     question: "What kinds of tanks do you clean?",
     answer:
       "We clean domestic and building water storage tanks and sumps. Tell us the tank type (for example plastic, concrete or steel), its approximate capacity and how it is accessed when you book, so we can plan the work.",

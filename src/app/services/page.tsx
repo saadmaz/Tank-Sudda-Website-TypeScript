@@ -15,7 +15,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata = buildMetadata({
   title: "Water Tank & Sump Cleaning Services",
   description:
-    "Compare Tank Sudda's services: water tank deep cleaning, vacuum cleaning, sump cleaning, and commercial and institutional tank cleaning in Sri Lanka.",
+    "Compare Tank Sudda's services: water tank deep cleaning, sump cleaning, and commercial and institutional tank cleaning in Sri Lanka.",
   path: "/services",
 });
 
@@ -26,7 +26,7 @@ export default function ServicesPage() {
         breadcrumbs={[{ name: "Services", path: "/services" }]}
         eyebrow="Services"
         title="Cleaning services for tanks and sumps"
-        intro="Four services covering domestic tanks, underground sumps and larger buildings. Not sure which you need? Describe your tank when you book and we will recommend the right option."
+        intro="Three services covering domestic tanks, underground sumps and larger buildings. Not sure which you need? Describe your tank when you book and we will recommend the right option."
         actions={
           <ButtonLink href="/book" variant="onDark" size="lg">
             Request a booking

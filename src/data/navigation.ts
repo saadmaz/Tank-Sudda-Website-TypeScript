@@ -22,7 +22,6 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
     title: "Services",
     links: [
       { href: "/services/water-tank-deep-cleaning", label: "Deep cleaning" },
-      { href: "/services/water-tank-vacuum-cleaning", label: "Vacuum cleaning" },
       { href: "/services/sump-cleaning", label: "Sump cleaning" },
       { href: "/services/commercial-tank-cleaning", label: "Commercial & institutional" },
       { href: "/pricing", label: "Pricing" },

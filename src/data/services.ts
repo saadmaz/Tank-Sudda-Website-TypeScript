@@ -9,7 +9,7 @@
  * (see docs/OWNER-CHECKLIST.md).
  */
 
-export type ServiceIllustration = "tank" | "vacuum" | "sump" | "commercial";
+export type ServiceIllustration = "tank" | "sump" | "commercial";
 
 export interface ServiceStep {
   title: string;
@@ -110,10 +110,10 @@ export const services: Service[] = [
         ],
       },
       {
-        heading: "Deep cleaning or vacuum cleaning?",
+        heading: "Cleaning the tank and sump together",
         paragraphs: [
-          "Deep cleaning is usually the right choice for a first clean, a neglected tank, or when internal surfaces need scrubbing. Vacuum cleaning focuses on lifting settled sediment and is often used for maintenance between deep cleans.",
-          "If you are unsure, describe the tank when you book and we will recommend the appropriate service after assessment.",
+          "If your overhead tank is filled from an underground sump, sediment left in the sump can be pumped straight back up after the tank is cleaned.",
+          "Where there is a sump, we recommend cleaning both on the same visit. Mention it when you book and we will plan the work together.",
         ],
       },
     ],
@@ -124,84 +124,11 @@ export const services: Service[] = [
       "Let us know if the lid, ladder or access area is damaged.",
     ],
     faqIds: ["how-often-clean", "water-off-duration", "what-tanks", "prepare-for-clean"],
-    relatedServiceSlugs: ["water-tank-vacuum-cleaning", "sump-cleaning"],
+    relatedServiceSlugs: ["sump-cleaning", "commercial-tank-cleaning"],
     relatedArticleSlugs: [
       "how-often-should-you-clean-your-water-tank",
       "understanding-sediment-in-water-tanks",
       "how-to-prepare-for-water-tank-cleaning",
-    ],
-  },
-  {
-    slug: "water-tank-vacuum-cleaning",
-    name: "Water Tank Vacuum Cleaning",
-    shortName: "Vacuum cleaning",
-    summary:
-      "Suction equipment lifts settled sediment and loose debris from the tank floor. It is useful for routine maintenance between deep cleans.",
-    metaDescription:
-      "Water tank vacuum cleaning in Sri Lanka. Settled sediment and debris lifted from the tank floor with suction equipment. Request a quote.",
-    intro:
-      "Vacuum cleaning uses suction equipment to remove the sediment and loose debris that settle on the floor of a water tank. It targets the part of the tank where most material collects and is often used to maintain a tank that has previously been deep cleaned.",
-    illustration: "vacuum",
-    suitableFor: [
-      "Tanks on a regular maintenance schedule",
-      "Tanks where sediment is the main concern rather than surface deposits",
-      "Larger tanks where removing sediment efficiently matters",
-      "Properties that want to keep interruption to a minimum (confirmed at assessment)",
-    ],
-    whatItInvolves: [
-      "Inspection of the tank and the amount of sediment present",
-      "Agreeing the water level and supply arrangements for the work",
-      "Lifting settled sediment and loose debris with suction equipment",
-      "Checking the floor and corners once the sediment is removed",
-      "Recommending a deep clean if surfaces also need attention",
-    ],
-    process: [
-      {
-        title: "Assessment",
-        description:
-          "We look at the tank, the depth of sediment and the access, then confirm whether vacuum cleaning is suitable or a deep clean is needed.",
-      },
-      {
-        title: "Prepare the tank",
-        description:
-          "We agree how much water needs to be drawn down for the work and how long supply will be affected.",
-      },
-      {
-        title: "Vacuum the floor",
-        description:
-          "Sediment and debris are lifted from the floor and corners with suction equipment and removed from the tank.",
-      },
-      {
-        title: "Check and finish",
-        description:
-          "We check the result, restore the supply, and tell you if we noticed anything that needs attention.",
-      },
-    ],
-    sections: [
-      {
-        heading: "When vacuum cleaning is a good fit",
-        paragraphs: [
-          "Vacuum cleaning is effective when the main issue is material that has settled on the tank floor. Because it focuses on sediment, it is well suited to maintenance between deeper cleans.",
-          "It does not replace scrubbing where walls have staining, slime or deposits. In that case we will recommend a deep clean instead, and explain why.",
-        ],
-      },
-      {
-        heading: "Will my water be switched off?",
-        paragraphs: [
-          "That depends on the tank's size, design and condition. We confirm how much water must be drawn down, and for how long, during the assessment, before any work starts.",
-        ],
-      },
-    ],
-    beforeYouBook: [
-      "Tell us when the tank was last cleaned, if you know.",
-      "Note any cloudy water, grit or particles you have seen at the tap.",
-      "Share the approximate tank capacity and how the tank is accessed.",
-    ],
-    faqIds: ["vacuum-vs-deep", "how-often-clean", "water-off-duration"],
-    relatedServiceSlugs: ["water-tank-deep-cleaning", "commercial-tank-cleaning"],
-    relatedArticleSlugs: [
-      "understanding-sediment-in-water-tanks",
-      "water-tank-maintenance-checklist",
     ],
   },
   {
@@ -305,7 +232,7 @@ export const services: Service[] = [
       "A site assessment covering every tank and sump to be cleaned",
       "A written scope listing tanks, capacities and access arrangements",
       "Scheduling agreed with you to limit disruption to occupants",
-      "Deep cleaning or vacuum cleaning as appropriate for each tank",
+      "Deep cleaning of each tank, and sump cleaning where there is a sump",
       "A summary of what was cleaned and any issues observed",
     ],
     process: [
@@ -357,7 +284,7 @@ export const services: Service[] = [
       "Have a contact person available on the day of the assessment.",
     ],
     faqIds: ["commercial-scheduling", "how-often-clean", "how-pricing-works"],
-    relatedServiceSlugs: ["sump-cleaning", "water-tank-vacuum-cleaning"],
+    relatedServiceSlugs: ["sump-cleaning", "water-tank-deep-cleaning"],
     relatedArticleSlugs: [
       "choosing-a-water-tank-cleaning-service",
       "how-often-should-you-clean-your-water-tank",
