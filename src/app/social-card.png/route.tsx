@@ -1,10 +1,14 @@
+import fs from "node:fs";
+import path from "node:path";
 import { ImageResponse } from "next/og";
 import { business } from "@/data/business";
 
 export const dynamic = "force-static";
 
-/** Default 1200×630 Open Graph image: brand colours and name only, no imagery. */
+/** Default 1200×630 Open Graph image: logo, brand colours and name. Built once at build time. */
 export function GET() {
+  const logo = fs.readFileSync(path.join(process.cwd(), "public", "brand", "logo-badge-512.png"));
+  const logoDataUrl = `data:image/png;base64,${logo.toString("base64")}`;
   return new ImageResponse(
     <div
       style={{
@@ -22,17 +26,12 @@ export function GET() {
       <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
         <div
           style={{
-            width: 64,
-            height: 64,
-            borderRadius: 12,
-            backgroundColor: "#ffffff",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            width: 96,
+            height: 96,
+            backgroundImage: `url(${logoDataUrl})`,
+            backgroundSize: "96px 96px",
           }}
-        >
-          <div style={{ width: 40, height: 6, borderRadius: 3, backgroundColor: "#1a89ca" }} />
-        </div>
+        />
         <div style={{ fontSize: 44, fontWeight: 700, display: "flex" }}>
           Tank<span style={{ color: "#7fc1e6", marginLeft: 12 }}>Sudda</span>
         </div>

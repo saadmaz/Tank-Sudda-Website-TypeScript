@@ -6,7 +6,7 @@
  */
 import { business } from "@/data/business";
 import { siteUrl } from "@/lib/site";
-import { EMAIL_ICON_PATH, EMAIL_ICONS, type EmailIconId } from "./email-icons";
+import { EMAIL_ICON_PATH, EMAIL_ICONS, EMAIL_LOGO_PATH, type EmailIconId } from "./email-icons";
 import { leadSubject, leadToText } from "./format";
 import type { Lead } from "./types";
 
@@ -134,9 +134,14 @@ function layout({
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${color.mist};">
 <tr><td align="center" style="padding:24px 12px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
-<tr><td style="background:${color.navy};border-radius:10px 10px 0 0;padding:20px 28px;">
-  <span style="font-family:${font};font-size:20px;font-weight:700;color:#ffffff;">Tank</span><span style="font-family:${font};font-size:20px;font-weight:700;color:#7fc1e6;"> Sudda</span>
-  <div style="font-family:${font};font-size:12px;color:#b9c7d6;margin-top:4px;">Water tank &amp; sump cleaning in Sri Lanka</div>
+<tr><td style="background:${color.navy};border-radius:10px 10px 0 0;padding:18px 28px;">
+  <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+    <td style="padding-right:14px;vertical-align:middle;"><img src="${websiteUrl()}${EMAIL_LOGO_PATH}" width="48" height="48" alt="Tank Sudda" style="display:block;width:48px;height:48px;border:0;"></td>
+    <td style="vertical-align:middle;">
+      <span style="font-family:${font};font-size:20px;font-weight:700;color:#ffffff;">Tank</span><span style="font-family:${font};font-size:20px;font-weight:700;color:#7fc1e6;"> Sudda</span>
+      <div style="font-family:${font};font-size:12px;color:#b9c7d6;margin-top:4px;">Water tank &amp; sump cleaning in Sri Lanka</div>
+    </td>
+  </tr></table>
 </td></tr>
 <tr><td style="background:#ffffff;border:1px solid ${color.line};border-top:0;border-radius:0 0 10px 10px;padding:28px;">
   <h1 style="margin:0 0 16px;font-family:${font};font-size:22px;line-height:1.3;color:${color.navy};">${escapeHtml(heading)}</h1>

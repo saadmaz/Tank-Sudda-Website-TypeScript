@@ -12,6 +12,8 @@ import {
 import { absoluteUrl, isIndexingEnabled, siteUrl } from "@/lib/site";
 
 export const DEFAULT_OG_IMAGE_PATH = "/social-card.png";
+/** Square logo used in structured data and the web app manifest. */
+export const BRAND_LOGO_PATH = "/brand/logo-512.png";
 
 export interface PageMetadataInput {
   /** Page title without the brand suffix. */

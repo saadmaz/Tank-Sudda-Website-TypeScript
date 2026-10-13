@@ -20,7 +20,8 @@
     "check": "bun run typecheck && bun run lint && bun run test && bun run build",
     "illustrations": "bun scripts/generate-illustrations.tsx",
     "content": "bun scripts/generate-article-index.ts",
-    "email-icons": "bun scripts/generate-email-icons.tsx"
+    "email-icons": "bun scripts/generate-email-icons.tsx",
+    "brand": "bun scripts/generate-brand-assets.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

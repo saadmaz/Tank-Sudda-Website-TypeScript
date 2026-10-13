@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { areas, type ServiceArea } from "@/data/areas";
 import { business } from "@/data/business";
@@ -78,6 +80,12 @@ describe("structured data", () => {
     expect(schema).not.toHaveProperty("telephone");
     expect(schema).not.toHaveProperty("address");
     expect(JSON.stringify(schema)).not.toMatch(/aggregateRating|review/i);
+  });
+
+  it("points Google at the square logo file", () => {
+    const schema = organizationSchema(business, origin);
+    expect(schema.logo).toBe("https://www.example-tank.test/brand/logo-512.png");
+    expect(fs.existsSync(path.join(process.cwd(), "public", "brand", "logo-512.png"))).toBe(true);
   });
 
   it("becomes LocalBusiness only with a verified address", () => {

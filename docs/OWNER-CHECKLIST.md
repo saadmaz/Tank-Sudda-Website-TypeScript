@@ -33,7 +33,7 @@ were placeholders, so none of it was carried over.
 
 ## Recommended
 
-- [ ] Real **logo** (replace the typographic wordmark in `Logo.tsx` and `src/app/icon.svg`)
+- [x] Real **logo**: added 2026-10-13 (`public/logo`; all sizes made by `bun run brand`)
 - [ ] **Photographs** of real tanks, sumps, equipment → `src/data/images.ts`, `src/data/gallery.ts`
 - [ ] **Before/after pairs** from real jobs
 - [ ] **Prices** that can be published (`verified: true`)
