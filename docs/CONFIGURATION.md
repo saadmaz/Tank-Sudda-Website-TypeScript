@@ -28,6 +28,8 @@ plain-text copy):
 - **Customer confirmation** (when they gave an email): reference, next steps and the options
   they chose. Free text (address, notes, messages) is never repeated back, so the form cannot
   be used to send arbitrary text. Replies go to `LEAD_REPLY_TO`, or the business email if unset.
+  The contact and social icons at the bottom are PNG files in `public/email/icons`, created
+  by `bun run email-icons` from the brand icons (email apps cannot show SVG).
   `LEAD_CUSTOMER_CONFIRMATION=0` turns it off. A failed confirmation is logged but does not fail
   the submission.
 

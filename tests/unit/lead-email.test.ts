@@ -60,6 +60,9 @@ describe("lead email templates", () => {
       expect(body).not.toContain("spam.example");
     }
     expect(text).toContain("Hi Saad");
+    expect(text).toContain("Team Tank Sudda");
+    expect(html).toContain("/email/icons/whatsapp.png");
+    expect(html).toContain("https://www.facebook.com/TankSuddaa");
     expect(text).toContain("confirmed only at that point");
   });
 

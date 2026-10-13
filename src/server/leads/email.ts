@@ -6,6 +6,7 @@
  */
 import { business } from "@/data/business";
 import { siteUrl } from "@/lib/site";
+import { EMAIL_ICON_PATH, EMAIL_ICONS, type EmailIconId } from "./email-icons";
 import { leadSubject, leadToText } from "./format";
 import type { Lead } from "./types";
 
@@ -71,30 +72,36 @@ function detailsTable(rows: { label: string; value: string }[]): string {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${color.line};border-radius:8px;border-collapse:separate;">${body}</table>`;
 }
 
-function contactLinesHtml(): string {
-  const lines: string[] = [];
-  if (business.phone) {
-    lines.push(
-      `Phone: <a href="tel:${business.phone.e164}" style="color:${color.waterDark};">${escapeHtml(business.phone.display)}</a>`,
-    );
+/** Where each round icon links to; icons without a verified link are left out. */
+function iconHref(id: EmailIconId): string | null {
+  switch (id) {
+    case "phone":
+      return business.phone ? `tel:${business.phone.e164}` : null;
+    case "whatsapp":
+      return business.whatsapp ? whatsappLink(business.whatsapp.e164) : null;
+    case "email":
+      return business.email ? `mailto:${business.email}` : null;
+    case "website":
+      return websiteUrl();
+    default:
+      return business.social[id] ?? null;
   }
-  if (business.whatsapp) {
-    const link = whatsappLink(business.whatsapp.e164);
-    if (link) {
-      lines.push(
-        `WhatsApp: <a href="${link}" style="color:${color.waterDark};">${escapeHtml(business.whatsapp.display)}</a>`,
-      );
-    }
-  }
-  if (business.email) {
-    lines.push(
-      `Email: <a href="mailto:${business.email}" style="color:${color.waterDark};">${escapeHtml(business.email)}</a>`,
-    );
-  }
-  lines.push(
-    `Website: <a href="${websiteUrl()}" style="color:${color.waterDark};">${escapeHtml(websiteLabel())}</a>`,
-  );
-  return lines.join("<br>");
+}
+
+/**
+ * Row of round contact and social icons (PNG files on the website, because
+ * email apps do not show SVG). Alt text names each one if images are blocked.
+ */
+export function contactIconsHtml(): string {
+  const links = EMAIL_ICONS.flatMap((icon) => {
+    const href = iconHref(icon.id);
+    if (!href) return [];
+    const src = `${websiteUrl()}${EMAIL_ICON_PATH}/${icon.id}.png`;
+    return [
+      `<a href="${escapeHtml(href)}" title="${escapeHtml(icon.label)}" style="display:inline-block;margin:0 8px 8px 0;text-decoration:none;"><img src="${src}" width="32" height="32" alt="${escapeHtml(icon.label)}" style="display:block;width:32px;height:32px;border:0;"></a>`,
+    ];
+  });
+  return `<div style="margin:0 0 20px;font-size:0;line-height:0;">${links.join("")}</div>`;
 }
 
 function contactLinesText(): string {
@@ -261,8 +268,8 @@ export function renderCustomerEmail(lead: Lead): RenderedEmail | null {
     paragraph(
       "Need to change something or have a question? Just reply to this email, or call or WhatsApp us and mention your reference.",
     ),
-    paragraph(`${contactLinesHtml()}`),
-    paragraph(`Thank you,<br><strong>The Tank Sudda team</strong>`),
+    contactIconsHtml(),
+    paragraph(`Thank you,<br><strong>Team Tank Sudda</strong>`),
   ].join("\n");
 
   const textLines = [
@@ -287,7 +294,7 @@ export function renderCustomerEmail(lead: Lead): RenderedEmail | null {
     contactLinesText(),
     "",
     "Thank you,",
-    "The Tank Sudda team",
+    "Team Tank Sudda",
     "",
     `You received this email because this address was entered on the ${booking ? "booking" : "contact"} form at ${websiteLabel()}.`,
   );
