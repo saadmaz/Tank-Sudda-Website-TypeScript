@@ -86,6 +86,7 @@ proxy.
 | `wrangler.jsonc`      | Worker name (`tank-sudda-website-typescript`), compatibility flags, assets     |
 | `open-next.config.ts` | Serves prebuilt pages from static assets (no R2 or KV needed, no revalidation) |
 | `patches/…`           | One-line fix to the adapter for Next.js 16.4 (`preview-props.json`)            |
+| `public/_headers`     | Caches hashed `/_next/static/*` files for a year (Workers serves them uncached) |
 
 **Commands**
 

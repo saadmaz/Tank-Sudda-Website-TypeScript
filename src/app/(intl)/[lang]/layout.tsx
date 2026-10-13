@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { SiteDocument } from "@/components/layout/SiteDocument";
 import { isPrefixedLocale, prefixedLocales } from "@/lib/i18n/config";
 import { rootMetadata, siteViewport } from "@/lib/seo/metadata";
-import { inter, notoSinhala, notoTamil, schibsted } from "../../fonts";
+import { inter, schibsted } from "../../fonts";
+import { notoSinhala, notoTamil } from "../fonts";
 import "../../globals.css";
 
 /** Root layout for the Sinhala (/si) and Tamil (/ta) pages. */

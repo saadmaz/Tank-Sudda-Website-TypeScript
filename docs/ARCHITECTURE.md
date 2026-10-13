@@ -18,7 +18,7 @@ src/
     (en)/                 English routes and their root layout (<html lang="en-LK">)
     (intl)/[lang]/        Sinhala (/si) and Tamil (/ta) routes and their root layout
     global-not-found.tsx  404 for unmatched URLs (needed with two root layouts)
-    fonts.ts              next/font: Inter, Schibsted Grotesk, Noto Sans Sinhala/Tamil
+    fonts.ts              next/font: Inter, Schibsted Grotesk (Noto Sinhala/Tamil: (intl)/fonts.ts)
     sitemap.ts robots.ts manifest.ts favicon.ico icon.png apple-icon.png
     social-card.png/route.tsx (default Open Graph image, with the logo)
   components/
@@ -116,8 +116,9 @@ pages go to the English page.
   dictionaries never reach the browser.
 - **Links.** Use `localeHref(locale, path)` from `src/lib/i18n/config.ts`. It prefixes translated
   pages and leaves English-only pages alone.
-- **Fonts.** Noto Sans Sinhala / Tamil load only on their own pages; `globals.css` adds them to
-  the font stacks and relaxes heading tracking and line height for these scripts.
+- **Fonts.** Next.js preloads every font declared in a module a layout imports, so Noto Sans
+  Sinhala / Tamil are declared in `app/(intl)/fonts.ts` (with `preload: false`) and only load on
+  their own pages; `globals.css` adds them to the font stacks and relaxes heading tracking and line height for these scripts.
 - **Search engines.** `translationsReviewed` in `src/lib/i18n/config.ts` is `false` for `si`
   and `ta` until a native speaker has checked the text. While false, those pages are
   `noindex`, are left out of the sitemap and hreflang, and show a short "translation under

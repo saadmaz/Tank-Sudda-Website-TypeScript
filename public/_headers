@@ -1,0 +1,4 @@
+# Cloudflare Workers static-asset headers (OpenNext copies public/ into the assets).
+# Files under /_next/static have content hashes in their names, so they never change.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
