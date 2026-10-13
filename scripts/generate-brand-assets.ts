@@ -34,7 +34,10 @@ async function squareMark(): Promise<Buffer> {
 }
 
 async function mark(size: number, square: Buffer): Promise<Buffer> {
-  return sharp(square).resize(size, size).png({ compressionLevel: 9, palette: true, quality: 90 }).toBuffer();
+  return sharp(square)
+    .resize(size, size)
+    .png({ compressionLevel: 9, palette: true, quality: 90 })
+    .toBuffer();
 }
 
 /** Logo centred on a white circle (or white square for Apple touch icons). */

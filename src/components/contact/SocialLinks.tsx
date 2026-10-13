@@ -11,20 +11,28 @@ export function SocialLinks({
   tone = "light",
   className,
   locale = "en",
+  centerOnMobile = false,
 }: {
   tone?: "light" | "dark";
   className?: string;
   locale?: Locale;
+  /** Centre the row on phones (used in the footer). */
+  centerOnMobile?: boolean;
 }) {
   const { common } = getDictionary(locale);
   const profiles = getSocialProfiles();
   if (profiles.length === 0) return <MissingInfo what="social media links" />;
   const dark = tone === "dark";
   return (
-    // Full-size 44px buttons: a single row when there is room (container query),
-    // otherwise a tidy 4-column grid. Seven columns (one per profile) need 22.25rem.
-    <div className={cn("@container w-full", className)}>
-      <ul className="grid w-fit grid-cols-4 gap-2 @[22.25rem]:grid-cols-7">
+    // Always one row: buttons share the available width (up to 44px each), so all
+    // seven fit even on a 320px phone and stay at full size when there is room.
+    <div className={cn("w-full", className)}>
+      <ul
+        className={cn(
+          "grid w-full max-w-[22.25rem] grid-cols-7 gap-1.5 sm:gap-2",
+          centerOnMobile && "mx-auto sm:mx-0",
+        )}
+      >
         {profiles.map((profile) => (
           <li key={profile.id}>
             <a
@@ -34,7 +42,7 @@ export function SocialLinks({
               aria-label={`${common.socialProfile(profile.label)}${common.opensNewTab}`}
               title={profile.label}
               className={cn(
-                "grid size-11 place-items-center rounded-full transition-colors",
+                "grid aspect-square w-full max-w-11 place-items-center rounded-full transition-colors",
                 dark
                   ? "bg-white/5 text-grey-200 ring-1 ring-white/15 hover:bg-white hover:text-navy-950"
                   : "bg-white text-navy-900 ring-1 ring-line hover:bg-navy-950 hover:text-white hover:ring-navy-950",

@@ -22,19 +22,20 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
       <WaterLines className="absolute inset-x-0 top-0 h-16 text-water-500/40" />
       <div className="relative container-site pt-20 pb-10">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
-          <div className="max-w-sm space-y-5">
+          {/* Centred on phones; left-aligned from tablet up. */}
+          <div className="mx-auto w-full max-w-sm space-y-5 text-center sm:mx-0 sm:text-left">
             <Logo tone="light" href={localeHref(locale, "/")} label={t.common.logoHome} />
             <p className="text-sm leading-relaxed text-grey-300">{t.chrome.description}</p>
-            <ContactMethodList tone="dark" locale={locale} />
+            <ContactMethodList tone="dark" locale={locale} centerOnMobile />
             {getSocialProfiles().length > 0 ? (
               <div className="pt-2">
                 <p className="mb-3 text-xs font-semibold tracking-[0.12em] text-white uppercase">
                   {t.chrome.followUs}
                 </p>
-                <SocialLinks tone="dark" locale={locale} />
+                <SocialLinks tone="dark" locale={locale} centerOnMobile />
               </div>
             ) : (
-              <SocialLinks tone="dark" locale={locale} />
+              <SocialLinks tone="dark" locale={locale} centerOnMobile />
             )}
           </div>
           <div className="grid gap-8 sm:grid-cols-3">
@@ -42,7 +43,7 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
               <nav
                 key={group.title}
                 aria-label={t.chrome.footerGroupLinks(group.title)}
-                className="border-t border-white/10 pt-6 sm:border-0 sm:pt-0"
+                className="border-t border-white/10 pt-6 text-center sm:border-0 sm:pt-0 sm:text-left"
               >
                 <h2 className="mb-2 font-sans text-xs font-semibold tracking-[0.12em] text-white uppercase sm:mb-3">
                   {group.title}
@@ -50,10 +51,11 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
                 {/* Two even columns on phones so rows line up; one column from tablet up. */}
                 <ul className="grid grid-cols-2 gap-x-6 sm:grid-cols-1">
                   {group.links.map((link) => (
-                    <li key={link.href}>
+                    // A lone last link spans both phone columns so it sits centred.
+                    <li key={link.href} className="odd:last:col-span-2 sm:odd:last:col-span-1">
                       <Link
                         href={link.href}
-                        className="flex min-h-11 items-center text-[0.9375rem] text-grey-300 hover:text-white hover:underline hover:underline-offset-4 sm:text-sm"
+                        className="flex min-h-11 items-center justify-center text-[0.9375rem] text-grey-300 hover:text-white hover:underline hover:underline-offset-4 sm:justify-start sm:text-sm"
                       >
                         {link.label}
                       </Link>
@@ -64,7 +66,7 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
             ))}
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-sm sm:mt-16 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <div className="mt-12 flex flex-col items-center gap-2 border-t border-white/10 pt-6 text-center text-sm sm:mt-16 sm:flex-row sm:justify-between sm:gap-4 sm:text-left">
           <p>
             © {year} {business.legalName ?? business.name}. {business.countryName}.
           </p>
@@ -72,10 +74,10 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
             locale={locale}
             label={t.common.language}
             tone="dark"
-            className="-mx-2.5 sm:order-last"
+            className="sm:order-last sm:-mx-2.5"
           />
           <nav aria-label={t.chrome.legal}>
-            <ul className="flex flex-wrap gap-x-6">
+            <ul className="flex flex-wrap justify-center gap-x-6 sm:justify-start">
               {localizeNav(locale, legalNav).map((link) => (
                 <li key={link.href}>
                   <Link

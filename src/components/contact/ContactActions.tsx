@@ -123,9 +123,12 @@ export function getContactMethods(
 export function ContactMethodList({
   tone = "light",
   locale = "en",
+  centerOnMobile = false,
 }: {
   tone?: "light" | "dark";
   locale?: Locale;
+  /** Centre each line on phones (used in the footer). */
+  centerOnMobile?: boolean;
 }) {
   const items = getContactMethods(locale);
   if (items.length === 0) {
@@ -135,7 +138,13 @@ export function ContactMethodList({
   return (
     <ul className="space-y-1">
       {items.map(({ icon: Icon, brandColored, label, value, href, external }) => (
-        <li key={label} className="flex items-center gap-3">
+        <li
+          key={label}
+          className={cn(
+            "flex items-center gap-3",
+            centerOnMobile && "justify-center sm:justify-start",
+          )}
+        >
           <Icon
             className={cn("size-5", !brandColored && (dark ? "text-water-300" : "text-water-600"))}
           />
