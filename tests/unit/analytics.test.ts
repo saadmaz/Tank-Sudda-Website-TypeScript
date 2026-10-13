@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { contactChannelForHref, track } from "@/lib/analytics";
+import { contactChannelForHref, parseGaMeasurementId, track } from "@/lib/analytics";
 
 describe("contact link classification", () => {
   it.each([
@@ -45,5 +45,17 @@ describe("track", () => {
       },
     });
     expect(() => track("booking_sent")).not.toThrow();
+  });
+});
+
+describe("Google Analytics measurement ID", () => {
+  it("accepts GA4 IDs and rejects anything else", () => {
+    expect(parseGaMeasurementId("G-EK434GVS4Z")).toBe("G-EK434GVS4Z");
+    expect(parseGaMeasurementId(" g-ek434gvs4z ")).toBe("G-EK434GVS4Z");
+    expect(parseGaMeasurementId("GTM-ABC123")).toBeNull();
+    expect(parseGaMeasurementId("UA-12345-1")).toBeNull();
+    expect(parseGaMeasurementId("G-<script>")).toBeNull();
+    expect(parseGaMeasurementId("")).toBeNull();
+    expect(parseGaMeasurementId(undefined)).toBeNull();
   });
 });

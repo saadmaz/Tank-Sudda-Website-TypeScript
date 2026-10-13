@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Analytics } from "@/components/analytics/Analytics";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { parseGaMeasurementId } from "@/lib/analytics";
 import { htmlLang, translationsReviewed, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
@@ -43,7 +44,11 @@ export function SiteDocument({
         </main>
         <SiteFooter locale={locale} />
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
-        <Analytics plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || null} />
+        <Analytics
+          plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || null}
+          gaMeasurementId={parseGaMeasurementId(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID)}
+          consentLabels={t.consent}
+        />
       </body>
     </html>
   );

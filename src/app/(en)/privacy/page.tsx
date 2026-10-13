@@ -14,7 +14,7 @@ export default function PrivacyPage() {
     <LegalPage
       title="Privacy Policy"
       path="/privacy"
-      lastUpdated="2026-10-12"
+      lastUpdated="2026-10-14"
       intro={`This policy explains what personal information ${business.name} collects through this website, why, and how it is handled.`}
     >
       <h2>Who we are</h2>
@@ -25,12 +25,12 @@ export default function PrivacyPage() {
       </p>
 
       <h2>Information we collect</h2>
-      <p>We only collect information you choose to give us through our forms:</p>
+      <p>We collect information you choose to give us through our forms:</p>
       <ul>
         <li>
           <strong>Booking requests:</strong> your name, phone number, email address (if given), the
-          property and tank details, the service you need, your town and address, your preferred
-          date and time, and any notes you add.
+          property and tank details, the service you need, your town (and address, if given), your
+          preferred date, how you would like us to contact you, and any notes you add.
         </li>
         <li>
           <strong>Contact enquiries:</strong> your name, contact details and your message.
@@ -45,6 +45,14 @@ export default function PrivacyPage() {
         IP address, browser type and the pages requested) for security and to keep the site running.
         We do not use these logs to identify you.
       </p>
+      <p>
+        <strong>Website analytics (only if you accept):</strong> if you accept cookies in the
+        banner, we use Google Analytics to see how visitors use this website and how our Google ads
+        perform, for example which pages are viewed and whether the booking, call or WhatsApp
+        buttons are used. Google receives this data, including your IP address, under its own
+        privacy policy. If you decline, nothing is sent to Google. You can change your choice on the{" "}
+        <Link href="/cookies">cookie information</Link> page.
+      </p>
 
       <h2>How we use your information</h2>
       <ul>
@@ -52,11 +60,9 @@ export default function PrivacyPage() {
         <li>To prepare a quotation and arrange an appointment</li>
         <li>To contact you about the service you requested</li>
         <li>To protect the website against spam and misuse</li>
+        <li>To understand how the website is used and improve it (only if you accept cookies)</li>
       </ul>
-      <p>
-        We will only send you news or offers if you tick the optional box agreeing to this. You can
-        withdraw that agreement at any time.
-      </p>
+      <p>We do not use your details to send you news or offers.</p>
 
       <h2>How your information is handled</h2>
       <p>
