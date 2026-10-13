@@ -19,7 +19,7 @@
   // variables with these, so they live here rather than in the dashboard.
   "vars": {
     "NEXT_PUBLIC_SITE_URL": "https://tanksudda.com",
-    "LEAD_EMAIL_FROM": "Tank Sudda <bookings@tanksudda.com>",
+    "LEAD_EMAIL_FROM": "Tank Sudda <info@tanksudda.com>",
     "LEAD_EMAIL_TO": "info@tanksudda.com",
   },
   // Keep anything else added in the dashboard (secrets are always kept).

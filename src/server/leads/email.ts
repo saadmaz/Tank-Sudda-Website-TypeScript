@@ -81,15 +81,11 @@ function iconHref(id: EmailIconId): string | null {
       return business.whatsapp ? whatsappLink(business.whatsapp.e164) : null;
     case "email":
       return business.email ? `mailto:${business.email}` : null;
-    case "website":
-      return websiteUrl();
-    default:
-      return business.social[id] ?? null;
   }
 }
 
 /**
- * Row of round contact and social icons (PNG files on the website, because
+ * Row of round contact icons (PNG files on the website, because
  * email apps do not show SVG). Alt text names each one if images are blocked.
  */
 export function contactIconsHtml(): string {

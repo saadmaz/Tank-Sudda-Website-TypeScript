@@ -62,7 +62,8 @@ describe("lead email templates", () => {
     expect(text).toContain("Hi Saad");
     expect(text).toContain("Team Tank Sudda");
     expect(html).toContain("/email/icons/whatsapp.png");
-    expect(html).toContain("https://www.facebook.com/TankSuddaa");
+    expect(html).toContain("/email/icons/phone.png");
+    expect(html).not.toContain("facebook.com");
     expect(text).toContain("confirmed only at that point");
   });
 
@@ -92,7 +93,7 @@ describe("Resend channel", () => {
 
   const config = {
     apiKey: "test",
-    from: "Tank Sudda <bookings@tanksudda.com>",
+    from: "Tank Sudda <info@tanksudda.com>",
     to: ["info@tanksudda.com"],
     replyTo: "info@tanksudda.com",
   };

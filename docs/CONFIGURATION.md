@@ -28,8 +28,9 @@ plain-text copy):
 - **Customer confirmation** (when they gave an email): reference, next steps and the options
   they chose. Free text (address, notes, messages) is never repeated back, so the form cannot
   be used to send arbitrary text. Replies go to `LEAD_REPLY_TO`, or the business email if unset.
-  The contact and social icons at the bottom are PNG files in `public/email/icons`, created
-  by `bun run email-icons` from the brand icons (email apps cannot show SVG).
+  The Call, WhatsApp and Email icons at the bottom are PNG files in `public/email/icons`,
+  created by `bun run email-icons` (email apps cannot show SVG). They are kept to three because
+  image- and link-heavy emails from a young domain are more often filtered as spam.
   `LEAD_CUSTOMER_CONFIRMATION=0` turns it off. A failed confirmation is logged but does not fail
   the submission.
 
@@ -136,7 +137,8 @@ The site still runs on any Node.js host with `bun run build && bun run start` (N
 There are no mailboxes on the domain; everything is handled in the owner's Gmail.
 
 - **Receiving:** Cloudflare Email Routing (Email → Email Routing) forwards `info@` and
-  `bookings@tanksudda.com` to the Gmail address. Its MX, SPF and `cf2024-1._domainkey` records are
+  `bookings@tanksudda.com` to the Gmail address. Website emails are sent from `info@tanksudda.com`
+  (`LEAD_EMAIL_FROM` in `wrangler.jsonc`). Its MX, SPF and `cf2024-1._domainkey` records are
   managed by Cloudflare; keep exactly one SPF record on `tanksudda.com`.
 - **Sending:** Resend (domain `tanksudda.com` verified). Gmail sends as `info@tanksudda.com`
   through Resend's SMTP server (`smtp.resend.com`, port 587, user `resend`, password = an API
