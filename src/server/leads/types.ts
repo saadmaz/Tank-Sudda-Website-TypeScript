@@ -11,8 +11,13 @@ export interface Lead {
   submittedAt: string;
   /** Customer contact details used for replies. */
   contact: { name: string; phone: string | null; email: string | null };
-  /** Ordered label/value pairs describing the request. */
-  fields: { label: string; value: string }[];
+  /**
+   * Ordered label/value pairs describing the request. `shared` marks fields that
+   * are repeated back in the customer's confirmation email: only choices made
+   * from fixed options (and the town), never free text such as notes or the
+   * address, so the form cannot be used to send arbitrary text to anyone.
+   */
+  fields: { label: string; value: string; shared?: boolean }[];
   /** Customer agreed to receive news and offers. */
   marketingConsent: boolean;
 }

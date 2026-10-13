@@ -11,6 +11,7 @@ import {
   timeWindowOptions,
   type BookingData,
 } from "@/lib/validation/booking";
+import { formatLongDate } from "@/lib/dates";
 import { normalisePhone } from "@/lib/validation/common";
 import { processLead } from "@/server/leads/submit";
 import type { Lead, SubmissionResult } from "@/server/leads/types";
@@ -19,24 +20,38 @@ import { getClientKey } from "./client-key";
 
 function bookingToLead(data: BookingData, meta: { reference: string; submittedAt: string }): Lead {
   const fields: Lead["fields"] = [
-    { label: "Service", value: labelFor(serviceOptions, data.service) ?? data.service },
+    {
+      label: "Service",
+      value: labelFor(serviceOptions, data.service) ?? data.service,
+      shared: true,
+    },
     {
       label: "Property type",
       value: labelFor(propertyTypeOptions, data.propertyType) ?? data.propertyType,
+      shared: true,
     },
-    { label: "Tank type", value: labelFor(tankTypeOptions, data.tankType) ?? data.tankType },
-    { label: "Capacity", value: labelFor(capacityOptions, data.capacity) ?? data.capacity },
-    { label: "Number of tanks", value: String(data.tankCount) },
+    {
+      label: "Tank type",
+      value: labelFor(tankTypeOptions, data.tankType) ?? data.tankType,
+      shared: true,
+    },
+    {
+      label: "Capacity",
+      value: labelFor(capacityOptions, data.capacity) ?? data.capacity,
+      shared: true,
+    },
+    { label: "Number of tanks", value: String(data.tankCount), shared: true },
   ];
   if (data.organisationName) fields.push({ label: "Organisation", value: data.organisationName });
   if (data.siteNotes) fields.push({ label: "Site notes", value: data.siteNotes });
   fields.push(
-    { label: "Town / area", value: data.town },
+    { label: "Town / area", value: data.town, shared: true },
     { label: "Address", value: data.address },
-    { label: "Preferred date", value: data.preferredDate },
+    { label: "Preferred date", value: formatLongDate(data.preferredDate), shared: true },
     {
       label: "Time of day",
       value: labelFor(timeWindowOptions, data.timeWindow) ?? data.timeWindow,
+      shared: true,
     },
   );
   if (data.notes) fields.push({ label: "Notes", value: data.notes });
@@ -48,6 +63,7 @@ function bookingToLead(data: BookingData, meta: { reference: string; submittedAt
     {
       label: "Preferred contact",
       value: labelFor(contactPreferenceOptions, data.contactPreference) ?? data.contactPreference,
+      shared: true,
     },
   );
   return {

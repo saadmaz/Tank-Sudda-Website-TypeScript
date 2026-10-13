@@ -20,7 +20,16 @@ At least one channel must be configured in production; otherwise the forms show
 "temporarily unavailable" and the server refuses submissions (nothing is silently lost).
 
 **Email (Resend)** — `RESEND_API_KEY`, `LEAD_EMAIL_FROM` (on a domain verified in Resend),
-`LEAD_EMAIL_TO` (comma-separated). Emails are plain text; the customer's email is set as Reply-To.
+`LEAD_EMAIL_TO` (comma-separated). Templates are in `src/server/leads/email.ts` (HTML plus a
+plain-text copy):
+
+- **Team notification** to `LEAD_EMAIL_TO`, with call, WhatsApp and reply buttons. Replying
+  goes to the customer.
+- **Customer confirmation** (when they gave an email): reference, next steps and the options
+  they chose. Free text (address, notes, messages) is never repeated back, so the form cannot
+  be used to send arbitrary text. Replies go to `LEAD_REPLY_TO`, or the business email if unset.
+  `LEAD_CUSTOMER_CONFIRMATION=0` turns it off. A failed confirmation is logged but does not fail
+  the submission.
 
 **Webhook** — `LEAD_WEBHOOK_URL` (HTTPS) receives `POST` JSON:
 `{ "type": "lead.booking" | "lead.contact", "lead": { reference, submittedAt, contact, fields, marketingConsent } }`.

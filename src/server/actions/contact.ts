@@ -20,7 +20,11 @@ function contactToLead(data: ContactData, meta: { reference: string; submittedAt
     submittedAt: meta.submittedAt,
     contact: { name: data.name, phone, email: data.email || null },
     fields: [
-      { label: "Topic", value: labelFor(contactTopicOptions, data.topic) ?? data.topic },
+      {
+        label: "Topic",
+        value: labelFor(contactTopicOptions, data.topic) ?? data.topic,
+        shared: true,
+      },
       { label: "Name", value: data.name },
       { label: "Phone", value: phone ?? "Not provided" },
       { label: "Email", value: data.email || "Not provided" },
