@@ -24,9 +24,8 @@ export function leadToText(lead: Lead): string {
     `Submitted: ${lead.submittedAt}`,
     "",
     ...lead.fields.map((field) => `${field.label}: ${field.value}`),
-    "",
-    `Marketing consent: ${lead.marketingConsent ? "Yes" : "No"}`,
   ];
+  if (lead.marketingConsent) lines.push("", "Marketing consent: Yes");
   if (lead.kind === "booking") {
     lines.push("", "This is a request only. Contact the customer to confirm the appointment.");
   }

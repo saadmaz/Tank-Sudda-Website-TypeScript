@@ -28,12 +28,10 @@ export function serviceEnquiryMessage(serviceName?: string): string {
 export interface BookingMessageFields {
   serviceName?: string;
   propertyTypeLabel?: string;
-  tankTypeLabel?: string;
   capacityLabel?: string;
   tankCount?: number;
   town?: string;
   preferredDate?: string;
-  timeWindowLabel?: string;
   name?: string;
 }
 
@@ -46,12 +44,10 @@ export function bookingEnquiryMessage(fields: BookingMessageFields): string {
   };
   add("Service", fields.serviceName);
   add("Property", fields.propertyTypeLabel);
-  add("Tank", fields.tankTypeLabel);
-  add("Capacity", fields.capacityLabel);
+  add("Tank size", fields.capacityLabel);
   add("Number of tanks", fields.tankCount);
   add("Town / area", fields.town);
   add("Preferred date", fields.preferredDate);
-  add("Time", fields.timeWindowLabel);
   add("Name", fields.name);
   return lines.join("\n");
 }

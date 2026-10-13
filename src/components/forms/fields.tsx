@@ -136,7 +136,10 @@ export function SelectField({
   );
 }
 
-/** Radio options rendered as large, touch-friendly cards inside a fieldset. */
+/**
+ * Options rendered as large, touch-friendly cards inside a fieldset. Radios by
+ * default (one choice); `multiple` turns them into checkboxes (any number).
+ */
 export function RadioCardGroup({
   name,
   legend,
@@ -145,6 +148,7 @@ export function RadioCardGroup({
   options,
   inputProps,
   columns = 2,
+  multiple = false,
 }: {
   name: string;
   legend: string;
@@ -154,6 +158,7 @@ export function RadioCardGroup({
   /** Props from react-hook-form's register(); shared by every radio. */
   inputProps: Omit<ComponentPropsWithRef<"input">, "type" | "value" | "id">;
   columns?: 1 | 2 | 3;
+  multiple?: boolean;
 }) {
   const id = `field-${name}`;
   return (
@@ -189,7 +194,7 @@ export function RadioCardGroup({
             >
               <input
                 id={optionId}
-                type="radio"
+                type={multiple ? "checkbox" : "radio"}
                 value={option.value}
                 className="mt-0.5 size-5 shrink-0 accent-water-600 focus-visible:outline-none"
                 {...inputProps}

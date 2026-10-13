@@ -87,7 +87,7 @@ Unknown slugs return HTTP 404 (`dynamicParams = false`).
 ## Lead flow
 
 ```
-BookingWizard (client, RHF + Zod per step)
+BookingWizard (client, RHF + Zod; 3 steps: tank → where & when → details + summary)
    └─ submitBooking (Server Action)
         └─ processLead: rate limit → Zod validation → honeypot/timing checks
              → notification channels (Resend email and/or HTTPS webhook)

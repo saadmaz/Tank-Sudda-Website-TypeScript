@@ -3,7 +3,8 @@ import {
   bookingDateWindow,
   bookingSchema,
   bookingSubmissionSchema,
-  getActiveSteps,
+  bookingSteps,
+  serviceForPageSlug,
   isDateInBookingWindow,
   type BookingInput,
 } from "@/lib/validation/booking";
@@ -46,23 +47,18 @@ describe("booking date window", () => {
 function validBooking(): BookingInput {
   const { min } = bookingDateWindow();
   return {
-    service: "sump-cleaning",
+    service: "sump",
     propertyType: "house",
-    tankType: "sump",
     capacity: "1000-2500",
     tankCount: 1,
-    organisationName: "",
-    siteNotes: "",
     town: "Kandy",
-    address: "12 Example Road, Kandy",
+    address: "",
     preferredDate: min,
-    timeWindow: "morning",
     notes: "",
     name: "Test Customer",
     phone: "077 123 4567",
     email: "",
-    contactPreference: "phone",
-    marketingConsent: false,
+    contactPreferences: ["phone"],
     privacyAcknowledged: true,
   };
 }
@@ -78,11 +74,14 @@ describe("booking schema", () => {
   });
 
   it("requires an email when email contact is preferred", () => {
-    const result = bookingSchema.safeParse({ ...validBooking(), contactPreference: "email" });
+    const result = bookingSchema.safeParse({
+      ...validBooking(),
+      contactPreferences: ["phone", "email"],
+    });
     expect(result.success).toBe(false);
     expect(result.error?.issues[0]?.path).toEqual(["email"]);
     expect(
-      bookingSchema.safeParse({ ...validBooking(), contactPreference: "email", email: "a@b.lk" })
+      bookingSchema.safeParse({ ...validBooking(), contactPreferences: ["email"], email: "a@b.lk" })
         .success,
     ).toBe(true);
   });
@@ -90,7 +89,7 @@ describe("booking schema", () => {
   it("reports the email rule even while other fields are still invalid", () => {
     const result = bookingSchema.safeParse({
       ...validBooking(),
-      contactPreference: "email",
+      contactPreferences: ["email"],
       privacyAcknowledged: false,
     });
     const paths = result.error?.issues.map((issue) => issue.path[0]);
@@ -103,7 +102,10 @@ describe("booking schema", () => {
     ["past date", { preferredDate: "2020-01-01" }],
     ["bad phone", { phone: "123" }],
     ["bad email", { email: "nope" }],
-    ["short address", { address: "x" }],
+    ["missing town", { town: "" }],
+    ["no contact method", { contactPreferences: [] }],
+    ["missing date", { preferredDate: "" }],
+    ["missing phone", { phone: "" }],
     ["long notes", { notes: "a".repeat(1001) }],
   ])("rejects %s", (_label, overrides) => {
     expect(bookingSchema.safeParse({ ...validBooking(), ...overrides }).success).toBe(false);
@@ -116,12 +118,25 @@ describe("booking schema", () => {
     ).toBe(true);
   });
 
-  it("adds the site step only for larger properties", () => {
-    expect(getActiveSteps({ propertyType: "house" }).map((s) => s.id)).not.toContain("site");
-    expect(getActiveSteps({ propertyType: "apartment-building" }).map((s) => s.id)).toContain(
-      "site",
-    );
-    expect(getActiveSteps({}).at(-1)?.id).toBe("review");
+  it("accepts an address-free request with several contact methods", () => {
+    const result = bookingSchema.safeParse({
+      ...validBooking(),
+      address: "",
+      contactPreferences: ["phone", "whatsapp"],
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("has three steps covering every field", () => {
+    expect(bookingSteps.map((step) => step.id)).toEqual(["tank", "location", "contact"]);
+    const covered = bookingSteps.flatMap((step) => step.fields).sort();
+    expect(covered).toEqual(Object.keys(validBooking()).sort());
+  });
+
+  it("maps every service page to a form choice", () => {
+    expect(serviceForPageSlug["sump-cleaning"]).toBe("sump");
+    expect(serviceForPageSlug["water-tank-deep-cleaning"]).toBe("water-tank");
+    expect(serviceForPageSlug["commercial-tank-cleaning"]).toBe("water-tank");
   });
 });
 

@@ -22,14 +22,13 @@ import {
   bookingDateWindow,
   bookingFieldsSchema,
   bookingSchema,
+  bookingSteps,
   capacityOptions,
   contactPreferenceOptions,
-  getActiveSteps,
   labelFor,
   propertyTypeOptions,
+  serviceForPageSlug,
   serviceOptions,
-  tankTypeOptions,
-  timeWindowOptions,
   type BookingData,
   type BookingField,
   type BookingInput,
@@ -99,8 +98,6 @@ export function BookingWizard({
     mode: "onSubmit",
     defaultValues: {
       tankCount: 1,
-      organisationName: "",
-      siteNotes: "",
       town: "",
       address: "",
       preferredDate: "",
@@ -108,20 +105,23 @@ export function BookingWizard({
       name: "",
       phone: "",
       email: "",
-      marketingConsent: false,
+      contactPreferences: [],
     },
   });
 
   const values = useWatch({ control });
-  const steps = getActiveSteps(values);
+  const steps = bookingSteps;
   const step = steps[Math.min(stepIndex, steps.length - 1)]!;
-  const isReview = step.id === "review";
+  // The last step shows a summary and the send button (there is no separate review step).
+  const isLast = stepIndex === steps.length - 1;
 
   // Preselect a service chosen on a service page (/book?service=…).
   useEffect(() => {
-    const requested = new URLSearchParams(window.location.search).get("service");
-    const match = serviceOptions.find((option) => option.value === requested);
-    if (match) setValue("service", match.value);
+    const requested = new URLSearchParams(window.location.search).get("service") ?? "";
+    const match =
+      serviceForPageSlug[requested] ??
+      serviceOptions.find((option) => option.value === requested)?.value;
+    if (match) setValue("service", match);
   }, [setValue]);
 
   // Move focus to the step heading after navigating between steps.
@@ -143,7 +143,7 @@ export function BookingWizard({
       return;
     }
     if (stepIndex === 0) track("booking_started", { service: values.service ?? "not-set" });
-    track("booking_step", { step: steps[stepIndex + 1]?.id ?? "review" });
+    track("booking_step", { step: steps[stepIndex + 1]?.id ?? "contact" });
     goTo(stepIndex + 1);
   };
 
@@ -178,12 +178,10 @@ export function BookingWizard({
     bookingEnquiryMessage({
       serviceName: labelFor(serviceOptions, values.service),
       propertyTypeLabel: labelFor(propertyTypeOptions, values.propertyType),
-      tankTypeLabel: labelFor(tankTypeOptions, values.tankType),
       capacityLabel: labelFor(capacityOptions, values.capacity),
       tankCount: Number.isFinite(values.tankCount) ? values.tankCount : undefined,
       town: values.town,
-      preferredDate: values.preferredDate || undefined,
-      timeWindowLabel: labelFor(timeWindowOptions, values.timeWindow),
+      preferredDate: values.preferredDate ? formatDate(values.preferredDate) : undefined,
       name: values.name,
     }),
   );
@@ -207,7 +205,7 @@ export function BookingWizard({
     <div>
       {viaWhatsApp ? (
         <Notice className="mb-8" title="Your request is sent to us on WhatsApp">
-          Fill in the steps below. At the end, WhatsApp opens with your details ready to send.
+          Fill in the three steps below. At the end, WhatsApp opens with your details ready to send.
         </Notice>
       ) : deliveryMode === "unavailable" ? (
         <Notice tone="warning" className="mb-8" title="Online requests are temporarily unavailable">
@@ -260,7 +258,7 @@ export function BookingWizard({
         className="relative"
         onSubmit={(event) => {
           // Enter on an intermediate step advances the wizard instead of submitting.
-          if (!isReview) {
+          if (!isLast) {
             event.preventDefault();
             void next();
             return;
@@ -284,11 +282,12 @@ export function BookingWizard({
         </div>
 
         <div className="space-y-6">
-          {step.id === "service" ? (
+          {step.id === "tank" ? (
             <>
               <RadioCardGroup
                 name="service"
-                legend="Which service do you need?"
+                legend="What needs cleaning?"
+                columns={3}
                 options={serviceOptions}
                 error={err("service")}
                 inputProps={field("service")}
@@ -300,23 +299,10 @@ export function BookingWizard({
                 error={err("propertyType")}
                 {...field("propertyType")}
               />
-            </>
-          ) : null}
-
-          {step.id === "tank" ? (
-            <>
-              <SelectField
-                id="field-tankType"
-                label="Tank type"
-                hint="If you have several different tanks, choose “More than one type” and describe them in the notes."
-                options={tankTypeOptions}
-                error={err("tankType")}
-                {...field("tankType")}
-              />
               <SelectField
                 id="field-capacity"
-                label="Approximate capacity (per tank)"
-                hint="Plastic tanks often show their capacity on the side, e.g. 1000 L."
+                label="Tank size (approximate, per tank)"
+                hint="Plastic tanks often show their size on the side, e.g. 1000 L."
                 options={capacityOptions}
                 error={err("capacity")}
                 {...field("capacity")}
@@ -335,27 +321,6 @@ export function BookingWizard({
             </>
           ) : null}
 
-          {step.id === "site" ? (
-            <>
-              <TextField
-                id="field-organisationName"
-                label="Organisation or building name"
-                optional
-                autoComplete="organization"
-                error={err("organisationName")}
-                {...field("organisationName")}
-              />
-              <TextAreaField
-                id="field-siteNotes"
-                label="Access and scheduling notes"
-                optional
-                hint="For example operating hours, times water must stay on, or who authorises roof access."
-                error={err("siteNotes")}
-                {...field("siteNotes")}
-              />
-            </>
-          ) : null}
-
           {step.id === "location" ? (
             <>
               <TextField
@@ -368,9 +333,10 @@ export function BookingWizard({
               <TextAreaField
                 id="field-address"
                 label="Property address"
-                rows={3}
+                optional
+                rows={2}
                 autoComplete="street-address"
-                hint="We use this to confirm we can serve your location and to plan the visit."
+                hint="We will confirm the exact address when we contact you."
                 error={err("address")}
                 {...field("address")}
               />
@@ -380,24 +346,17 @@ export function BookingWizard({
                 type="date"
                 min={dateWindow?.min}
                 max={dateWindow?.max}
-                hint="This is a preference. We will confirm the actual date with you."
+                hint="The actual date can vary depending on availability. We will confirm it with you."
                 className="max-w-xs"
                 error={err("preferredDate")}
                 {...field("preferredDate")}
               />
-              <RadioCardGroup
-                name="timeWindow"
-                legend="Preferred time of day"
-                columns={3}
-                options={timeWindowOptions}
-                error={err("timeWindow")}
-                inputProps={field("timeWindow")}
-              />
               <TextAreaField
                 id="field-notes"
-                label="Anything else we should know?"
+                label="Anything we should know?"
                 optional
-                hint="For example access details, the tank’s condition, or when it was last cleaned."
+                rows={3}
+                hint="For example access to the tank, its condition, or when it was last cleaned."
                 error={err("notes")}
                 {...field("notes")}
               />
@@ -415,7 +374,7 @@ export function BookingWizard({
               />
               <TextField
                 id="field-phone"
-                label="Phone number"
+                label="Mobile number"
                 type="tel"
                 autoComplete="tel"
                 inputMode="tel"
@@ -428,20 +387,22 @@ export function BookingWizard({
                 label="Email address"
                 type="email"
                 autoComplete="email"
-                optional={values.contactPreference !== "email"}
+                optional={!(values.contactPreferences ?? []).includes("email")}
                 error={err("email")}
                 {...field("email")}
               />
               <RadioCardGroup
-                name="contactPreference"
-                legend="How should we contact you?"
+                name="contactPreferences"
+                legend="How can we contact you?"
+                hint="Choose one or more."
                 columns={3}
+                multiple
                 options={contactPreferenceOptions}
-                error={err("contactPreference")}
-                inputProps={field("contactPreference")}
+                error={err("contactPreferences")}
+                inputProps={field("contactPreferences")}
               />
-              <div className="space-y-4 rounded-md border border-line bg-mist p-4">
-                <p className="text-sm leading-relaxed text-muted">
+              <div className="rounded-md border border-line bg-mist p-4">
+                <p className="mb-4 text-sm leading-relaxed text-muted">
                   We use these details only to respond to this request, prepare a quotation and
                   arrange the cleaning. See our{" "}
                   <Link
@@ -460,53 +421,48 @@ export function BookingWizard({
                   error={err("privacyAcknowledged")}
                   {...field("privacyAcknowledged")}
                 />
-                <CheckboxField
-                  id="field-marketingConsent"
-                  label="Optional: send me occasional reminders and news from Tank Sudda. I can opt out at any time."
-                  {...field("marketingConsent")}
-                />
               </div>
-            </>
-          ) : null}
 
-          {isReview ? (
-            <div className="space-y-6">
-              {steps
-                .filter((item) => item.id !== "review")
-                .map((item) => (
-                  <section
-                    key={item.id}
-                    className="rounded-md border border-line p-5"
-                    aria-label={item.title}
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <h3 className="font-sans text-base font-semibold text-navy-950">
-                        {item.title}
-                      </h3>
-                      <button
-                        type="button"
-                        onClick={() => goTo(steps.indexOf(item))}
-                        className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-semibold text-water-700 hover:bg-water-50"
-                      >
-                        <Pencil aria-hidden="true" className="size-4" />
-                        Edit<span className="sr-only"> {item.title}</span>
-                      </button>
-                    </div>
-                    <dl className="mt-3 grid gap-x-6 gap-y-2 text-[0.9375rem] sm:grid-cols-[12rem_1fr]">
-                      {reviewRows(item, values).map(([label, value]) => (
-                        <div key={label} className="contents">
-                          <dt className="text-muted">{label}</dt>
-                          <dd className="font-medium break-words text-navy-950">{value}</dd>
+              <section
+                aria-labelledby="booking-summary-heading"
+                className="rounded-md border border-line p-5"
+              >
+                <h3 id="booking-summary-heading" className="font-sans text-base font-semibold">
+                  Your request
+                </h3>
+                <div className="mt-3 divide-y divide-line">
+                  {steps
+                    .filter((item) => item.id !== "contact")
+                    .map((item) => (
+                      <div key={item.id} className="py-3 first:pt-0 last:pb-0">
+                        <div className="flex items-center justify-between gap-4">
+                          <p className="text-sm font-semibold text-muted">{item.title}</p>
+                          <button
+                            type="button"
+                            onClick={() => goTo(steps.indexOf(item))}
+                            className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-semibold text-water-700 hover:bg-water-50"
+                          >
+                            <Pencil aria-hidden="true" className="size-4" />
+                            Edit<span className="sr-only"> {item.title}</span>
+                          </button>
                         </div>
-                      ))}
-                    </dl>
-                  </section>
-                ))}
+                        <dl className="mt-1 grid gap-x-6 gap-y-1.5 text-[0.9375rem] sm:grid-cols-[11rem_1fr]">
+                          {summaryRows(item, values).map(([label, value]) => (
+                            <div key={label} className="contents">
+                              <dt className="text-muted">{label}</dt>
+                              <dd className="font-medium break-words text-navy-950">{value}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                      </div>
+                    ))}
+                </div>
+              </section>
               <Notice title="What happens next">
                 Sending this form does not confirm an appointment. Our team will contact you to
                 confirm the details, give you a quotation and agree a date.
               </Notice>
-            </div>
+            </>
           ) : null}
         </div>
 
@@ -523,7 +479,7 @@ export function BookingWizard({
               Back
             </Button>
           ) : null}
-          {isReview ? (
+          {isLast ? (
             <div className="flex flex-1 flex-wrap items-center justify-end gap-3 sm:ml-auto sm:flex-none">
               {viaWhatsApp ? (
                 <a
@@ -582,46 +538,28 @@ export function BookingWizard({
   );
 }
 
-function reviewRows(step: BookingStep, values: Partial<BookingInput>): [string, string][] {
+function summaryRows(step: BookingStep, values: Partial<BookingInput>): [string, string][] {
   const show = (value: string | undefined | null) =>
     value && value.trim() !== "" ? value : "Not provided";
   switch (step.id) {
-    case "service":
+    case "tank":
       return [
         ["Service", show(labelFor(serviceOptions, values.service))],
         ["Property type", show(labelFor(propertyTypeOptions, values.propertyType))],
-      ];
-    case "tank":
-      return [
-        ["Tank type", show(labelFor(tankTypeOptions, values.tankType))],
-        ["Capacity", show(labelFor(capacityOptions, values.capacity))],
+        ["Tank size", show(labelFor(capacityOptions, values.capacity))],
         [
           "Number of tanks",
           show(Number.isFinite(values.tankCount) ? String(values.tankCount) : ""),
         ],
-      ];
-    case "site":
-      return [
-        ["Organisation", show(values.organisationName)],
-        ["Notes", show(values.siteNotes)],
       ];
     case "location":
       return [
         ["Town or area", show(values.town)],
         ["Address", show(values.address)],
         ["Preferred date", show(values.preferredDate ? formatDate(values.preferredDate) : "")],
-        ["Time of day", show(labelFor(timeWindowOptions, values.timeWindow))],
         ["Notes", show(values.notes)],
       ];
     case "contact":
-      return [
-        ["Name", show(values.name)],
-        ["Phone", show(values.phone)],
-        ["Email", show(values.email)],
-        ["Contact by", show(labelFor(contactPreferenceOptions, values.contactPreference))],
-        ["Reminders and news", values.marketingConsent ? "Yes" : "No"],
-      ];
-    case "review":
       return [];
   }
 }

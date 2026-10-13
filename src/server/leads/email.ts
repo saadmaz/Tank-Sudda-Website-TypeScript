@@ -186,7 +186,7 @@ export function renderTeamEmail(lead: Lead): RenderedEmail {
     ),
     actions.length > 0 ? `<div style="margin:0 0 20px;">${actions.join("")}</div>` : "",
     detailsTable(lead.fields),
-    `<p style="margin:20px 0 0;font-family:${font};font-size:13px;line-height:1.6;color:${color.muted};">Submitted ${escapeHtml(formatSubmitted(lead.submittedAt))} · Marketing consent: ${lead.marketingConsent ? "Yes" : "No"}${booking ? " · This is a request only, not a confirmed appointment." : ""}</p>`,
+    `<p style="margin:20px 0 0;font-family:${font};font-size:13px;line-height:1.6;color:${color.muted};">Submitted ${escapeHtml(formatSubmitted(lead.submittedAt))}${lead.marketingConsent ? " · Marketing consent: Yes" : ""}${booking ? " · This is a request only, not a confirmed appointment." : ""}</p>`,
   ].join("\n");
 
   return {

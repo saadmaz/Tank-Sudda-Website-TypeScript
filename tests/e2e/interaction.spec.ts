@@ -78,72 +78,66 @@ test.describe("analytics", () => {
 });
 
 test.describe("booking wizard", () => {
-  test("validates each step and reaches the review", async ({ page }) => {
+  test("three steps: validates, summarises and hands over the request", async ({ page }) => {
     await page.goto("/book?service=sump-cleaning");
-    await expect(page.getByRole("radio", { name: "Sump Cleaning" })).toBeChecked();
+    await expect(page.getByText("Step 1 of 3")).toBeVisible();
+    // A link from the sump cleaning page preselects that service.
+    await expect(page.getByRole("radio", { name: "Sump cleaning" })).toBeChecked();
 
-    // Step 1 validation
+    // Step 1: Your tank
     await page.getByRole("button", { name: "Continue" }).click();
     await expect(page.getByText("Choose a property type")).toBeVisible();
-    await page.getByLabel("Property type").selectOption("apartment-building");
+    await expect(page.getByText("Choose the approximate tank size")).toBeVisible();
+    await page.getByLabel("Property type").selectOption("house");
+    await page.getByLabel(/Tank size/).selectOption("1000-2500");
+    await page.getByLabel("Number of tanks and sumps").fill("2");
     await page.getByRole("button", { name: "Continue" }).click();
 
-    // Step 2
-    await expect(page.getByRole("heading", { level: 2, name: "Tanks" })).toBeFocused();
-    await page.getByLabel("Tank type").selectOption("sump");
-    await page.getByLabel(/Approximate capacity/).selectOption("5000-10000");
-    await page.getByLabel("Number of tanks and sumps").fill("3");
-    await page.getByRole("button", { name: "Continue" }).click();
-
-    // Conditional site step for apartment buildings
-    await expect(page.getByRole("heading", { level: 2, name: "Site" })).toBeVisible();
-    await page.getByLabel(/Organisation or building name/).fill("Test Residencies");
-    await page.getByRole("button", { name: "Continue" }).click();
-
-    // Location & timing
+    // Step 2: Where & when (address is optional, town and date are required)
+    await expect(page.getByRole("heading", { level: 2, name: "Where & when" })).toBeFocused();
+    await expect(page.getByText(/can vary depending on availability/)).toBeVisible();
     await page.getByRole("button", { name: "Continue" }).click();
     await expect(page.getByText("Enter your town or area")).toBeVisible();
+    await expect(page.getByText("Choose a preferred date")).toBeVisible();
     await page.getByLabel("Town or area").fill("Kandy");
-    await page.getByLabel("Property address").fill("12 Example Road, Kandy");
     const min = await page.getByLabel("Preferred date").getAttribute("min");
     expect(min).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     await page.getByLabel("Preferred date").fill(min!);
-    await page.getByText("Afternoon", { exact: true }).click();
+    await page.getByLabel(/Anything we should know/).fill("Tank is on the roof");
     await page.getByRole("button", { name: "Continue" }).click();
 
-    // Contact
+    // Step 3: Your details, with a summary of the earlier steps
+    await expect(page.getByText("Step 3 of 3")).toBeVisible();
     await page.getByLabel("Your name").fill("Test Customer");
-    await page.getByLabel("Phone number").fill("12");
-    await page.getByText("Email", { exact: true }).click();
-    await page.getByRole("button", { name: "Continue" }).click();
-    await expect(page.getByText(/Enter a valid phone number/)).toBeVisible();
-    await expect(page.getByText(/Enter an email address so we can reply/)).toBeVisible();
-    await expect(page.getByText(/Please confirm you have read the privacy notice/)).toBeVisible();
-    await page.getByLabel("Phone number").fill("077 123 4567");
-    await page.getByLabel(/Email address/).fill("customer@example.org");
-    await page.getByLabel(/I have read the privacy notice/).check();
-    await page.getByRole("button", { name: "Continue" }).click();
-
-    // Review
-    await expect(page.getByRole("heading", { level: 2, name: "Review" })).toBeVisible();
-    await expect(page.getByText("Test Residencies")).toBeVisible();
+    await page.getByLabel("Mobile number").fill("077 123 4567");
+    // Any combination of contact methods can be chosen.
+    await page.getByRole("checkbox", { name: "Phone call" }).check();
+    await page.getByRole("checkbox", { name: "WhatsApp" }).check();
+    await expect(page.getByRole("checkbox", { name: "Phone call" })).toBeChecked();
+    await expect(page.getByRole("checkbox", { name: "WhatsApp" })).toBeChecked();
+    const summary = page.getByRole("region", { name: "Your request" });
+    await expect(summary.getByText("Sump cleaning")).toBeVisible();
+    await expect(summary.getByText("1,000 – 2,500 litres")).toBeVisible();
+    await expect(summary.getByText("Tank is on the roof")).toBeVisible();
     await expect(page.getByText("Sending this form does not confirm an appointment")).toBeVisible();
 
-    // Without online delivery, the request is handed over on WhatsApp with its details.
+    // Edit returns to the step with values preserved
+    await page.getByRole("button", { name: "Edit Your tank" }).click();
+    await expect(page.getByLabel("Number of tanks and sumps")).toHaveValue("2");
+    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "Continue" }).click();
+    await expect(page.getByLabel("Your name")).toHaveValue("Test Customer");
+
+    // No delivery channel is configured in this build, so the request goes via WhatsApp.
+    await expect(page.getByText("Your request is sent to us on WhatsApp")).toBeVisible();
     const whatsappHref = await page
       .getByRole("link", { name: /Send request on WhatsApp/ })
       .getAttribute("href");
     const message = new URL(whatsappHref!).searchParams.get("text") ?? "";
-    expect(message).toContain("Service: Sump Cleaning");
+    expect(message).toContain("Service: Sump cleaning");
+    expect(message).toContain("Tank size: 1,000 – 2,500 litres");
+    expect(message).toContain("Number of tanks: 2");
     expect(message).toContain("Town / area: Kandy");
-    expect(message).toContain("Number of tanks: 3");
-
-    // Edit returns to the step with values preserved
-    await page.getByRole("button", { name: "Edit Tanks" }).click();
-    await expect(page.getByLabel("Number of tanks and sumps")).toHaveValue("3");
-
-    // No delivery channel is configured in this build, so requests go via WhatsApp.
-    await expect(page.getByText("Your request is sent to us on WhatsApp")).toBeVisible();
     await expect(page.getByRole("button", { name: "Send booking request" })).toHaveCount(0);
   });
 });

@@ -10,23 +10,18 @@ const now = new Date();
 
 function submission(overrides: Record<string, unknown> = {}) {
   return {
-    service: "water-tank-deep-cleaning",
+    service: "water-tank",
     propertyType: "house",
-    tankType: "overhead-plastic",
     capacity: "under-1000",
     tankCount: 1,
-    organisationName: "",
-    siteNotes: "",
     town: "Galle",
     address: "1 Example Lane, Galle",
     preferredDate: bookingDateWindow(now).min,
-    timeWindow: "flexible",
     notes: "",
     name: "Test Customer",
     phone: "0771234567",
     email: "",
-    contactPreference: "phone",
-    marketingConsent: false,
+    contactPreferences: ["phone"],
     privacyAcknowledged: true,
     website: "",
     startedAt: now.getTime() - 60_000,
@@ -72,10 +67,10 @@ describe("lead submission pipeline", () => {
 
   it("returns field errors for invalid input without delivering", async () => {
     const ch = channel();
-    const result = await run(submission({ phone: "1", address: "" }), [ch]);
+    const result = await run(submission({ phone: "1", town: "" }), [ch]);
     expect(result).toMatchObject({ ok: false, error: "validation" });
     expect(!result.ok && Object.keys(result.fieldErrors ?? {})).toEqual(
-      expect.arrayContaining(["phone", "address"]),
+      expect.arrayContaining(["phone", "town"]),
     );
     expect(ch.send).not.toHaveBeenCalled();
   });

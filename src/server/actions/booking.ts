@@ -1,5 +1,6 @@
 "use server";
 
+import { formatLongDate } from "@/lib/dates";
 import {
   bookingSubmissionSchema,
   capacityOptions,
@@ -7,11 +8,8 @@ import {
   labelFor,
   propertyTypeOptions,
   serviceOptions,
-  tankTypeOptions,
-  timeWindowOptions,
   type BookingData,
 } from "@/lib/validation/booking";
-import { formatLongDate } from "@/lib/dates";
 import { normalisePhone } from "@/lib/validation/common";
 import { processLead } from "@/server/leads/submit";
 import type { Lead, SubmissionResult } from "@/server/leads/types";
@@ -19,6 +17,10 @@ import { leadRateLimiter } from "@/server/rate-limit";
 import { getClientKey } from "./client-key";
 
 function bookingToLead(data: BookingData, meta: { reference: string; submittedAt: string }): Lead {
+  const phone = normalisePhone(data.phone) ?? data.phone;
+  const contactBy = data.contactPreferences
+    .map((value) => labelFor(contactPreferenceOptions, value) ?? value)
+    .join(", ");
   const fields: Lead["fields"] = [
     {
       label: "Service",
@@ -31,40 +33,21 @@ function bookingToLead(data: BookingData, meta: { reference: string; submittedAt
       shared: true,
     },
     {
-      label: "Tank type",
-      value: labelFor(tankTypeOptions, data.tankType) ?? data.tankType,
-      shared: true,
-    },
-    {
-      label: "Capacity",
+      label: "Tank size",
       value: labelFor(capacityOptions, data.capacity) ?? data.capacity,
       shared: true,
     },
     { label: "Number of tanks", value: String(data.tankCount), shared: true },
-  ];
-  if (data.organisationName) fields.push({ label: "Organisation", value: data.organisationName });
-  if (data.siteNotes) fields.push({ label: "Site notes", value: data.siteNotes });
-  fields.push(
     { label: "Town / area", value: data.town, shared: true },
-    { label: "Address", value: data.address },
+    { label: "Address", value: data.address || "Not provided" },
     { label: "Preferred date", value: formatLongDate(data.preferredDate), shared: true },
-    {
-      label: "Time of day",
-      value: labelFor(timeWindowOptions, data.timeWindow) ?? data.timeWindow,
-      shared: true,
-    },
-  );
+  ];
   if (data.notes) fields.push({ label: "Notes", value: data.notes });
-  const phone = normalisePhone(data.phone) ?? data.phone;
   fields.push(
     { label: "Name", value: data.name },
     { label: "Phone", value: phone },
     { label: "Email", value: data.email || "Not provided" },
-    {
-      label: "Preferred contact",
-      value: labelFor(contactPreferenceOptions, data.contactPreference) ?? data.contactPreference,
-      shared: true,
-    },
+    { label: "Contact by", value: contactBy, shared: true },
   );
   return {
     kind: "booking",
@@ -72,7 +55,7 @@ function bookingToLead(data: BookingData, meta: { reference: string; submittedAt
     submittedAt: meta.submittedAt,
     contact: { name: data.name, phone, email: data.email || null },
     fields,
-    marketingConsent: data.marketingConsent,
+    marketingConsent: false,
   };
 }
 
