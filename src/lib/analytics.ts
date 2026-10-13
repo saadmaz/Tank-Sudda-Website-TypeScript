@@ -70,7 +70,7 @@ export function parseGaMeasurementId(raw: string | undefined): string | null {
   return id && /^G-[A-Z0-9]{4,15}$/.test(id) ? id : null;
 }
 
-// ---- Cookie consent (Google Analytics loads only after the visitor accepts) ----
+// ---- Analytics opt-out (Google Analytics runs unless the visitor turns it off on /cookies) ----
 
 export type CookieConsent = "granted" | "denied";
 
@@ -79,7 +79,7 @@ const CONSENT_EVENT = "tanksudda:cookie-consent";
 /** Fallback when the browser blocks storage: the choice then lasts until the page closes. */
 let memoryConsent: CookieConsent | null = null;
 
-/** The visitor's saved choice, or null if they have not chosen yet. */
+/** "denied" if the visitor turned analytics off, otherwise null (no choice made). */
 export function readCookieConsent(): CookieConsent | null {
   try {
     const value = window.localStorage.getItem(CONSENT_KEY);

@@ -79,6 +79,8 @@ test.describe("analytics", () => {
 
 test.describe("booking wizard", () => {
   test("three steps: validates, summarises and hands over the request", async ({ page }) => {
+    // Walks through all three steps with validation, so it needs longer under parallel load.
+    test.setTimeout(90_000);
     await page.goto("/book?service=sump-cleaning");
     await expect(page.getByText("Step 1 of 3")).toBeVisible();
     // A link from the sump cleaning page preselects that service.

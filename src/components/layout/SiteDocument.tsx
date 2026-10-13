@@ -47,7 +47,6 @@ export function SiteDocument({
         <Analytics
           plausibleDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || null}
           gaMeasurementId={parseGaMeasurementId(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID)}
-          consentLabels={t.consent}
         />
       </body>
     </html>

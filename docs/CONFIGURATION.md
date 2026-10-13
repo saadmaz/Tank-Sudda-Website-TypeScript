@@ -69,10 +69,10 @@ Plausible to see them in reports.
 
 **Google Analytics 4 (in use):** set `NEXT_PUBLIC_GA_MEASUREMENT_ID` (e.g. `G-EK434GVS4Z`) as a
 **build** variable in Cloudflare (Worker → Settings → Build → Variables and secrets) and redeploy.
-Because Google Analytics sets cookies, visitors see a consent bar (English, Sinhala or Tamil). The
-Google tag loads only after they press **Accept**; if they decline, nothing is sent to Google. The
-choice is stored in the browser and can be changed on `/cookies`. Accepting grants analytics and
-ad measurement (for Google Ads conversions); ad personalisation stays off. Events above are sent to
+By the owner's decision there is no consent banner: the Google tag loads for every visitor.
+Visitors can turn it off for their browser on `/cookies` (the opt-out is stored locally and
+respected). Analytics and ad measurement (for Google Ads conversions) are on; ad personalisation
+stays off. The Cookie Information and Privacy pages say this. Events above are sent to
 GA4 automatically; mark `booking_sent`, `contact_form_sent` and `contact_click` as key events in
 GA4 (Admin → Events). Code: `src/components/analytics/Analytics.tsx`, `src/lib/analytics.ts`.
 

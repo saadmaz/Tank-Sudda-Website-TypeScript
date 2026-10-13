@@ -46,11 +46,10 @@ export default function PrivacyPage() {
         We do not use these logs to identify you.
       </p>
       <p>
-        <strong>Website analytics (only if you accept):</strong> if you accept cookies in the
-        banner, we use Google Analytics to see how visitors use this website and how our Google ads
-        perform, for example which pages are viewed and whether the booking, call or WhatsApp
-        buttons are used. Google receives this data, including your IP address, under its own
-        privacy policy. If you decline, nothing is sent to Google. You can change your choice on the{" "}
+        <strong>Website analytics:</strong> we use Google Analytics to see how visitors use this
+        website and how our Google ads perform, for example which pages are viewed and whether the
+        booking, call or WhatsApp buttons are used. Google receives this data, including your IP
+        address, under its own privacy policy. You can turn it off on the{" "}
         <Link href="/cookies">cookie information</Link> page.
       </p>
 
@@ -60,7 +59,7 @@ export default function PrivacyPage() {
         <li>To prepare a quotation and arrange an appointment</li>
         <li>To contact you about the service you requested</li>
         <li>To protect the website against spam and misuse</li>
-        <li>To understand how the website is used and improve it (only if you accept cookies)</li>
+        <li>To understand how the website is used and improve it</li>
       </ul>
       <p>We do not use your details to send you news or offers.</p>
 

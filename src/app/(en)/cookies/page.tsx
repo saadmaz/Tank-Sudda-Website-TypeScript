@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { CookieChoice } from "@/components/analytics/Analytics";
+import { AnalyticsOptOut } from "@/components/analytics/Analytics";
 import { LegalPage } from "@/components/layout/LegalPage";
 import { business } from "@/data/business";
-import { getDictionary } from "@/lib/i18n/dictionary";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildMetadata({
@@ -12,22 +11,14 @@ export const metadata = buildMetadata({
 });
 
 export default function CookiesPage() {
-  const { consent } = getDictionary("en");
   return (
     <LegalPage
       title="Cookie Information"
       path="/cookies"
       lastUpdated="2026-10-14"
-      intro="This page explains how this website uses cookies and similar technologies, and how to change your choice."
+      intro="This page explains how this website uses cookies and similar technologies, and how to turn analytics off."
     >
-      <h2>Your choice</h2>
-      <p>
-        When you first visit, we ask whether you accept Google Analytics cookies. Nothing is sent to
-        Google unless you accept. You can change your choice here at any time.
-      </p>
-      <CookieChoice labels={{ accept: consent.accept, decline: consent.decline }} />
-
-      <h2>Google Analytics (only if you accept)</h2>
+      <h2>Google Analytics</h2>
       <p>
         We use Google Analytics to understand how visitors find and use this website, for example
         which pages are viewed and whether people use the booking form, call or WhatsApp buttons,
@@ -35,7 +26,7 @@ export default function CookiesPage() {
         advertising based on your interests.
       </p>
       <p>
-        If you accept, Google sets cookies whose names start with <code>_ga</code> (and, for ad
+        When you visit, Google sets cookies whose names start with <code>_ga</code> (and, for ad
         measurement, <code>_gcl</code>). They contain a random identifier, not your name or contact
         details. Google decides how long they last; at the time of writing, Google Analytics cookies
         last up to two years. Google processes this data under its own privacy policy, which
@@ -46,11 +37,14 @@ export default function CookiesPage() {
         .
       </p>
 
-      <h2>Storing your choice</h2>
+      <h2>Turning analytics off</h2>
       <p>
-        Your answer to the cookie question is saved in your browser&apos;s local storage, so we do
-        not ask again on every page. It is not sent to us or anyone else.
+        You can turn Google Analytics off for this website in this browser. Your choice is saved in
+        your browser&apos;s local storage and is not sent to us. You can also block cookies in your
+        browser settings, or use Google&apos;s{" "}
+        <a href="https://tools.google.com/dlpage/gaoptout">opt-out browser add-on</a>.
       </p>
+      <AnalyticsOptOut />
 
       <h2>Everything else</h2>
       <p>

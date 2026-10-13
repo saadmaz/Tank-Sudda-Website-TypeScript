@@ -157,15 +157,6 @@ export const en = {
     service: (serviceName: string) => serviceEnquiryMessage(serviceName),
   },
 
-  consent: {
-    label: "Cookie choice",
-    message:
-      "We would like to use Google Analytics cookies to see how visitors use this site and how our ads perform. Nothing is sent to Google unless you accept.",
-    accept: "Accept",
-    decline: "Decline",
-    learnMore: "Cookie information",
-  },
-
   cta: {
     title: "Ready to have your tank cleaned?",
     body: "Tell us about your property and tanks. We will review your request and contact you to confirm the details, the quotation and a date.",
