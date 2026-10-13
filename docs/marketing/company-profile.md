@@ -10,7 +10,7 @@ LinkedIn. Fill in or delete every `[bracketed]` item; do not send it with placeh
 
 **Water tank and sump cleaning for buildings and organisations in Sri Lanka**
 
-+94 74 100 4296 (phone and WhatsApp) · tanksuddaglobal@gmail.com · tanksudda.com
++94 74 100 4296 (phone and WhatsApp) · info@tanksudda.com · tanksudda.com
 
 ### Who we are
 
@@ -52,7 +52,7 @@ building.
 
 ### Request a site assessment
 
-Call or WhatsApp **+94 74 100 4296**, email **tanksuddaglobal@gmail.com**, or book at
+Call or WhatsApp **+94 74 100 4296**, email **info@tanksudda.com**, or book at
 **tanksudda.com/book**.
 
 [Registered business name and registration number]

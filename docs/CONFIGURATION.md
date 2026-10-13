@@ -112,6 +112,20 @@ requests to those pages.
 
 The site still runs on any Node.js host with `bun run build && bun run start` (Node ≥ 20.9).
 
+## Email for tanksudda.com
+
+There are no mailboxes on the domain; everything is handled in the owner's Gmail.
+
+- **Receiving:** Cloudflare Email Routing (Email → Email Routing) forwards `info@` and
+  `bookings@tanksudda.com` to the Gmail address. Its MX, SPF and `cf2024-1._domainkey` records are
+  managed by Cloudflare; keep exactly one SPF record on `tanksudda.com`.
+- **Sending:** Resend (domain `tanksudda.com` verified). Gmail sends as `info@tanksudda.com`
+  through Resend's SMTP server (`smtp.resend.com`, port 587, user `resend`, password = an API
+  key). The website uses a separate Resend API key (`RESEND_API_KEY`).
+- **DMARC:** TXT `_dmarc` = `v=DMARC1; p=none; rua=mailto:info@tanksudda.com`. Once reports show
+  only Resend and Cloudflare sending for the domain, tighten it to `p=quarantine`.
+- The Resend free plan sends up to 100 emails a day. It is not for newsletters or bulk mail.
+
 ## Post-deployment checklist
 
 Run after the first production deploy and after any change to environment variables (which

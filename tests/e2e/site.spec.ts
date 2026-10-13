@@ -97,10 +97,7 @@ test.describe("indexing without a configured domain", () => {
       expect(telLinks.length).toBeGreaterThan(0);
       for (const href of telLinks) expect(href).toBe("tel:+94741004296");
       await expect(
-        page
-          .locator('a[href="mailto:tanksuddaglobal@gmail.com"]')
-          .filter({ visible: true })
-          .first(),
+        page.locator('a[href="mailto:info@tanksudda.com"]').filter({ visible: true }).first(),
       ).toBeVisible();
       const whatsappLinks = await page
         .locator('a[href^="https://wa.me/"]')

@@ -41,9 +41,9 @@ export default function PrivacyPage() {
         this website.
       </p>
       <p>
-        Like most websites, our hosting provider may keep standard server logs (such as IP address,
-        browser type and the pages requested) for security and to keep the site running. We do not
-        use these logs to identify you.
+        Like most websites, our hosting provider (Cloudflare) may keep standard server logs (such as
+        IP address, browser type and the pages requested) for security and to keep the site running.
+        We do not use these logs to identify you.
       </p>
 
       <h2>How we use your information</h2>
@@ -60,10 +60,10 @@ export default function PrivacyPage() {
 
       <h2>How your information is handled</h2>
       <p>
-        When you submit a form, your details are sent securely to our team using the email or
-        messaging service we use to receive enquiries. Only people who need the information to
-        respond to you have access to it. If you contact us on WhatsApp, WhatsApp’s own privacy
-        policy also applies to that conversation.
+        When you submit a form, your details are sent securely to our team by email, using an email
+        delivery service (Resend). Our email is received through Cloudflare and kept in Google
+        Gmail. Only people who need the information to respond to you have access to it. If you
+        contact us on WhatsApp, WhatsApp’s own privacy policy also applies to that conversation.
       </p>
       <p>We do not sell your personal information or share it for advertising.</p>
 

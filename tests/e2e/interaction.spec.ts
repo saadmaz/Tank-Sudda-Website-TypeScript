@@ -153,7 +153,7 @@ test.describe("contact page", () => {
     await page.goto("/contact");
     await expect(page.locator('main a[href="tel:+94741004296"]')).toBeVisible();
     await expect(page.locator('main a[href^="https://wa.me/94741004296"]').first()).toBeVisible();
-    await expect(page.locator('main a[href="mailto:tanksuddaglobal@gmail.com"]')).toBeVisible();
+    await expect(page.locator('main a[href="mailto:info@tanksudda.com"]')).toBeVisible();
   });
 
   test("form shows accessible inline errors when delivery is configured", async ({ page }) => {

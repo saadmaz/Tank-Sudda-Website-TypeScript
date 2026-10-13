@@ -14,7 +14,7 @@ Set these up in the **WhatsApp Business** app: Settings → Business tools.
   > with your town and tank details.
 
 - **Website:** https://tanksudda.com
-- **Email:** tanksuddaglobal@gmail.com
+- **Email:** info@tanksudda.com
 - **Hours:** [your opening hours]
 - **Address:** leave empty if you do not have a public premises (service-area business)
 

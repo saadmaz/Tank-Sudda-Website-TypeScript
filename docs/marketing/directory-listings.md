@@ -10,7 +10,7 @@ exactly; do not abbreviate or reformat.
 | Name     | Tank Sudda                                                                       |
 | Phone    | +94 74 100 4296                                                                  |
 | WhatsApp | +94 74 100 4296                                                                  |
-| Email    | tanksuddaglobal@gmail.com _(switch to your domain email once set up)_            |
+| Email    | info@tanksudda.com                                                               |
 | Website  | https://tanksudda.com                                                            |
 | Country  | Sri Lanka                                                                        |
 | Address  | Service-area business: no public address _(add one only if you have a premises)_ |

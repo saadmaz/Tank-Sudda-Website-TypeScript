@@ -4,7 +4,7 @@ import { contactChannelForHref, track } from "@/lib/analytics";
 describe("contact link classification", () => {
   it.each([
     ["tel:+94741004296", "phone"],
-    ["mailto:tanksuddaglobal@gmail.com", "email"],
+    ["mailto:info@tanksudda.com", "email"],
     ["https://wa.me/94741004296?text=Hi", "whatsapp"],
     ["https://api.whatsapp.com/send?phone=94741004296", "whatsapp"],
   ])("%s → %s", (href, channel) => {
