@@ -20,6 +20,9 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     "playwright-report/**",
     "test-results/**",
+    ".open-next/**",
+    ".wrangler/**",
+    "src/content/blog/articles.generated.ts",
   ]),
 ]);
 

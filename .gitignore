@@ -7,6 +7,10 @@ out
 next-env.d.ts
 *.tsbuildinfo
 
+# Cloudflare (OpenNext build output, Wrangler state)
+.open-next
+.wrangler
+
 # Testing
 coverage
 playwright-report
@@ -16,6 +20,8 @@ blob-report
 # Environment (never commit secrets)
 .env
 .env*.local
+.dev.vars*
+!.dev.vars.example
 
 # Logs
 *.log

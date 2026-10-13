@@ -6,3 +6,6 @@ next-env.d.ts
 playwright-report
 test-results
 src/content/**/*.mdx
+src/content/blog/articles.generated.ts
+.open-next
+.wrangler

@@ -1,7 +1,6 @@
 import "server-only";
-import fs from "node:fs";
-import path from "node:path";
 import { cache } from "react";
+import { articleSources } from "@/content/blog/articles.generated";
 import { services } from "@/data/services";
 import { isContentPreview } from "@/lib/site";
 import {
@@ -13,21 +12,16 @@ import {
   type Article,
 } from "./articles";
 
-const CONTENT_DIR = path.join(process.cwd(), "src", "content", "blog");
-
-/** Reads and validates every article file. Invalid content fails the build. */
+/**
+ * Parses and validates every article. Invalid content fails the build.
+ * Articles come from a generated module (`bun run content`), not the file
+ * system, so this also works on Cloudflare Workers.
+ */
 export const loadAllArticles = cache((): Article[] => {
-  const files = fs
-    .readdirSync(CONTENT_DIR)
-    .filter((file) => file.endsWith(".mdx"))
-    .sort();
-  const articles = files.map((file) => {
-    const article = parseArticle({
-      id: file,
-      raw: fs.readFileSync(path.join(CONTENT_DIR, file), "utf8"),
-    });
-    if (`${article.slug}.mdx` !== file) {
-      throw new ContentValidationError(file, `file name must be "${article.slug}.mdx"`);
+  const articles = articleSources.map(({ id, raw }) => {
+    const article = parseArticle({ id, raw });
+    if (`${article.slug}.mdx` !== id) {
+      throw new ContentValidationError(id, `file name must be "${article.slug}.mdx"`);
     }
     return article;
   });

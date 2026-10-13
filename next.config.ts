@@ -21,7 +21,10 @@ const nextConfig: NextConfig = {
     globalNotFound: true,
   },
   images: {
-    formats: ["image/avif", "image/webp"],
+    // The site runs on Cloudflare Workers, where Next.js image resizing is not
+    // available. Images are served as stored, so export photos at web size
+    // (see docs/CONTENT.md). Cloudflare Images can be enabled later.
+    unoptimized: true,
   },
   async headers() {
     return [

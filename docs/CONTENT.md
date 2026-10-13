@@ -2,7 +2,9 @@
 
 ## Publishing a blog article
 
-1. Create `src/content/blog/<slug>.mdx`. The file name **must** match the `slug`.
+1. Create `src/content/blog/<slug>.mdx`. The file name **must** match the `slug`. `bun run dev`
+   and `bun run build` bundle articles into `articles.generated.ts` automatically. If the dev
+   server is already running, run `bun run content` and refresh.
 2. Add front matter:
 
 ```yaml
@@ -125,6 +127,7 @@ The technical drawings (tank, sump, building) are SVG components in
 ### Photos
 
 Use real Tank Sudda photographs of tanks, sumps and equipment; avoid identifiable people unless
-they have consented. Export JPEGs around 1600–2000 px wide; Next.js generates responsive AVIF and
-WebP versions. Always write descriptive alt text. Before/after pairs must show the same tank on
+they have consented. Export JPEGs around 1600 px wide and compress them (under about 300 KB each):
+the site serves images as stored, because Cloudflare Workers do not run Next.js image resizing.
+Always write descriptive alt text. Before/after pairs must show the same tank on
 the same job.

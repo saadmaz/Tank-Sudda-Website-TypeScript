@@ -32,9 +32,9 @@ If both are configured, a submission succeeds when at least one accepts it; fail
 In development with no channel configured, submissions are printed to the server console only.
 
 **Spam protection:** hidden honeypot field (silently dropped), minimum fill time (3 s), 24-hour form
-expiry, and a per-IP limit of 5 submissions per 10 minutes. The rate limiter is in-memory, so on
-serverless/multi-instance hosting use a shared store (e.g. Upstash Redis) or add Cloudflare
-Turnstile if abuse appears.
+expiry, and a per-IP limit of 5 submissions per 10 minutes. That limiter is in-memory, so on
+Cloudflare each Worker instance counts separately; the main limit is the Cloudflare rate-limiting
+rule described under "Hosting on Cloudflare". Add Cloudflare Turnstile if abuse still appears.
 
 ## Analytics
 
@@ -58,13 +58,59 @@ Plausible to see them in reports.
 are forwarded automatically (`window.va` / `window.gtag`). Google Analytics sets cookies and needs
 a consent banner first.
 
-Whichever you choose, update the Cookie Information page (`src/app/cookies/page.tsx`) and the
+Whichever you choose, update the Cookie Information page (`src/app/(en)/cookies/page.tsx`) and the
 Privacy Policy to describe it before going live.
 
-## Hosting
+## Hosting on Cloudflare
 
-Any Node.js host that runs `next start` (Node ≥ 20.9), or a platform with native Next.js support.
-Server Actions require a server runtime — a purely static export is not sufficient.
+Production runs on **Cloudflare Workers** using the OpenNext adapter (`@opennextjs/cloudflare`).
+`tanksudda.com` uses Cloudflare DNS. `pos.tanksudda.com` is a separate system on Zircon and only
+has a DNS record here; keep it **DNS only** (grey cloud) unless it has been tested behind the
+proxy.
+
+| File                  | Purpose                                                                        |
+| --------------------- | ------------------------------------------------------------------------------ |
+| `wrangler.jsonc`      | Worker name (`tanksudda`), compatibility flags, static assets                  |
+| `open-next.config.ts` | Serves prebuilt pages from static assets (no R2 or KV needed, no revalidation) |
+| `patches/…`           | One-line fix to the adapter for Next.js 16.4 (`preview-props.json`)            |
+
+**Commands**
+
+```bash
+bun run cf:preview   # build for Cloudflare and run it locally (http://localhost:8787)
+bun run cf:deploy    # build and deploy from your computer (needs `bunx wrangler login`)
+```
+
+**Automatic deploys (Workers Builds).** Workers & Pages → Create → Import a repository → this
+repo, branch `main`. Build command `bunx opennextjs-cloudflare build`, deploy command
+`bunx opennextjs-cloudflare deploy`. Every push to `main` then rebuilds and deploys.
+
+**Environment variables.** Worker → Settings → Variables and secrets. Add them for both the build
+and the runtime: `NEXT_PUBLIC_*` values are baked in at build time, so change them and redeploy.
+Store `RESEND_API_KEY` and `LEAD_WEBHOOK_SECRET` as **secrets**. For local previews, put values in
+`.dev.vars` (git-ignored).
+
+**Custom domains.** Worker → Settings → Domains & Routes → add `tanksudda.com` and
+`www.tanksudda.com`. Then add a Redirect Rule from `www.tanksudda.com/*` to
+`https://tanksudda.com/${1}` (301).
+
+**Rate-limiting rule.** Security → WAF → Rate limiting rules → create a rule where _URI Path_ is
+in `/book`, `/contact` and _Request Method_ equals `POST`; allow 5 requests per 10 seconds per IP
+(the longest period on the free plan); action **Block** for 10 seconds. Form submissions are POST
+requests to those pages.
+
+**Limits to know**
+
+- The free Workers plan allows a 3 MB compressed Worker. This site is about 2.7 MB. If a deploy
+  fails with a size error, upgrade to Workers Paid (US$5/month).
+- Pages are built once per deploy. Content changes, and future-dated articles going live, need a
+  new deploy.
+- Next.js image resizing is off (`images.unoptimized`), so export photos at web size.
+- After upgrading `next` or `@opennextjs/cloudflare`, run `bun run cf:preview` and check pages
+  load. Once the adapter handles `preview-props.json` itself, delete the patch file and the
+  `patchedDependencies` entry in `package.json`.
+
+The site still runs on any Node.js host with `bun run build && bun run start` (Node ≥ 20.9).
 
 ## Post-deployment checklist
 

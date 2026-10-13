@@ -4,9 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "bun run content && next dev",
+    "build": "bun run content && next build",
     "start": "next start",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "typecheck": "next typegen && tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -15,7 +18,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "check": "bun run typecheck && bun run lint && bun run test && bun run build",
-    "illustrations": "bun scripts/generate-illustrations.tsx"
+    "illustrations": "bun scripts/generate-illustrations.tsx",
+    "content": "bun scripts/generate-article-index.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
@@ -36,6 +40,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
+    "@opennextjs/cloudflare": "1.20.10",
     "@playwright/test": "^1.64.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
@@ -50,9 +55,13 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
     "typescript": "6.0.3",
-    "vitest": "^5.0.3"
+    "vitest": "^5.0.3",
+    "wrangler": "4.149.0"
   },
   "engines": {
     "node": ">=20.9.0"
+  },
+  "patchedDependencies": {
+    "@opennextjs/cloudflare@1.20.10": "patches/@opennextjs%2Fcloudflare@1.20.10.patch"
   }
 }
