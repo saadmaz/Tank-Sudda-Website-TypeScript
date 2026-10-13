@@ -133,6 +133,24 @@ requests to those pages.
 
 The site still runs on any Node.js host with `bun run build && bun run start` (Node ≥ 20.9).
 
+## DNS
+
+DNS for `tanksudda.com` is managed in Cloudflare (nameservers `jerome` and
+`lilith.ns.cloudflare.com`, set at Namecheap). `tanksudda.com` and `www` are Worker custom domains;
+`pos`, `mail` and the cPanel names point to the Zircon server (`[server-ip]`) as **DNS only**.
+
+Zircon's nameservers (`ns1/ns2.zirconhost.com`) still hold an old copy of the zone. Internet
+providers that cached the old nameservers can keep using that copy for up to about 48 hours after a
+nameserver change, which sends visitors to the old WordPress site on Zircon and email to Zircon. To
+avoid this, keep Zircon's copy in step:
+
+- In cPanel → Zone Editor, set the `tanksudda.com` A records to Cloudflare's addresses for the site.
+- Set the MX records to Cloudflare Email Routing (`route1/2/3.mx.cloudflare.net`).
+- Set the SPF record to `v=spf1 include:_spf.mx.cloudflare.net ~all`.
+- In cPanel → Email Routing, choose **Remote Mail Exchanger**.
+
+Never use cPanel's Cloudflare plugin for this domain.
+
 ## Email for tanksudda.com
 
 There are no mailboxes on the domain; everything is handled in the owner's Gmail.

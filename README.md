@@ -46,3 +46,4 @@ production (a dashed "Owner to confirm" marker appears in development only). See
 - [docs/BACKEND.md](docs/BACKEND.md) — planned database, admin and reporting
 - [docs/OWNER-CHECKLIST.md](docs/OWNER-CHECKLIST.md) — information needed before launch
 - [docs/GROWTH-PLAN.md](docs/GROWTH-PLAN.md) — launch, local SEO, trust and marketing plan
+- [docs/SEO-PLAN.md](docs/SEO-PLAN.md) — keyword research findings, keyword-to-page map and phased SEO plan
