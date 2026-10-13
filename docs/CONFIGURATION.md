@@ -85,10 +85,18 @@ bun run cf:deploy    # build and deploy from your computer (needs `bunx wrangler
 repo, branch `main`. Build command `bunx opennextjs-cloudflare build`, deploy command
 `bunx opennextjs-cloudflare deploy`. Every push to `main` then rebuilds and deploys.
 
-**Environment variables.** Worker → Settings → Variables and secrets. Add them for both the build
-and the runtime: `NEXT_PUBLIC_*` values are baked in at build time, so change them and redeploy.
-Store `RESEND_API_KEY` and `LEAD_WEBHOOK_SECRET` as **secrets**. For local previews, put values in
-`.dev.vars` (git-ignored).
+**Environment variables.** Settings are needed in two places, because pages are built ahead of
+time and form submissions run later on the Worker:
+
+- **Build** (Worker → Settings → Build → Variables and secrets): `NEXT_PUBLIC_SITE_URL`,
+  `RESEND_API_KEY` (secret), `LEAD_EMAIL_FROM`, `LEAD_EMAIL_TO`, `BUN_VERSION`. These decide how
+  pages are generated, for example whether the booking form is offered.
+- **Runtime:** the non-secret values are in `vars` in `wrangler.jsonc`, because every deploy
+  replaces plain-text variables set in the dashboard. Add only **secrets** in the dashboard
+  (Worker → Settings → Variables and secrets): `RESEND_API_KEY`, and `LEAD_WEBHOOK_SECRET` if used.
+
+Change a value in both places and redeploy. For local previews, put values in `.dev.vars`
+(git-ignored).
 
 **Custom domains.** Worker → Settings → Domains & Routes → add `tanksudda.com` and
 `www.tanksudda.com`. Then add a Redirect Rule from `www.tanksudda.com/*` to
