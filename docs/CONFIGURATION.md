@@ -23,7 +23,8 @@ At least one channel must be configured in production; otherwise the forms show
 `LEAD_EMAIL_TO` (comma-separated). Templates are in `src/server/leads/email.ts` (HTML plus a
 plain-text copy):
 
-- **Team notification** to `LEAD_EMAIL_TO`, with call, WhatsApp and reply buttons. Replying
+- **Team notification** to `LEAD_EMAIL_TO`, or for booking requests to `LEAD_BOOKING_EMAIL_TO`
+  when set (both comma-separated; live values are in `wrangler.jsonc`), with call, WhatsApp and reply buttons. Replying
   goes to the customer.
 - **Customer confirmation** (when they gave an email): reference, next steps and the options
   they chose. Free text (address, notes, messages) is never repeated back, so the form cannot

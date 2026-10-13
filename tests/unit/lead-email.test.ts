@@ -121,6 +121,19 @@ describe("Resend channel", () => {
     await expect(resendChannel(config).send(booking())).rejects.toThrow("Resend");
   });
 
+  it("sends bookings and contact messages to their own team recipients", async () => {
+    const calls = mockFetch([200, 200, 200, 200]);
+    const channel = resendChannel({
+      ...config,
+      to: ["office@example.com"],
+      bookingTo: ["sales@example.com", "office@example.com"],
+    });
+    await channel.send(booking());
+    await channel.send(booking({ kind: "contact" }));
+    expect(calls[0]?.to).toEqual(["sales@example.com", "office@example.com"]);
+    expect(calls[2]?.to).toEqual(["office@example.com"]);
+  });
+
   it("can be told not to email customers", async () => {
     const calls = mockFetch([200]);
     await resendChannel({ ...config, confirmToCustomer: false }).send(booking());

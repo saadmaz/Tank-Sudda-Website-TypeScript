@@ -40,7 +40,10 @@ async function sendWithResend(apiKey: string, message: ResendMessage): Promise<v
 export function resendChannel(config: {
   apiKey: string;
   from: string;
+  /** Team recipients for every lead. */
   to: string[];
+  /** Team recipients for booking requests, if different from `to`. */
+  bookingTo?: string[];
   /** Where customer replies go (the business inbox). */
   replyTo?: string | null;
   /** Send the customer a confirmation (default true). */
@@ -52,7 +55,7 @@ export function resendChannel(config: {
       const team = renderTeamEmail(lead);
       await sendWithResend(config.apiKey, {
         from: config.from,
-        to: config.to,
+        to: lead.kind === "booking" && config.bookingTo?.length ? config.bookingTo : config.to,
         ...team,
         ...(lead.contact.email ? { reply_to: lead.contact.email } : {}),
       });
@@ -114,19 +117,26 @@ export const developmentLogChannel: NotificationChannel = {
 
 type Env = Record<string, string | undefined>;
 
+/** "a@x.com, b@y.com" → ["a@x.com", "b@y.com"]. */
+function emailList(value: string | undefined): string[] {
+  return (value ?? "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 /** Builds the channels configured through environment variables. */
 export function configuredChannels(env: Env = process.env): NotificationChannel[] {
   const channels: NotificationChannel[] = [];
-  const recipients = (env.LEAD_EMAIL_TO ?? "")
-    .split(",")
-    .map((value) => value.trim())
-    .filter(Boolean);
+  const recipients = emailList(env.LEAD_EMAIL_TO);
+  const bookingRecipients = emailList(env.LEAD_BOOKING_EMAIL_TO);
   if (env.RESEND_API_KEY && env.LEAD_EMAIL_FROM && recipients.length > 0) {
     channels.push(
       resendChannel({
         apiKey: env.RESEND_API_KEY,
         from: env.LEAD_EMAIL_FROM,
         to: recipients,
+        bookingTo: bookingRecipients,
         replyTo: env.LEAD_REPLY_TO || business.email,
         confirmToCustomer: env.LEAD_CUSTOMER_CONFIRMATION !== "0",
       }),
