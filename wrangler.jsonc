@@ -4,7 +4,7 @@
 // never here. See docs/CONFIGURATION.md → "Hosting on Cloudflare".
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "tanksudda",
+  "name": "tank-sudda-website-typescript",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
