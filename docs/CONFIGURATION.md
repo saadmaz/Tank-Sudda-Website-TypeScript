@@ -170,8 +170,13 @@ There are no mailboxes on the domain; everything is handled in the owner's Gmail
 - **Sending:** Resend (domain `tanksudda.com` verified). Gmail sends as `info@tanksudda.com`
   through Resend's SMTP server (`smtp.resend.com`, port 587, user `resend`, password = an API
   key). The website uses a separate Resend API key (`RESEND_API_KEY`).
-- **DMARC:** TXT `_dmarc` = `v=DMARC1; p=none; rua=mailto:info@tanksudda.com`. Once reports show
-  only Resend and Cloudflare sending for the domain, tighten it to `p=quarantine`.
+- **DMARC:** TXT `_dmarc` = `v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:<Cloudflare
+  address>`. Reports go to Cloudflare DMARC Management (Email → DMARC Management), which adds its
+  own `…@dmarc-reports.cloudflare.net` address to `rua`; read them in that dashboard. Do not point
+  `rua` at `info@tanksudda.com`: Gmail rejects the forwarded report emails, which shows up as
+  repeated "Delivery failed" rows from `noreply-dmarc-support@google.com` in the Email Routing
+  activity log. Before adding a new service that sends as `@tanksudda.com`, set up its SPF/DKIM
+  first, or `p=quarantine` will send its mail to spam.
 - The Resend free plan sends up to 100 emails a day. It is not for newsletters or bulk mail.
 
 ## Post-deployment checklist

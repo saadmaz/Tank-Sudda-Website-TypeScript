@@ -40,3 +40,5 @@ were placeholders, so none of it was carried over.
 - [ ] Business **address** and **opening hours** (enables LocalBusiness structured data)
 - [ ] **Testimonials** with customer consent and source
 - [ ] Founding year, registration details, insurance or certifications — only if verifiable
+- [ ] Turn on **Cloudflare DMARC Management** and remove `mailto:info@tanksudda.com` from the
+      `_dmarc` record (see "Email for tanksudda.com" in CONFIGURATION.md)
