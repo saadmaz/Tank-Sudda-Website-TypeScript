@@ -62,6 +62,7 @@ Events are already wired in and are sent to whichever provider is loaded:
 | `booking_sent`             | Booking request delivered                                               |
 | `booking_whatsapp_handoff` | "Send request on WhatsApp" clicked                                      |
 | `contact_form_sent`        | Contact message delivered                                               |
+| `contact_whatsapp_fallback` | "Send on WhatsApp instead" clicked after a contact message failed     |
 
 **Plausible (recommended, cookieless):** create a site at plausible.io, set
 `NEXT_PUBLIC_PLAUSIBLE_DOMAIN=tanksudda.com` and redeploy. Add the event names above as goals in

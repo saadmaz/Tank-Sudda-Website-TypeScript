@@ -5,8 +5,10 @@ import { CheckCircle2, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/Button";
+import { WhatsAppIcon } from "@/components/icons/BrandIcons";
+import { Button, buttonClasses } from "@/components/ui/Button";
 import { Notice } from "@/components/ui/primitives";
+import type { PhoneNumber } from "@/data/business";
 import {
   contactFieldsSchema,
   contactSchema,
@@ -15,6 +17,7 @@ import {
   type ContactInput,
 } from "@/lib/validation/contact";
 import { track } from "@/lib/analytics";
+import { buildWhatsAppUrl, contactEnquiryMessage } from "@/lib/whatsapp";
 import { submitContact } from "@/server/actions/contact";
 import { CheckboxField, HoneypotField, SelectField, TextAreaField, TextField } from "./fields";
 
@@ -24,10 +27,18 @@ function isContactField(key: string): key is ContactField {
   return Object.hasOwn(contactFieldsSchema.shape, key);
 }
 
-export function ContactForm({ available }: { available: boolean }) {
+export function ContactForm({
+  available,
+  whatsapp,
+}: {
+  available: boolean;
+  whatsapp: PhoneNumber | null;
+}) {
   const [startedAt] = useState(() => Date.now());
   const [isPending, startTransition] = useTransition();
   const [serverError, setServerError] = useState<string | null>(null);
+  // When sending fails, the message is offered on WhatsApp so it is not lost.
+  const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
   const [reference, setReference] = useState<string | null>(null);
   const honeypotRef = useRef<HTMLInputElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
@@ -46,6 +57,7 @@ export function ContactForm({ available }: { available: boolean }) {
 
   const onValid = (data: ContactData) => {
     setServerError(null);
+    setFallbackUrl(null);
     startTransition(async () => {
       const result = await submitContact({
         ...data,
@@ -60,6 +72,18 @@ export function ContactForm({ available }: { available: boolean }) {
         return;
       }
       setServerError(result.message);
+      if (result.error === "delivery_failed" || result.error === "not_configured") {
+        setFallbackUrl(
+          buildWhatsAppUrl(
+            whatsapp,
+            contactEnquiryMessage({
+              name: data.name,
+              topicLabel: contactTopicOptions.find((option) => option.value === data.topic)?.label,
+              message: data.message,
+            }),
+          ),
+        );
+      }
       for (const [key, message] of Object.entries(result.fieldErrors ?? {})) {
         if (isContactField(key)) setError(key, { type: "server", message });
       }
@@ -161,12 +185,28 @@ export function ContactForm({ available }: { available: boolean }) {
       {serverError ? (
         <Notice tone="danger" role="alert" title="Your message was not sent">
           {serverError}
+          {fallbackUrl ? " You can also send the same message to us on WhatsApp now." : null}
         </Notice>
       ) : null}
-      <Button type="submit" size="lg" disabled={isPending || !available}>
-        {isPending ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
-        {isPending ? "Sending…" : "Send message"}
-      </Button>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button type="submit" size="lg" disabled={isPending || !available}>
+          {isPending ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
+          {isPending ? "Sending…" : "Send message"}
+        </Button>
+        {fallbackUrl && serverError ? (
+          <a
+            href={fallbackUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonClasses("whatsapp", "md")}
+            onClick={() => track("contact_whatsapp_fallback")}
+          >
+            <WhatsAppIcon className="text-current" />
+            Send on WhatsApp instead
+            <span className="sr-only"> (opens WhatsApp)</span>
+          </a>
+        ) : null}
+      </div>
     </form>
   );
 }

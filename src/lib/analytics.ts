@@ -11,7 +11,8 @@ export type AnalyticsEvent =
   | "booking_step"
   | "booking_sent"
   | "booking_whatsapp_handoff"
-  | "contact_form_sent";
+  | "contact_form_sent"
+  | "contact_whatsapp_fallback";
 
 export type AnalyticsProps = Record<string, string | number | boolean>;
 

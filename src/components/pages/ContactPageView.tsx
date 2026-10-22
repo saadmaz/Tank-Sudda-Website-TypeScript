@@ -110,7 +110,7 @@ export function ContactPageView({ locale }: { locale: Locale }) {
               {page.sendMessage}
             </h2>
             <div className="mt-8">
-              <ContactForm available={formAvailable} />
+              <ContactForm available={formAvailable} whatsapp={business.whatsapp} />
             </div>
           </section>
         ) : (

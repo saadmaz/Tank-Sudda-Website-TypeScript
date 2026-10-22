@@ -25,6 +25,21 @@ export function serviceEnquiryMessage(serviceName?: string): string {
     : "Hello Tank Sudda, I would like to ask about tank cleaning.";
 }
 
+export interface ContactMessageFields {
+  name?: string;
+  topicLabel?: string;
+  message?: string;
+}
+
+/** A WhatsApp message carrying a contact form message that could not be sent online. */
+export function contactEnquiryMessage(fields: ContactMessageFields): string {
+  const lines = ["Hello Tank Sudda,"];
+  if (fields.message) lines.push(fields.message);
+  if (fields.topicLabel) lines.push(`Topic: ${fields.topicLabel}`);
+  if (fields.name) lines.push(`Name: ${fields.name}`);
+  return lines.join("\n");
+}
+
 export interface BookingMessageFields {
   serviceName?: string;
   propertyTypeLabel?: string;
