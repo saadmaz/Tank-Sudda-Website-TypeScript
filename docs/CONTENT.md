@@ -70,6 +70,33 @@ Per-page titles and descriptions, canonical URLs, Open Graph/Twitter metadata, b
 entries and `noindex` for drafts, tag archives, search results and empty gallery/testimonial
 pages. Structured data never includes ratings or unverified business details.
 
+Published articles also get a Markdown version (`/blog/<slug>.md`) and are listed in `/llms.txt`
+and `/llms-full.txt`, unless they are `noindex` or have a `canonicalUrl`. Article bodies are copied
+into the Markdown as written, so use plain Markdown. If an article ever uses an MDX component
+such as `<Callout>`, teach `renderArticle` in `src/lib/markdown/pages.ts` to convert it.
+
+### Markdown versions
+
+Most changes need nothing extra: the Markdown versions read the same `src/data` files and
+articles as the pages, and every deploy rebuilds them. When you **change a page's layout or
+text in a page file** (for example `app/(en)/guides/page.tsx` or a `*PageView.tsx`), update its
+renderer in `src/lib/markdown/pages.ts` to match. The e2e test "Markdown headings match the HTML
+page" catches a heading that exists in one but not the other.
+
+To **add a Markdown version for a new page**:
+
+1. Write a `renderX(...)` function in `src/lib/markdown/pages.ts` that builds the page from the
+   same data as its page view. Use the helpers in `format.ts` (`heading`, `paragraph`, `link`,
+   `bullets`…), which escape text and only accept absolute, safe URLs; never output raw data.
+2. Add an entry to `buildMarkdownPages` with the HTML path, title and description from the page's
+   metadata. Only add pages that are public and indexable; reuse the page's own publication
+   check (as done for areas, gallery and testimonials).
+3. Run `bun run test`, then the Markdown e2e test against a build with the production origin:
+   `NEXT_PUBLIC_SITE_URL=https://tanksudda.com bun run build`, then
+   `E2E_SITE_URL=https://tanksudda.com bunx playwright test tests/e2e/markdown.spec.ts`.
+
+The `.md` link, the `<link rel="alternate">` tag and the llms.txt entry follow automatically.
+
 ### Service-area pages
 
 Only publish an area (`status: "confirmed"` in `src/data/areas.ts`) when Tank Sudda really serves

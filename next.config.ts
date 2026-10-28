@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { todayInSriLanka } from "./src/lib/dates";
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -13,6 +14,11 @@ const nextConfig: NextConfig = {
   // Hide the Next.js "N" badge shown in development (never shown in production).
   devIndicators: false,
   typedRoutes: true,
+  env: {
+    // Publication date for scheduled articles in Markdown versions served at
+    // runtime, so they match the prebuilt HTML pages (src/lib/markdown).
+    CONTENT_BUILD_DATE: todayInSriLanka(),
+  },
   // Pin the workspace root (a lockfile exists in a parent directory).
   turbopack: { root: process.cwd() },
   experimental: {
@@ -36,6 +42,14 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" },
         ],
       },
+    ];
+  },
+  async rewrites() {
+    return [
+      // Markdown versions of public pages: /pricing.md → /api/md/pricing (the home
+      // page is /index.md). Checked after public files, so a real .md file in
+      // public/ still wins. Unknown pages get a Markdown 404 from the handler.
+      { source: "/:path((?!api/|_next/).+)\\.md", destination: "/api/md/:path" },
     ];
   },
   async redirects() {

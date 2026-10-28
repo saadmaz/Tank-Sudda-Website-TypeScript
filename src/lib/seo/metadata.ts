@@ -9,6 +9,7 @@ import {
   translationsReviewed,
   type Locale,
 } from "@/lib/i18n/config";
+import { markdownAlternateUrl } from "@/lib/markdown/index.server";
 import { absoluteUrl, isIndexingEnabled, siteUrl } from "@/lib/site";
 
 export const DEFAULT_OG_IMAGE_PATH = "/social-card.png";
@@ -78,6 +79,11 @@ export function buildMetadata(input: PageMetadataInput, origin: URL | null = sit
   };
 
   if (canonical) metadata.alternates = { canonical };
+  // Pages with a Markdown version (src/lib/markdown) advertise it.
+  const markdown = input.canonicalUrl ? null : markdownAlternateUrl(input.path, origin);
+  if (canonical && markdown) {
+    metadata.alternates = { ...metadata.alternates, types: { "text/markdown": markdown } };
+  }
   // Without a verified origin the root layout already blocks indexing site-wide.
   if (input.noIndex && origin && isIndexingEnabled) {
     metadata.robots = { index: false, follow: true };

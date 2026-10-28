@@ -41,6 +41,10 @@ export const RESERVED_ARTICLE_SLUGS = ["page", "category", "tag", "search", "fee
 
 export const ARTICLES_PER_PAGE = 9;
 
+/** Introduction shown on /blog (and used as its meta description). */
+export const blogIntro =
+  "Practical guidance on water tanks and sumps: maintenance, sediment, cleaning schedules and how to prepare for a clean.";
+
 /** Curated learning paths shown on /guides. Unpublished slugs are skipped. */
 export const guidePaths: { title: string; description: string; articleSlugs: string[] }[] = [
   {

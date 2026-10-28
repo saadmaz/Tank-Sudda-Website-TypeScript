@@ -12,7 +12,14 @@ variables must be present **when the site is built**.
 | `GOOGLE_SITE_VERIFICATION` | Adds the Search Console verification meta tag.                                                                                                                                 |
 
 Without `NEXT_PUBLIC_SITE_URL` the site is deliberately **not indexable**: every page is `noindex`,
-the sitemap is empty and `robots.txt` disallows everything. No domain is guessed.
+the sitemap is empty and `robots.txt` disallows everything. No domain is guessed. The Markdown
+versions (`/pricing.md`…), `/llms.txt` and `/llms-full.txt` follow the same switch: they return
+404 without a verified origin or with `SITE_NOINDEX=1` (see ARCHITECTURE.md). They need no
+variables of their own; `CONTENT_BUILD_DATE` is set automatically by `next.config.ts`.
+
+`robots.txt` has no rules for individual AI crawlers: every crawler is treated alike. Cloudflare
+can also block or label AI crawlers for the whole zone (Security → Bots / AI Crawl Control, and
+"managed robots.txt"); check those settings if AI assistants cannot read the site.
 
 ## Booking and contact delivery
 
@@ -197,6 +204,8 @@ requires a rebuild). Replace `<domain>` with the production domain.
       open the correct number.
 - [ ] A nonsense URL (e.g. `/does-not-exist`) returns the 404 page.
 - [ ] `/knowledge` redirects to `/guides`.
+- [ ] `https://<domain>/llms.txt` lists pages on the production domain, `/pricing.md` returns
+      Markdown, and `/does-not-exist.md` returns a Markdown 404.
 - [ ] Staging/preview deployments have `SITE_NOINDEX=1` (their `robots.txt` reads `Disallow: /`).
 - [ ] Test the [Rich Results Test](https://search.google.com/test/rich-results) on an article and a
       service page.

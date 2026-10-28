@@ -1,11 +1,10 @@
 import { PageHeader } from "@/components/layout/PageHeader";
-import { ARTICLES_PER_PAGE } from "@/data/blog";
+import { ARTICLES_PER_PAGE, blogIntro } from "@/data/blog";
 import { paginate, type Article } from "@/lib/content/articles";
 import { ArticleGrid } from "./ArticleCard";
 import { BlogSearchForm, CategoryNav, Pagination } from "./BlogChrome";
 
-export const blogIntro =
-  "Practical guidance on water tanks and sumps: maintenance, sediment, cleaning schedules and how to prepare for a clean.";
+export { blogIntro };
 
 /** Shared body of /blog and /blog/page/[page]. */
 export function BlogIndex({ articles, page }: { articles: Article[]; page: number }) {

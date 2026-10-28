@@ -39,6 +39,7 @@ src/
   lib/
     content/              articles.ts (pure parsing/validation/querying),
                           blog.server.ts (filesystem loader), mdx.tsx (renderer)
+    markdown/             Markdown versions of pages, llms.txt builders (see below)
     seo/                  metadata builder, JSON-LD builders, sitemap builder
     validation/           Zod schemas shared by client and server
     site.ts               Canonical origin and indexing switch
@@ -74,8 +75,50 @@ tests/
 | `/si`, `/ta` + `/services`, `/services/[slug]`, `/pricing`, `/about`, `/contact`, `/faq`                | Sinhala and Tamil versions (see below)                                 |
 | `/sitemap.xml`, `/robots.txt`, `/social-card.png`, `/favicon.ico`, `/icon.png`, `/manifest.webmanifest` | Metadata files                                                         |
 | `/knowledge`                                                                                            | 308 redirect to `/guides` (route from the previous site)               |
+| `/<page>.md`, `/index.md`, `/api/md/[...path]`                                                          | Markdown versions of public pages (see below)                          |
+| `/llms.txt`, `/llms-full.txt`                                                                           | Index and full text of the Markdown versions, for language models      |
 
 Unknown slugs return HTTP 404 (`dynamicParams = false`).
+
+## Markdown versions and llms.txt
+
+Approved public pages also exist as Markdown, for AI assistants and other tools that read text:
+add `.md` to the URL (`/pricing.md`, `/blog/<slug>.md`; the home page is `/index.md`).
+`/llms.txt` lists them ([llmstxt.org](https://llmstxt.org) format) and `/llms-full.txt` contains
+all of them in one file.
+
+- **One page list.** `src/lib/markdown/pages.ts` has a renderer per page, written from the same
+  data and dictionary text as the page view (never by converting HTML). `buildMarkdownPages`
+  decides which pages exist; the route handler, both llms files and the `<link rel="alternate"
+type="text/markdown">` tag added by `buildMetadata` all use that list, so they cannot disagree.
+- **What is included.** English home, services, the service pages, pricing, about, contact, FAQ,
+  guides, areas, blog listings, categories with articles, and published articles that are not
+  `noindex` or syndicated. Confirmed areas, reviewed translations and a non-empty gallery or
+  testimonials page are added automatically by the same checks the HTML pages use. Booking,
+  thank-you, search, tag archives and legal pages are HTML only (`llms.txt` links the HTML for
+  booking and legal pages).
+- **Publication.** `src/lib/markdown/index.server.ts` never uses development previews, so drafts
+  and unverified areas are excluded even in `next dev`. Scheduled articles are judged against the
+  build date (`CONTENT_BUILD_DATE`, set automatically in `next.config.ts`), like the prebuilt pages.
+  Without a verified origin, or with `SITE_NOINDEX=1`, there are no Markdown pages and both llms
+  files return 404.
+- **Routing.** A rewrite in `next.config.ts` sends `/<path>.md` to
+  `app/api/md/[...path]/route.ts`. It runs after public files (a real `.md` file in `public/`
+  wins) and skips `/api/` and `/_next/`. Known pages are generated at build time; anything else
+  gets a Markdown 404. HTML pages are unchanged: there is no `Accept: text/markdown` negotiation,
+  because that needs `proxy.ts`, which OpenNext only supports experimentally on Cloudflare.
+- **Headers.** `text/markdown; charset=utf-8`, `X-Robots-Tag: noindex, follow` (the HTML page stays
+  canonical; the sitemap does not list `.md` URLs), a canonical `Link` header,
+  `Content-Location`, a content-hash `ETag` and `Cache-Control: public, max-age=3600`. Everything
+  is public and the same for every visitor, so shared caching is safe. No CORS headers, no
+  `Last-Modified` (data files have no reliable modification time; articles carry their dates in
+  the front matter instead). HEAD works; OPTIONS on a prebuilt page is answered by Next.js like a
+  GET.
+- **Updates.** Content only changes in the repository, so every deploy rebuilds all Markdown pages
+  and llms files. `/llms-full.txt` is capped by `LLMS_FULL_LIMITS` in `src/lib/markdown/llms.ts`
+  (200 pages, 1 MB of page content); pages beyond the cap are listed by URL at the end.
+
+To add a page, see CONTENT.md → "Markdown versions".
 
 ## Analytics and illustrations
 
