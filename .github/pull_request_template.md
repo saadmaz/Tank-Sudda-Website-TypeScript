@@ -18,7 +18,7 @@ Closes #
 
 ## Checklist
 
-- [ ] Checks pass locally: `bun run check`
+- [ ] Checks pass locally: `bun run lint && bun run format:check && bun run typecheck && bun run test && bun run build`
 - [ ] Checked on a phone-width screen as well as desktop
 - [ ] No secrets, credentials or personal data added
 - [ ] New pages have a title, description and sitemap entry

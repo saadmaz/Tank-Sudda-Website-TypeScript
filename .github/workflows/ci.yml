@@ -1,3 +1,5 @@
+# Continuous integration: the merge gate for every pull request into main.
+# Production deployment is handled separately (see docs/DEPLOYMENT.md).
 name: CI
 
 on:
@@ -16,7 +18,7 @@ permissions:
 
 jobs:
   verify:
-    name: Type check, lint, test and build
+    name: Verify
     runs-on: ubuntu-24.04
     timeout-minutes: 20
 
@@ -37,26 +39,26 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Type check
-        run: bun run typecheck
-
       - name: Lint
         run: bun run lint
 
       - name: Check formatting
         run: bun run format:check
 
-      - name: Unit tests
+      - name: Type check
+        run: bun run typecheck
+
+      - name: Test
         run: bun run test
 
       - name: Build
         run: bun run build
 
   e2e:
-    name: End-to-end and accessibility
+    name: End-to-end
     runs-on: ubuntu-24.04
-    needs: verify
     timeout-minutes: 25
+    needs: verify
 
     steps:
       - name: Check out
@@ -84,7 +86,7 @@ jobs:
       - name: End-to-end tests
         run: bun run test:e2e
 
-      - name: Upload report
+      - name: Upload test results
         if: failure()
         uses: actions/upload-artifact@v4
         with:

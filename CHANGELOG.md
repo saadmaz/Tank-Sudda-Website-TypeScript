@@ -21,8 +21,9 @@ First production release of [tanksudda.com](https://tanksudda.com) on Cloudflare
 - Google Analytics measurement.
 - Technical illustrations, new knowledge-centre articles and a marketing kit in `docs/marketing/`.
 - SEO plan, growth plan and DNS documentation.
-- Continuous integration: type check, lint, formatting, unit tests, production build and the full Playwright end-to-end and accessibility suite on every push and pull request.
+- Continuous integration on every push and pull request: type check, lint, formatting, unit tests, production build and the full Playwright end-to-end and accessibility suite.
 - Project governance: proprietary licence, security policy, contribution guidelines, code of conduct, issue forms, pull request template, CODEOWNERS and Dependabot.
+- Standard documentation layout shared by every STTPS repository: architecture, configuration, deployment, decision records (ADRs) and release and rollback runbooks, indexed in `docs/README.md`.
 
 ### Changed
 
