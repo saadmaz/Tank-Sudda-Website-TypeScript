@@ -1,7 +1,19 @@
 {
   "name": "tank-sudda-website",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Official website of Tank Sudda: professional water tank and sump cleaning in Sri Lanka, with online booking and a knowledge centre in English, Sinhala and Tamil.",
+  "homepage": "https://tanksudda.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saadmaz/Tank-Sudda-Website-TypeScript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/issues"
+  },
+  "author": "Saad Mazhar (https://github.com/saadmaz)",
+  "license": "UNLICENSED",
   "private": true,
+  "packageManager": "bun@1.4.4",
   "type": "module",
   "scripts": {
     "dev": "bun run content && next dev",

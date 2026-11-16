@@ -61,15 +61,15 @@ rule described under "Hosting on Cloudflare". Add Cloudflare Turnstile if abuse 
 The site has no analytics until you switch it on, so nothing is tracked and no cookies are set.
 Events are already wired in and are sent to whichever provider is loaded:
 
-| Event                      | When                                                                    |
-| -------------------------- | ----------------------------------------------------------------------- |
-| `contact_click`            | Any phone, WhatsApp or email link (with `channel`, `page`, `placement`) |
-| `booking_started`          | First step of the booking form completed                                |
-| `booking_step`             | Each later step reached (`step`)                                        |
-| `booking_sent`             | Booking request delivered                                               |
-| `booking_whatsapp_handoff` | "Send request on WhatsApp" clicked                                      |
-| `contact_form_sent`        | Contact message delivered                                               |
-| `contact_whatsapp_fallback` | "Send on WhatsApp instead" clicked after a contact message failed     |
+| Event                       | When                                                                    |
+| --------------------------- | ----------------------------------------------------------------------- |
+| `contact_click`             | Any phone, WhatsApp or email link (with `channel`, `page`, `placement`) |
+| `booking_started`           | First step of the booking form completed                                |
+| `booking_step`              | Each later step reached (`step`)                                        |
+| `booking_sent`              | Booking request delivered                                               |
+| `booking_whatsapp_handoff`  | "Send request on WhatsApp" clicked                                      |
+| `contact_form_sent`         | Contact message delivered                                               |
+| `contact_whatsapp_fallback` | "Send on WhatsApp instead" clicked after a contact message failed       |
 
 **Plausible (recommended, cookieless):** create a site at plausible.io, set
 `NEXT_PUBLIC_PLAUSIBLE_DOMAIN=tanksudda.com` and redeploy. Add the event names above as goals in
@@ -153,7 +153,7 @@ The site still runs on any Node.js host with `bun run build && bun run start` (N
 
 DNS for `tanksudda.com` is managed in Cloudflare (nameservers `jerome` and
 `lilith.ns.cloudflare.com`, set at Namecheap). `tanksudda.com` and `www` are Worker custom domains;
-`pos`, `mail` and the cPanel names point to the Zircon server (`[server-ip]`) as **DNS only**.
+`pos`, `mail` and the cPanel names point to the Zircon server (IP shown in cPanel under _Server Information_) as **DNS only**.
 
 Zircon's nameservers (`ns1/ns2.zirconhost.com`) still hold an old copy of the zone. Internet
 providers that cached the old nameservers can keep using that copy for up to about 48 hours after a
@@ -179,7 +179,7 @@ There are no mailboxes on the domain; everything is handled in the owner's Gmail
   through Resend's SMTP server (`smtp.resend.com`, port 587, user `resend`, password = an API
   key). The website uses a separate Resend API key (`RESEND_API_KEY`).
 - **DMARC:** TXT `_dmarc` = `v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:<Cloudflare
-  address>`. Reports go to Cloudflare DMARC Management (Email → DMARC Management), which adds its
+address>`. Reports go to Cloudflare DMARC Management (Email → DMARC Management), which adds its
   own `…@dmarc-reports.cloudflare.net` address to `rua`; read them in that dashboard. Do not point
   `rua` at `info@tanksudda.com`: Gmail rejects the forwarded report emails, which shows up as
   repeated "Delivery failed" rows from `noreply-dmarc-support@google.com` in the Email Routing
