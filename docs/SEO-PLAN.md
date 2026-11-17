@@ -1,5 +1,9 @@
 # SEO plan
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 Written 2026-10-13 from the OpenSEO keyword research (`keyword-research.csv`) and the Google
 results check (`serp-analysis.csv`). Review it monthly; see "Measuring progress" at the end.
 

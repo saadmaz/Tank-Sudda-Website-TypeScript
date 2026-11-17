@@ -1,5 +1,9 @@
 # Asking for Google reviews
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 Send this on WhatsApp **the same day** the job is finished, while the customer is happy and
 remembers you. Replace `[review link]` with your Google "Ask for reviews" link (Google Business
 Profile → Ask for reviews → copy link).

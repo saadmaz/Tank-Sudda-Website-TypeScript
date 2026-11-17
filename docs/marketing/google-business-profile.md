@@ -1,5 +1,9 @@
 # Google Business Profile wording
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 Create the profile at https://business.google.com.
 
 ## Setup choices

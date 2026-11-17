@@ -1,5 +1,9 @@
 # Social media plan: first month
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 Three posts a week across Facebook and Instagram (and short videos on TikTok and YouTube Shorts
 when you have them). Use your own photos and videos only. Every post ends with a way to act:
 the website or WhatsApp.

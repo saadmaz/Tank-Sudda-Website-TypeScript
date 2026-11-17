@@ -1,5 +1,9 @@
 # Marketing materials
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 Ready-to-use text for Tank Sudda's channels. Copy, adjust and paste.
 
 | File                                                     | Use it for                                                     |
