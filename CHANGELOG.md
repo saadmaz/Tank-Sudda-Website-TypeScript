@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-11-17
+
 ### Changed
 
 - Redesigned README with a brand banner, live release, CI and deployment badges, action buttons, feature grid, diagrams and collapsible panels.
@@ -72,7 +74,8 @@ First production release of [tanksudda.com](https://tanksudda.com) on Cloudflare
 - Verified phone, WhatsApp and email contact details.
 - Unit tests and Playwright end-to-end and accessibility tests.
 
-[Unreleased]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v0.1.0...v1.0.0
