@@ -1,5 +1,9 @@
 # Company profile (one page)
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 For apartment management corporations, hotels, schools, offices and factories. Paste into a
 document with your logo, export as PDF, and send with commercial enquiries or by email and
 LinkedIn. Fill in or delete every `[bracketed]` item; do not send it with placeholders.

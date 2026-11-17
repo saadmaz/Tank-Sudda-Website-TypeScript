@@ -1,5 +1,9 @@
 # Configuration and launch
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 All variables are listed in [`.env.example`](../.env.example). Pages are statically generated, so
 variables must be present **when the site is built**.
 

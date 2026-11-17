@@ -1,5 +1,9 @@
 # Backend roadmap
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 The public site is ready for a database-backed system without changing its page architecture.
 Today, leads are **delivered** (email/webhook) but **not stored**. No admin area exists, and none
 should be added without authentication.

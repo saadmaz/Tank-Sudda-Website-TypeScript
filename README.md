@@ -4,7 +4,7 @@
 
 <img src=".github/assets/banner.svg" alt="Tank Sudda: Clean tanks. Done properly." width="100%">
 
-<br/><br/>
+<br/>
 
 <p><strong>The website, knowledge centre and booking system for Tank Sudda, a professional water tank and sump cleaning service in Sri Lanka.</strong></p>
 
@@ -14,14 +14,14 @@
 <a href="https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/commits/develop"><img alt="Last commit" src="https://img.shields.io/github/last-commit/saadmaz/Tank-Sudda-Website-TypeScript/develop?style=flat-square&labelColor=111827&color=374151"></a>
 <img alt="License" src="https://img.shields.io/badge/license-proprietary-374151?style=flat-square&labelColor=111827">
 
-<br/><br/>
+<br/>
 
 <a href="https://tanksudda.com"><img alt="Visit tanksudda.com" src="https://img.shields.io/badge/Visit%20tanksudda.com-061c36?style=for-the-badge&logo=googlechrome&logoColor=white"></a>
 <a href="docs/README.md"><img alt="Documentation" src="https://img.shields.io/badge/Documentation-061c36?style=for-the-badge&logo=readthedocs&logoColor=white"></a>
 <a href="https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/issues/new?template=bug_report.yml"><img alt="Report a bug" src="https://img.shields.io/badge/Report%20a%20bug-061c36?style=for-the-badge&logo=github&logoColor=white"></a>
 <a href="https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/issues/new?template=feature_request.yml"><img alt="Request a change" src="https://img.shields.io/badge/Request%20a%20change-061c36?style=for-the-badge&logo=github&logoColor=white"></a>
 
-<br/><br/>
+<br/>
 
 <a href="#about">About</a> ·
 <a href="#features">Features</a> ·
@@ -61,7 +61,7 @@ Tank Sudda cleans domestic, commercial and institutional water tanks and sumps a
 
 **Verified facts only.** The site never shows an unconfirmed phone number, price, area, review, photo or certification. Unknown values are stored as `null` and hidden in production; [docs/OWNER-CHECKLIST.md](docs/OWNER-CHECKLIST.md) lists what is still needed.
 
-|                  |                                                                   |
+| At a glance      |                                                                   |
 | ---------------- | ----------------------------------------------------------------- |
 | **Organisation** | Tank Sudda (Pvt) Ltd                                              |
 | **Status**       | Live                                                              |

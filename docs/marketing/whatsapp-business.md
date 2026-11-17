@@ -1,5 +1,9 @@
 # WhatsApp Business setup
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 Set these up in the **WhatsApp Business** app: Settings → Business tools.
 
 ## Business profile
