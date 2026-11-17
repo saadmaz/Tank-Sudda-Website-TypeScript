@@ -1,5 +1,9 @@
 # Growth plan: making the Tank Sudda website work
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 The website itself is in good shape. What is missing is mostly real-world information and setup
 that only the owner can provide, and that is what will decide whether it brings in customers.
 

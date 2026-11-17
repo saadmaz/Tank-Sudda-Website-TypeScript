@@ -1,5 +1,9 @@
 # Directory and social listings
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 Search engines trust a business more when its details are **identical everywhere**. Copy these
 exactly; do not abbreviate or reformat.
 

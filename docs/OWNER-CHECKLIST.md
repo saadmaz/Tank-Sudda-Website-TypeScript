@@ -1,5 +1,9 @@
 # Owner checklist — information needed before launch
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 Nothing below was available in the repository, and the previous site's details (phone
 `+94 77 123 4567`, `hello@tanksudda.lk`, "Colombo 03" office, prices from LKR 6,500 / 12,000,
 "20+ areas", "40+ apartment complexes", same-day dispatch, testimonials and before/after labels)

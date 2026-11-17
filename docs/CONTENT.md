@@ -1,5 +1,9 @@
 # Managing content
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 ## Publishing a blog article
 
 1. Create `src/content/blog/<slug>.mdx`. The file name **must** match the `slug`. `bun run dev`
