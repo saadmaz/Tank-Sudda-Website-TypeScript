@@ -191,10 +191,29 @@ test.describe("layout", () => {
         "/si/pricing",
       ]) {
         await page.goto(route);
-        const overflow = await page.evaluate(
-          () => document.documentElement.scrollWidth - window.innerWidth,
-        );
-        expect(overflow, `${route} overflows at ${width}px`).toBeLessThanOrEqual(0);
+        // Sinhala and Tamil fonts load with `display: swap`, so measure the settled
+        // layout rather than the brief fallback-font render (which differs by OS).
+        const { overflow, offenders } = await page.evaluate(async () => {
+          await document.fonts.ready;
+          const vw = document.documentElement.clientWidth;
+          // Name the elements that stick out so a failure says what to fix.
+          const offenders = Array.from(document.querySelectorAll("body *"))
+            .filter((el) => {
+              const r = el.getBoundingClientRect();
+              return r.width > 0 && r.right > vw + 0.5 && getComputedStyle(el).position !== "fixed";
+            })
+            .slice(-5)
+            .map((el) => {
+              const r = el.getBoundingClientRect();
+              const text = (el.textContent ?? "").trim().slice(0, 40);
+              return `<${el.tagName.toLowerCase()} class="${el.getAttribute("class") ?? ""}"> right=${Math.round(r.right)} "${text}"`;
+            });
+          return { overflow: document.documentElement.scrollWidth - window.innerWidth, offenders };
+        });
+        expect(
+          overflow,
+          `${route} overflows at ${width}px:\n${offenders.join("\n")}`,
+        ).toBeLessThanOrEqual(0);
       }
     });
   }

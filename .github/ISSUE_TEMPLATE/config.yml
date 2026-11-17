@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/blob/main/SECURITY.md
+    about: Please report security issues privately, not in a public issue.
+  - name: Customer enquiry
+    url: https://tanksudda.com
+    about: For bookings, services or general questions, contact the Tank Sudda team directly.

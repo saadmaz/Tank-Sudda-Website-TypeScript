@@ -33,3 +33,7 @@ npm-debug.log*
 .idea
 .DS_Store
 *.sw?
+
+# Test output
+/test-results/
+/playwright-report/

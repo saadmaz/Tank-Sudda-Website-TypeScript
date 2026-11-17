@@ -1,7 +1,22 @@
 {
   "name": "tank-sudda-website",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Website and booking system for Tank Sudda, water tank and sump cleaning in Sri Lanka, in English, Sinhala and Tamil.",
+  "homepage": "https://tanksudda.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saadmaz/Tank-Sudda-Website-TypeScript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/issues"
+  },
+  "author": "Saad Mazhar (https://github.com/saadmaz)",
+  "license": "UNLICENSED",
   "private": true,
+  "packageManager": "bun@1.4.4",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "type": "module",
   "scripts": {
     "dev": "bun run content && next dev",
@@ -38,7 +53,7 @@
     "server-only": "^0.0.1",
     "tailwind-merge": "^3.7.0",
     "yaml": "^2.9.1",
-    "zod": "^4.6.5"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
@@ -60,9 +75,6 @@
     "typescript": "6.0.3",
     "vitest": "^5.0.3",
     "wrangler": "4.149.0"
-  },
-  "engines": {
-    "node": ">=20.9.0"
   },
   "patchedDependencies": {
     "@opennextjs/cloudflare@1.20.10": "patches/@opennextjs%2Fcloudflare@1.20.10.patch"
