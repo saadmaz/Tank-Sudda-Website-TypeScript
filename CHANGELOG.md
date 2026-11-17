@@ -1,14 +1,41 @@
-# Changelog
+<a id="top"></a>
 
-<!-- nav -->
-<p align="center"><a href="README.md">README</a> · <a href="CONTRIBUTING.md">Contributing</a> · <a href="CODE_OF_CONDUCT.md">Code of Conduct</a> · <a href="SECURITY.md">Security</a> · <strong>Changelog</strong> · <a href="LICENSE">License</a></p>
+<div align="center">
 
-All notable changes to this project are documented in this file.
+<img src=".github/assets/changelog.svg" alt="Tank Sudda: Changelog" width="100%">
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+<br/>
+
+<p><strong>Every notable change to this project, newest first.</strong></p>
+
+<a href="README.md"><img alt="README" src="https://img.shields.io/badge/README-374151?style=for-the-badge&labelColor=111827"></a>
+<a href="CONTRIBUTING.md"><img alt="Contributing" src="https://img.shields.io/badge/Contributing-374151?style=for-the-badge&labelColor=111827"></a>
+<a href="CODE_OF_CONDUCT.md"><img alt="Code of Conduct" src="https://img.shields.io/badge/Code%20of%20Conduct-374151?style=for-the-badge&labelColor=111827"></a>
+<a href="SECURITY.md"><img alt="Security" src="https://img.shields.io/badge/Security-374151?style=for-the-badge&labelColor=111827"></a>
+<a href="CHANGELOG.md"><img alt="Changelog" src="https://img.shields.io/badge/Changelog-4ba7db?style=for-the-badge&labelColor=111827"></a>
+<a href="LICENSE.md"><img alt="License" src="https://img.shields.io/badge/License-374151?style=for-the-badge&labelColor=111827"></a>
+
+</div>
+
+---
+
+<div align="center">
+
+<a href="https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/saadmaz/Tank-Sudda-Website-TypeScript?include_prereleases&style=flat-square&label=latest%20release&labelColor=111827&color=4ba7db"></a>
+<a href="https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/main...develop"><img alt="Changes waiting for release" src="https://img.shields.io/github/commits-difference/saadmaz/Tank-Sudda-Website-TypeScript?base=main&head=develop&style=flat-square&label=unreleased%20commits&labelColor=111827&color=374151"></a>
+
+</div>
+
+> [!NOTE]
+> The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Each version links to its full comparison at the bottom of this page, and to its [release notes](https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/releases).
 
 ## [Unreleased]
+
+## [1.1.4] - 2026-11-17
+
+### Changed
+
+- Contributing, Security Policy, Code of Conduct, License and Changelog redesigned with branded headers, navigation, tables, diagrams and callouts; the licence is now LICENSE.md.
 
 ## [1.1.3] - 2026-11-17
 
@@ -80,7 +107,8 @@ First production release of [tanksudda.com](https://tanksudda.com) on Cloudflare
 - Verified phone, WhatsApp and email contact details.
 - Unit tests and Playwright end-to-end and accessibility tests.
 
-[Unreleased]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.3...HEAD
+[Unreleased]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.4...HEAD
+[1.1.4]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.0...v1.1.1
