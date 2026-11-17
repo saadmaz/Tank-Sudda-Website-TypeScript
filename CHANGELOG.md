@@ -31,6 +31,8 @@
 
 ## [Unreleased]
 
+## [1.1.4] - 2026-11-17
+
 ### Changed
 
 - Contributing, Security Policy, Code of Conduct, License and Changelog redesigned with branded headers, navigation, tables, diagrams and callouts; the licence is now LICENSE.md.
@@ -105,7 +107,8 @@ First production release of [tanksudda.com](https://tanksudda.com) on Cloudflare
 - Verified phone, WhatsApp and email contact details.
 - Unit tests and Playwright end-to-end and accessibility tests.
 
-[Unreleased]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.3...HEAD
+[Unreleased]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.4...HEAD
+[1.1.4]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.0...v1.1.1
