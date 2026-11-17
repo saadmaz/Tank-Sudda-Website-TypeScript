@@ -15,7 +15,7 @@ export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
   const wide = locale !== "en";
   return (
     <header className="border-b border-line bg-white">
-      <div className="container-site flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
+      <div className="container-site flex h-16 items-center justify-between gap-3 sm:gap-6 lg:h-[4.5rem]">
         <Logo href={localeHref(locale, "/")} label={t.common.logoHome} />
         <nav aria-label={t.chrome.mainNav} className={wide ? "hidden xl:block" : "hidden lg:block"}>
           <NavLinks
