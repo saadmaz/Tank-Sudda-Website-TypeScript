@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-11-17
+
+### Fixed
+
+- Production smoke test no longer fails when Cloudflare's bot protection challenges the CI runner; the challenge confirms the site is up.
+
 ## [1.1.0] - 2026-11-17
 
 ### Added
@@ -58,7 +64,8 @@ First production release of [tanksudda.com](https://tanksudda.com) on Cloudflare
 - Verified phone, WhatsApp and email contact details.
 - Unit tests and Playwright end-to-end and accessibility tests.
 
-[Unreleased]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/releases/tag/v0.1.0
