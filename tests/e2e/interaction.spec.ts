@@ -191,9 +191,12 @@ test.describe("layout", () => {
         "/si/pricing",
       ]) {
         await page.goto(route);
-        const overflow = await page.evaluate(
-          () => document.documentElement.scrollWidth - window.innerWidth,
-        );
+        // Sinhala and Tamil fonts load with `display: swap`, so measure the settled
+        // layout rather than the brief fallback-font render (which differs by OS).
+        const overflow = await page.evaluate(async () => {
+          await document.fonts.ready;
+          return document.documentElement.scrollWidth - window.innerWidth;
+        });
         expect(overflow, `${route} overflows at ${width}px`).toBeLessThanOrEqual(0);
       }
     });
