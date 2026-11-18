@@ -31,6 +31,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Worker preview URLs turned off. They added a hidden `*.tanksudda.com` record that answered every unknown subdomain with a bare 404 instead of the branded maintenance page.
+
 ### Security
 
 - Next.js upgraded from 16.4.3 to 16.4.6 to fix a known vulnerability. 16.4.3 now refuses to build, which blocked every deploy.
