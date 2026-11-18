@@ -31,6 +31,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Worker preview URLs turned off. They added a hidden `*.tanksudda.com` record that answered every unknown subdomain with a bare 404 instead of the branded maintenance page.
+
 ## [1.1.4] - 2026-11-17
 
 ### Changed
