@@ -31,6 +31,16 @@
 
 ## [Unreleased]
 
+## [1.1.5] - 2026-11-18
+
+### Changed
+
+- Worker preview URLs turned off. They added a hidden `*.tanksudda.com` record that answered every unknown subdomain with a bare 404 instead of the branded maintenance page.
+
+### Security
+
+- Next.js upgraded from 16.4.3 to 16.4.6 to fix a known vulnerability. 16.4.3 now refuses to build, which blocked every deploy.
+
 ## [1.1.4] - 2026-11-17
 
 ### Changed
@@ -107,7 +117,8 @@ First production release of [tanksudda.com](https://tanksudda.com) on Cloudflare
 - Verified phone, WhatsApp and email contact details.
 - Unit tests and Playwright end-to-end and accessibility tests.
 
-[Unreleased]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.4...HEAD
+[Unreleased]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.5...HEAD
+[1.1.5]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.4...v1.1.5
 [1.1.4]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/saadmaz/Tank-Sudda-Website-TypeScript/compare/v1.1.1...v1.1.2

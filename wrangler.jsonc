@@ -8,6 +8,9 @@
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // Preview URLs add a hidden, read-only *.tanksudda.com record that answers every other proxied
+  // subdomain with a 404, ahead of real DNS records and the tank-sudda-maintenance route.
+  "preview_urls": false,
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
